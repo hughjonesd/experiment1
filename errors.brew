@@ -1,6 +1,6 @@
 <% if (length(errors) > 0) { %>
-<p style='text-color: red; font-weight:bold;'>
+<div class='errors'>
 There were some errors:<br/><%= paste(errors, sep="<br/>") %>
-</p>
+</div>
 <% } %>
 

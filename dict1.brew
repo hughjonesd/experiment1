@@ -1,0 +1,30 @@
+<%= header("Choice 1") %>
+
+<% brew("styles.brew") %>
+<% brew("errors.brew") %>
+
+<p>You have £1. Please choose how much you will give to the other boy.</p>
+
+<script>
+function changeDict1(chn) {
+  var nv = Number(document.querySelector('#dict1').value) + Number(chn);
+  nv = Math.min(100, Math.max(nv, 0));
+  document.querySelector('#dict1').value = nv;
+  document.querySelector('#dict1other').value = nv;
+  document.querySelector('#dict1me').value = 100 - nv;
+}
+</script>
+<form method="POST" autocomplete="off">
+<input type="button" id="minus" value="-" onClick="changeDict1(-10)">
+<input type="number" min="0" max="100" step="10" name="dict1" id="dict1" readonly required>
+<input type="button" id="plus" value="+" onClick="changeDict1(10)">
+
+<div class="decision">
+<h1>Your decision</h1>
+<p>Give <output for="dict1" id="dict1other">--</output>p to the other boy and keep <output for="dict1" id="dict1me">--</output>p for yourself.</p>
+
+<input type="submit" value="Confirm">
+</div>
+</form>
+
+<%= footer() %>

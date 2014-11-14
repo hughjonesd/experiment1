@@ -1,0 +1,29 @@
+<meta charset="UTF-8"> 
+<style>
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.decision {
+  background-color: #FFD;
+  border: 1px solid #C88; 
+  padding: 15px;
+  margin: 15px;
+  border-radius: 10px;
+}
+
+.decision h1 {
+  font-weight: bold;
+  font-size: 100%;
+}
+
+body, p, h1 {
+  font-family: Verdana, sans-serif;
+}
+
+</style>

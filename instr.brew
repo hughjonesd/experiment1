@@ -1,0 +1,10 @@
+<%= header("Instructions") %>
+<% brew("styles.brew") %>
+
+<p>Thank you for attending!</p>
+
+<p>When these instructions have been read out, you may click below to begin the 
+experiment.</p>
+
+<%= next_form("Begin the experiment") %>
+<%= footer() %>

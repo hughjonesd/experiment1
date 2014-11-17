@@ -41,7 +41,7 @@ input::-webkit-inner-spin-button {
   font-color: #C00;
 }
 
-.decision h1 {
+h1 {
   font-weight: bold;
   font-size: 100%;
 }

@@ -1,0 +1,40 @@
+<%= header("Results") %>
+<% brew("styles.brew") %>
+<% 
+ukp <- function(x) format(x/100, nsmall=2)
+%>
+
+<div>
+<h1>Results</h1>
+
+<% moi <- mydf[mydf$id==id & mydf$period==1,] %>
+<p>In stage 1, you were pupil <b><%= moi$role %></b>. 
+<% if (moi$role=="A") { %>
+You gave £<%= ukp(moi$dict1) %> to pupil B. 
+<% } else { %>
+Pupil A gave £<%= ukp(moi$profit) %> to you. 
+<% } %>
+Your profit from stage 1 was <b>£<%= ukp(moi$profit) %></b>.
+</p>
+
+
+<% moi <- mydf[mydf$id==id & mydf$period==2,] %>
+<p>
+<% if (moi$role=="A") {
+In stage 2, you were pupil <b>A</b>. You offered £<%= ukp(moi$offer2) %> to pupil B.
+This offer was <%= if (moi$accepted2) "accepted" else "rejected" %>.
+<% } else { %>
+In stage 2, you were pupil <b>B</b>. You accepted <%= sum(mydf$accepted2[mydf$period==period & mydf$pair==moi$pair], na.rm=TRUE) %> offers from other pupil.
+<% } %>
+Your profit from stage 2 was <b>£<%= ukp(moi$profit) %></b>.
+</p>
+
+<% moi <- mydf[mydf$id==id & mydf$period==3,] %>
+<p>
+
+</p>
+
+</div>
+
+
+<%= footer() %>

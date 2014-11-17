@@ -1,43 +1,120 @@
 
 # experiment 1 for Birmingham
 
+# TODO:
+# friendship network
+# instructions: privacy etc... payments... stages separate...
+# HG: how? 
+# TG?
+# display final result
+
 N <- 2
 nperiods <- 2
 sessno <- 1
-seed <- 47628934 + 31322789 * sessno
+seed <- c(175804510L, 326704365L, 215164818L, 425463189L, 30750106L, 
+      35380967L, 36912668L, 86165470L, 850662828L, 6737400L)[sessno] 
 
 library(betr)
 library(tidyr)
 library(dplyr)
 
+pstrangers <- function(dfr, period) {
+  pd <- dfr$period==period
+  matches <- (dfr$rank[pd] + period - 1) %% N + 1
+  match(matches, dfr$rank[pd])
+}
+
 ready_fn <- function() {
-  mydf <<- experiment_data_frame(N=N, periods=nperiods, dict1=NA, profit=NA, 
-        rank=rep(sample(N), nperiods), partner=NA)
+  mydf <<- experiment_data_frame(N=N, periods=nperiods, dict1=NA, offer2=NA,
+        accept2=NA, accepted2=NA, profit=NA, 
+        rank=rep(sample(N), nperiods), role=NA, pair=NA)
 }
 
 expt <- experiment(N=N, clients_in_url=TRUE, on_ready=ready_fn, seats_file=NULL,
-      seed=seed)
+      seed=seed, randomize_ids=TRUE)
 
 s_instrns <- text_stage(page=b_brew("instr.brew"), wait=TRUE)
 
 s_dict1 <- form_stage(page=b_brew("dict1.brew"), 
       fields=list(dict1=is_one_of(0:10*10)),
-      titles=list(dict1="Slider"), data_frame="mydf", name="Dictator 1")
+      titles=list(dict1="Amount to give"), data_frame="mydf", name="Dictator Game")
 
-prog1 <- program(run="last", function(id, period, ...){
-  p1 <- mydf$period==period
-  matches <- mydf$rank[p1] %% N + 1
-  mydf$partner[p1] <<- match(matches, mydf$rank[p1])
-  mydf$profit[p1] <<- with(mydf[p1,], as.numeric(dict1[partner]) + 100 - 
-        as.numeric(dict1))
-}, name="Program 1")
+s_prog1 <- program(run="last", 
+  function(id, period, ...){
+    pd <- mydf$period == period
+    pair <- rep(1:floor(N/2), 2)
+    if (N %% 2 > 0) pair <- c(pair, 1)
+    pair <- sample(pair)
+    role <- rep("A", N)
+    role[!duplicated(pair)] <- "B"
+    mydf$role[pd] <<- role
+    mydf$pair[pd] <<- pair
+    for (pr in mydf$pair[pd]) {
+      given <- as.numeric(mydf$dict1[pd & mydf$pair[pd]==pr & 
+            mydf$role[pd]=="A"])
+      mydf$profit[pd & mydf$pair[pd]==pr & mydf$role[pd]=="A"] <<- 100 - given
+      mydf$profit[pd & mydf$pair[pd]==pr & mydf$role[pd]=="B"] <<- given
+    }
+  }, 
+  name="DG profit calculations")
 
-final_calcs <- program(run="last",
+s_prog_ug_prepare <- program(run="first",
+  function(id, period, ...){
+    pd <- mydf$period==period
+    # put everyone in pairs with a pair number. One "pair" may have 3.
+    # the first of each pair is B. Others are A.
+    # everyone plays both roles and is matched with one person of the other
+    # role in their pair.
+    # any "extra" person is an A, so one B may respond to two offers.
+    pair <- rep(1:floor(N/2), 2)
+    if (N %% 2 > 0) pair <- c(pair, 1)
+    pair <- sample(pair)
+    role <- rep("A", N)
+    role[!duplicated(pair)] <- "B"
+    mydf$role[pd] <<- role
+    mydf$pair[pd] <<- pair
+  },
+  name="UG setup")
+
+s_ug2 <- form_stage(page=b_brew("ug2.brew"),
+      fields=list(offer2=is_one_of(0:10*10), accept2=is_one_of(0:10*10)),
+      titles=list(offer2="Amount to offer", accept2="Minimum amount to accept"), 
+      data_frame="mydf", name="Ultimatum Game")
+
+s_prog2 <- program(run="last", 
+  function(id, period, ...){
+    pd <- mydf$period==period
+    mydf$profit[pd] <- 0
+    # for each B: match with 1/2 As. Figure out payments for all
+    mydfp <- mydf[pd,]
+    for (pr in mydfp$pair) {
+      thresh <- as.numeric(mydfp$accept2[mydfp$role=="B" & mydfp$pair==pr])
+      # may be 2 offers
+      offer <- as.numeric(mydfp$offer2[mydfp$role=="A" & mydfp$pair==pr])
+      mydf$accepted2[pd & mydf$role=="A" & mydf$pair==pr] <<- offer >= thresh
+      mydf$profit[pd & mydf$role=="A" & mydf$pair==pr] <<- 
+            (100 - offer) * (offer >= thresh)
+      mydf$profit[pd & mydf$role=="B" & mydf$pair==pr] <<- 
+            sum(offer * (offer >= thresh))
+    }
+  }, 
+  name="UG profit calculations")
+
+s_final_calcs <- program(run="last",
   function(...) {
     globals <<- mydf %>% select(id, period, profit) %>% spread(period, profit)
     globals$totalprofit <<- rowSums(globals[-1])
-  }, name="Final calculations")
+  }, 
+  name="Final calculations")
 
-add_stage(expt, s_instrns, period(), s_dict1, prog1,
-      period(), final_calcs)
+s_show_result <- text_stage(page=b_brew("results.brew"), name="Final results")
+# s_show_result
+
+add_stage(expt, 
+      s_instrns, 
+      period(wait_for="all"), s_dict1, s_prog1, 
+      period(wait_for="all"), s_prog_ug_prepare, s_ug2, s_prog2,
+  #    period(wait_for="all"), s_prog_hg_prepare, s_hg3, s_prog3,
+  #    period(wait_for="all"), s_friendships4,  
+      period(wait_for="all"), s_final_calcs, s_show_result)
 

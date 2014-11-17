@@ -1,0 +1,66 @@
+<%= header("Choice 2") %>
+
+<% brew("styles.brew") %>
+
+<script>
+function changeMe(chn, fld) {
+  fld = '#' + fld;
+  var nv = Number(document.querySelector(fld).value) + Number(chn);
+  nv = Math.min(100, Math.max(nv, 0));
+  document.querySelector(fld).value = nv;
+  fldout = fld + 'output';
+  document.querySelector(fldout).value = nv;
+  if (fld == '#offer2') {
+    document.querySelector('#offer2keepoutput').value = 100 - nv;
+  } else {
+    document.querySelector('#accept2output2').value = nv;
+  }
+}
+</script>
+
+<% brew("errors.brew") %>
+
+<div class="instructions">
+<p>In this stage, you will be matched with another pupil 
+in this form. You will not find out the name of your match, and they will 
+not find out your name.</p>
+<p>One of you will be <b>pupil A</b>. The other will be <b>pupil B</b>.</p>
+<p>Pupil A gets £1 and makes an offer between £0 and £1, in multiples of 
+10p. Pupil B chooses the lowest offer that they will accept.</p>
+<p>If pupil A's offer is at least as big as the lowest offer pupil B will 
+accept, then B gets the amount offered, and A keeps the rest of the £1.</p>
+<p>If pupil A's offer is less than the lowest offer pupil B will accept, then 
+both A and B get nothing.</p>
+<p>Please choose what offer to make if you are pupil A, and what offer
+you will accept if you are pupil B. Your role will be decided at random.</p>
+</div>
+<!-- example !!! -->
+
+
+<form method="POST" autocomplete="off">
+<div class="controls">
+Choose an amount to offer if you are pupil A:<br>
+<input type="button" id="minus" value="-" onClick="changeMe(-10, 'offer2')">
+<input type="number" min="0" max="100" step="10" name="offer2" id="offer2" readonly required>
+<input type="button" id="plus" value="+" onClick="changeMe(10, 'offer2')">
+</div>
+
+<div class="controls">
+Choose the lowest offer you will accept if you are pupil B:<br>
+<input type="button" id="minus" value="-" onClick="changeMe(-10, 'accept2')">
+<input type="number" min="0" max="100" step="10" name="accept2" id="accept2" readonly required>
+<input type="button" id="plus" value="+" onClick="changeMe(10, 'accept2')">
+</div>
+
+<div class="decision">
+<h1>Your decision</h1>
+If you are pupil A, offer <output for="offer2" id="offer2output">--</output>p to pupil B. 
+If the offer is accepted you will keep <output for="offer2" id="offer2keepoutput">--</output>p for yourself.</p>
+<p>If you are pupil B, accept offers of <output for="accept2" id="accept2output">--</output>p or above. Reject offers less than <output for="accept2" id="accept2output2">--</output>p.</p>
+
+<p>Click 'Confirm' when you have made your decision.</p>
+<input type="submit" value="Confirm">
+</div>
+</form>
+
+<%= footer() %>

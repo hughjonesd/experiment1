@@ -106,7 +106,8 @@ s_prog_ug <- program(run="last",
 frcheck <- function(title, value, id, period, params) {
   if (all(frs %in% classnames)) return(NULL)
   wrong <- setdiff(frs, classnames)
-  return(paste("Unrecognized pupil names: ", paste(wrong, collapse=", "), sep=""))
+  return(paste("Unrecognized pupil names: ", paste(wrong, collapse=", "), 
+        sep=""))
 }
 
 s_friendships <- form_stage(page=b_brew("friendships.brew"),

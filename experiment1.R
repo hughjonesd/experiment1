@@ -13,6 +13,9 @@ nperiods <- 2
 sessno <- 1
 seed <- c(175804510L, 326704365L, 215164818L, 425463189L, 30750106L, 
       35380967L, 36912668L, 86165470L, 850662828L, 6737400L)[sessno] 
+classno <- 1
+classfile <- c("class1.txt", "class2.txt")[classno]
+classnames <- scan(classfile, what="character", sep="\n")
 
 library(betr)
 library(tidyr)
@@ -35,11 +38,11 @@ expt <- experiment(N=N, clients_in_url=TRUE, on_ready=ready_fn, seats_file=NULL,
 
 s_instrns <- text_stage(page=b_brew("instr.brew"), wait=TRUE)
 
-s_dict1 <- form_stage(page=b_brew("dict1.brew"), 
+s_dict <- form_stage(page=b_brew("dict1.brew"), 
       fields=list(dict1=is_one_of(0:10*10)),
       titles=list(dict1="Amount to give"), data_frame="mydf", name="Dictator Game")
 
-s_prog1 <- program(run="last", 
+s_prog_dict <- program(run="last", 
   function(id, period, ...){
     pd <- mydf$period == period
     pair <- rep(1:floor(N/2), 2)
@@ -76,12 +79,12 @@ s_prog_ug_prepare <- program(run="first",
   },
   name="UG setup")
 
-s_ug2 <- form_stage(page=b_brew("ug2.brew"),
+s_ug <- form_stage(page=b_brew("ug2.brew"),
       fields=list(offer2=is_one_of(0:10*10), accept2=is_one_of(0:10*10)),
       titles=list(offer2="Amount to offer", accept2="Minimum amount to accept"), 
       data_frame="mydf", name="Ultimatum Game")
 
-s_prog2 <- program(run="last", 
+s_prog_ug <- program(run="last", 
   function(id, period, ...){
     pd <- mydf$period==period
     mydf$profit[pd] <- 0
@@ -100,10 +103,21 @@ s_prog2 <- program(run="last",
   }, 
   name="UG profit calculations")
 
+frcheck <- function(title, value, id, period, params) {
+  frs <- strsplit(value, "\n")[[1]]
+  if (all(frs %in% classnames)) return(NULL)
+  wrong <- setdiff(frs, classnames)
+  return(paste("Unrecognized names: ", paste(wrong, collapse=", "), sep=""))
+}
+
+s_friendships <- form_stage(page=b_brew("friendships.brew"),
+  fields=list(friends3rd=frcheck), titles=list(friends3d="Friendship network")
+  name="Friendship network")
+
 s_final_calcs <- program(run="last",
   function(...) {
     globals <<- mydf %>% select(id, period, profit) %>% spread(period, profit)
-    globals$totalprofit <<- rowSums(globals[-1])
+    globals$totalprofit <<- rowSums(globals[-1], na.rm=TRUE)
   }, 
   name="Final calculations")
 
@@ -112,9 +126,9 @@ s_show_result <- text_stage(page=b_brew("results.brew"), name="Final results")
 
 add_stage(expt, 
       s_instrns, 
-      period(wait_for="all"), s_dict1, s_prog1, 
-      period(wait_for="all"), s_prog_ug_prepare, s_ug2, s_prog2,
+      period(wait_for="all"), s_dict, s_prog_dict, 
+      period(wait_for="all"), s_prog_ug_prepare, s_ug, s_prog_ug,
   #    period(wait_for="all"), s_prog_hg_prepare, s_hg3, s_prog3,
-  #    period(wait_for="all"), s_friendships4,  
+      period(wait_for="all"), s_friendships,  
       period(wait_for="all"), s_final_calcs, s_show_result)
 

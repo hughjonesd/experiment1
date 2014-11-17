@@ -104,10 +104,9 @@ s_prog_ug <- program(run="last",
   name="UG profit calculations")
 
 frcheck <- function(title, value, id, period, params) {
-  frs <- strsplit(value, "\n")[[1]]
   if (all(frs %in% classnames)) return(NULL)
   wrong <- setdiff(frs, classnames)
-  return(paste("Unrecognized names: ", paste(wrong, collapse=", "), sep=""))
+  return(paste("Unrecognized pupil names: ", paste(wrong, collapse=", "), sep=""))
 }
 
 s_friendships <- form_stage(page=b_brew("friendships.brew"),

@@ -10,7 +10,6 @@ input::-webkit-inner-spin-button {
 }
 
 .instructions {
-  background-color: #EEE;
   border: 1px solid #CCC; 
   padding: 15px;
   margin: 15px;
@@ -26,6 +25,7 @@ input::-webkit-inner-spin-button {
 }
 
 .controls {
+  background-color: #EEE;
   border: 1px solid #CCC; 
   padding: 15px;
   margin: 15px;
@@ -38,7 +38,7 @@ input::-webkit-inner-spin-button {
   margin: 15px;
   border-radius: 10px;
   font-weight: bold;
-  font-color: #C00;
+  color: #800;
 }
 
 h1 {

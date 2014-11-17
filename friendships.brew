@@ -12,8 +12,8 @@ any boxes.</p>
 
 <div class='controls'>
 <form method='POST'>
-<%= sapply(classnames, sprintf, fmt="<input type='checkbox' name='friends' 
-      value='%1$s'>%1$s<br>") %>
+<%= sapply(classnames, sprintf, fmt="<input type='checkbox' name='friends[]' 
+      value='%1$s'>&nbsp;%1$s<br>") %>
 
 <input type='submit' value='Submit'>
 </form>

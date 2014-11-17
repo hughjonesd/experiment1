@@ -15,7 +15,7 @@ seed <- c(175804510L, 326704365L, 215164818L, 425463189L, 30750106L,
       35380967L, 36912668L, 86165470L, 850662828L, 6737400L)[sessno] 
 classno <- 1
 classfile <- c("class1.txt", "class2.txt")[classno]
-classnames <- scan(classfile, what="character", sep="\n")
+classnames <- scan(classfile, what="character", sep="\n", quiet=TRUE)
 
 library(betr)
 library(tidyr)
@@ -111,8 +111,13 @@ frcheck <- function(title, value, id, period, params) {
 }
 
 s_friendships <- form_stage(page=b_brew("friendships.brew"),
-  fields=list(friends3rd=frcheck), titles=list(friends3d="Friendship network")
-  name="Friendship network")
+  fields=list(friends3rd=frcheck), titles=list(friends3rd="Friendship network"),
+  data_frame="mydf",
+  name="Questionnaire: friendship networks")
+
+s_myfriends <- form_stage(page=b_brew("myfriends.brew"),
+  fields=list(myfriends=frcheck), data_frame="mydf",
+  name="Questionnaire: my friends")
 
 s_final_calcs <- program(run="last",
   function(...) {
@@ -122,7 +127,6 @@ s_final_calcs <- program(run="last",
   name="Final calculations")
 
 s_show_result <- text_stage(page=b_brew("results.brew"), name="Final results")
-# s_show_result
 
 add_stage(expt, 
       s_instrns, 

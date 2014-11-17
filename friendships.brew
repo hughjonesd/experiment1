@@ -1,0 +1,24 @@
+<%= header("Questions") %>
+<% brew("styles.brew") %>
+
+<div class='instructions'>
+<p>Below are the names of the pupils in your class.</p>
+<p>Do you know the names of any pupils that hang around together?</p>
+<p>If so, please tick the names of these pupils.</p>
+<p>If you don't know any pupils that hang around together, don't tick 
+any boxes.</p>
+<p>When you're ready, click 'Submit'.</p>
+</div>
+
+<div class='controls'>
+<form method='POST'>
+<%= sapply(classnames, sprintf, fmt="<input type='checkbox' name='friends' 
+      value='%1$s'>%1$s<br>") %>
+
+<input type='submit' value='Submit'>
+</form>
+</div>
+  
+  
+  
+<%= footer() %>

@@ -2,6 +2,7 @@
 <style>
 input[type='number'] {
     -moz-appearance:textfield;
+    width: 4rem;
 }
 
 input::-webkit-outer-spin-button,

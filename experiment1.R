@@ -7,6 +7,7 @@
 # TG?
 # my friends
 # friends: adjust frcount in friendships.brew
+# real class1.txt file etc
 # display final result
 # put it up on website
 # check on iPad

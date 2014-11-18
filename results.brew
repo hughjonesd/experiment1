@@ -38,5 +38,4 @@ Your profit from stage 2 was <b>£<%= ukp(moi$profit) %></b>.
 
 </div>
 
-
 <%= footer() %>

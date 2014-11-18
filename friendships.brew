@@ -6,8 +6,8 @@
   frcount <- period - 2
 %>
 <div class='instructions'>
-<h1>Groups of friends: <%= frcount %></h1>
-<p>Do you know any <%= if (frcount>1) "other " else "" %>pupils that hang around together in a group?</p>
+<h1>Questionnaire: Friends <%= frcount %></h1>
+<p>Can you name any <%= if (frcount>1) "other " else "" %>pupils that hang around together in a group?</p>
 <p>If so, please tick the names of these pupils.</p>
 <p>If you do not know any <%= if (frcount>1) "other " else "" %>pupils 
 that hang around together, don't tick any boxes.</p>
@@ -19,7 +19,8 @@ that hang around together, don't tick any boxes.</p>
 <div style='-webkit-column-count: 3; -moz-column-count: 3; column-count: 3;'>
 <%=
   sapply(classnames, sprintf, 
-        fmt="<input type='checkbox' name='friends[]' value='%1$s'>&nbsp;%1$s<br>") 
+        fmt="<label class='friends'>
+      <input type='checkbox' name='friends[]' value='%1$s'>&nbsp;%1$s</label><br>") 
 %>
 </div>
 <input type='submit' value='Submit'>

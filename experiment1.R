@@ -5,10 +5,8 @@
 # instructions: privacy etc... payments... stages separate...
 # HG: how? 
 # TG?
-# my friends
 # friends: adjust frcount in friendships.brew
 # real class1.txt file etc
-# display final result
 # put it up on website
 # check on iPad
 # titles for each stage, for pupils
@@ -28,9 +26,10 @@ library(dplyr)
 ready_fn <- function() {
   mydf <<- experiment_data_frame(expt, dict1=NA, offer2=NA,
         accept2=NA, accepted2=NA, profit=NA, friends=NA, 
-        rank=sample(N), role=NA, pair=NA, 
-        stringsAsFactors=FALSE)
+        myfriend1=NA, myfriend2=NA, myfriend3=NA,
+        rank=sample(N), role=NA, pair=NA, stringsAsFactors=FALSE)
   mydf$friends <- I(mydf$friends) # allow a list
+  globals <<- NA
 }
 
 expt <- experiment(N=N, clients_in_url=TRUE, on_ready=ready_fn, seats_file=NULL,
@@ -120,11 +119,21 @@ s_friends <-  form_stage(
       data_frame="mydf", multi_params="AsIs",
       name="Questionnaire: friendship networks")
 
+myfrcheck <- function (title, value, id, period, params) {
+  friends <- params[nchar(params)>0]
+  if (anyDuplicated(friends)) 
+        return("Please choose different names in all 3 boxes, 
+        or leave them blank")
+  return(NULL)
+}
+
 s_myfriends <- form_stage(page=b_brew("myfriends.brew"),
-  fields=list(myfriends=frcheck), data_frame="mydf",
+  fields=list(myfriend1=myfrcheck, myfriend2=myfrcheck, myfriend3=myfrcheck),
+  titles=list(myfriend1="Friend 1", myfriend2="Friend 2", myfriend3="Friend 3"),
+  data_frame="mydf",
   name="Questionnaire: my friends")
 
-s_final_calcs <- program(run="last",
+s_final_calcs <- program(run="first",
   function(...) {
     globals <<- mydf %>% select(id, period, profit) %>% spread(period, profit)
     globals$totalprofit <<- rowSums(globals[-1], na.rm=TRUE)
@@ -139,7 +148,8 @@ add_stage(expt,
       period(wait_for="all"), s_prog_ug_prepare, s_ug, s_prog_ug,
   #    period(wait_for="all"), s_prog_hg_prepare, s_hg3, s_prog3,
       period(wait_for="all"), s_friends, 
-      period(wait_for="all"), s_friends, 
-      period(wait_for="all"), s_friends, 
+      period(wait_for="none"), s_friends, 
+      period(wait_for="none"), s_friends, 
+      period(wait_for="none"), s_myfriends, 
       period(wait_for="all"), s_final_calcs, s_show_result)
 

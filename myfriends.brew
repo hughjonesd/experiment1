@@ -1,0 +1,36 @@
+<%= header("Questions") %>
+<% brew("styles.brew") %>
+
+<% brew("errors.brew") %>
+<%
+  frcount <- period - 2
+%>
+<div class='instructions'>
+<h1>Questionnaire: My Friends</h1>
+<p>Please choose your 3 best friends in order from this class.</p>
+<p>Remember, this choice is private and will not be shown to anybody else.</p>
+<p>If you don't want to list 3 people, just leave some fields blank.</p>
+</div>
+
+<div class='controls'>
+<%
+  surnames <- sub(".* ", "", classnames) # an assumption here
+  classnames <- classnames[order(surnames)]
+  fopts <- sapply(classnames, sprintf, fmt="<option value='%1$s'>%1$s</option>")
+  fopts <- c('<option value="">-----</option>\n', fopts)
+%>
+<form method='POST' action=''>
+<p>Friend 1: <select name='myfriend1'>
+<%= fopts %>
+</select></p>
+<p>Friend 2: <select name='myfriend2'>
+<%= fopts %>
+</select></p>
+<p>Friend 3: <select name='myfriend3'>
+<%= fopts %>
+</select></p>
+<input type='submit' value='Submit'>
+</form>
+</div>
+
+<%= footer() %>

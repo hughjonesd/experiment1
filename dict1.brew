@@ -15,6 +15,7 @@ function changeDict1(chn) {
 <% brew("errors.brew") %>
 
 <div class="instructions">
+<h1>Stage One</h1>
 <p>In this stage, you will be matched with another pupil 
 in this form. You will not find out the name of your match, and they will 
 not find out your name.</p>

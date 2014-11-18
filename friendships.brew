@@ -19,8 +19,12 @@ any boxes.</p>
     -moz-column-count: 3; /* Firefox */
     column-count: 3;
 '>
-<%= sapply(classnames, sprintf, 
-      fmt="<input type='checkbox' name='friends[]' value='%1$s'>&nbsp;%1$s<br>") %>
+<% frname <- paste0("friends", frcount, "[]") %>
+<%=
+  sapply(classnames, sprintf, 
+        fmt="<input type='checkbox' name='%2$s' value='%1$s'>&nbsp;%1$s<br>", 
+        frname) 
+%>
 </div>
 
 <input type='submit' value='Submit'>

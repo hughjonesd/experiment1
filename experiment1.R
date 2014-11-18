@@ -11,7 +11,6 @@
 # titles for each stage, for pupils
 
 N <- 2
-nperiods <- 2
 sessno <- 1
 seed <- c(175804510L, 326704365L, 215164818L, 425463189L, 30750106L, 
       35380967L, 36912668L, 86165470L, 850662828L, 6737400L)[sessno] 
@@ -24,9 +23,9 @@ library(tidyr)
 library(dplyr)
 
 ready_fn <- function() {
-  mydf <<- experiment_data_frame(N=N, periods=nperiods, dict1=NA, offer2=NA,
+  mydf <<- experiment_data_frame(expt, dict1=NA, offer2=NA,
         accept2=NA, accepted2=NA, profit=NA, friends1=NA, friends2=NA, 
-        friends3=NA, rank=rep(sample(N), nperiods), role=NA, pair=NA, 
+        friends3=NA, rank=sample(N), role=NA, pair=NA, 
         stringsAsFactors=FALSE)
   mydf$friends1 <- I(mydf$friends1) # allow a list
   mydf$friends2 <- I(mydf$friends2) # allow a list
@@ -125,7 +124,7 @@ makefriendstage <- function(num) {
 s_friends_1 <- makefriendstage(1)
 s_friends_2 <- makefriendstage(2)
 s_friends_3 <- makefriendstage(3)
-frcount <- 0
+frcount <- 1
 s_prog_friends <- program(run="first", function(...) frcount <<- frcount + 1)
 
 s_myfriends <- form_stage(page=b_brew("myfriends.brew"),

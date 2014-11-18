@@ -2,18 +2,26 @@
 <% brew("styles.brew") %>
 
 <div class='instructions'>
+<h1>Groups of friends: <%= frcount %></h1>
 <p>Below are the names of the pupils in your class.</p>
-<p>Do you know the names of any pupils that hang around together?</p>
+<p>Do you know any pupils that hang around together 
+with each other in a group?</p>
 <p>If so, please tick the names of these pupils.</p>
-<p>If you don't know any pupils that hang around together, don't tick 
+<p>If you do not know any pupils that hang around together, don't tick 
 any boxes.</p>
-<p>When you're ready, click 'Submit'.</p>
+<p>When you have finished, click 'Submit'.</p>
 </div>
 
 <div class='controls'>
-<form method='POST'>
-<%= sapply(classnames, sprintf, fmt="<input type='checkbox' name='friends[]' 
-      value='%1$s'>&nbsp;%1$s<br>") %>
+<form method='POST' action=''>
+<div style='
+    -webkit-column-count: 3; /* Chrome, Safari, Opera */
+    -moz-column-count: 3; /* Firefox */
+    column-count: 3;
+'>
+<%= sapply(classnames, sprintf, 
+      fmt="<input type='checkbox' name='friends[]' value='%1$s'>&nbsp;%1$s<br>") %>
+</div>
 
 <input type='submit' value='Submit'>
 </form>

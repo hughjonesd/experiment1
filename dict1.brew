@@ -25,9 +25,9 @@ any amount between £0 and £1, in multiples of 10p.</p>
 </div>
 <form method="POST" autocomplete="off">
 <div class="controls">
-Choose an amount to give:
+Choose an amount to give: 
 <input type="button" id="minus" value="-" onClick="changeDict1(-10)">
-<input type="number" min="0" max="100" step="10" name="dict1" id="dict1" readonly required>
+<input type="number" min="0" max="100" width="4" step="10" name="dict1" id="dict1" readonly required>
 <input type="button" id="plus" value="+" onClick="changeDict1(10)">
 </div>
 <div class="decision">

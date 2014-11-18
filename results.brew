@@ -20,7 +20,7 @@ Your profit from stage 1 was <b>£<%= ukp(moi$profit) %></b>.
 
 <% moi <- mydf[mydf$id==id & mydf$period==2,] %>
 <p>
-<% if (moi$role=="A") {
+<% if (moi$role=="A") { %>
 In stage 2, you were pupil <b>A</b>. You offered £<%= ukp(moi$offer2) %> to pupil B.
 This offer was <%= if (moi$accepted2) "accepted" else "rejected" %>.
 <% } else { %>

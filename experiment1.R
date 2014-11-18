@@ -2,11 +2,13 @@
 # experiment 1 for Birmingham
 
 # TODO:
-# friendship network
 # instructions: privacy etc... payments... stages separate...
 # HG: how? 
 # TG?
+# my friends
+# friends: adjust frcount in friendships.brew
 # display final result
+# put it up on website
 # check on iPad
 # titles for each stage, for pupils
 
@@ -24,12 +26,10 @@ library(dplyr)
 
 ready_fn <- function() {
   mydf <<- experiment_data_frame(expt, dict1=NA, offer2=NA,
-        accept2=NA, accepted2=NA, profit=NA, friends1=NA, friends2=NA, 
-        friends3=NA, rank=sample(N), role=NA, pair=NA, 
+        accept2=NA, accepted2=NA, profit=NA, friends=NA, 
+        rank=sample(N), role=NA, pair=NA, 
         stringsAsFactors=FALSE)
-  mydf$friends1 <- I(mydf$friends1) # allow a list
-  mydf$friends2 <- I(mydf$friends2) # allow a list
-  mydf$friends3 <- I(mydf$friends3) # allow a list  
+  mydf$friends <- I(mydf$friends) # allow a list
 }
 
 expt <- experiment(N=N, clients_in_url=TRUE, on_ready=ready_fn, seats_file=NULL,
@@ -104,28 +104,20 @@ s_prog_ug <- program(run="last",
   name="UG profit calculations")
 
 frcheck <- function(title, values, id, period, params) {
+  if (length(values)==1) return("Please tick more than one checkbox to show
+    who else hangs around with this pupil.")
   if (all(values %in% classnames)) return(NULL)
   wrong <- setdiff(frs, classnames)
   return(paste("Unrecognized pupil names: ", paste(wrong, collapse=", "), 
         sep=""))
 }
 
-makefriendstage <- function(num) {
-  flist <- list(frcheck)
-  titlelist <- list("Groups of friends")
-  names(flist) <- paste0("friends", num)
-  names(titlelist) <- paste0("friends", num)
-  form_stage(page=b_brew("friendships.brew"),
-        fields=flist, titles=titlelist,
-        data_frame="mydf", multi_params="AsIs",
-        name="Questionnaire: friendship networks")
-}
-
-s_friends_1 <- makefriendstage(1)
-s_friends_2 <- makefriendstage(2)
-s_friends_3 <- makefriendstage(3)
-frcount <- 1
-s_prog_friends <- program(run="first", function(...) frcount <<- frcount + 1)
+ 
+s_friends <-  form_stage(
+      page=b_brew("friendships.brew"),
+      fields=list(friends=frcheck), titles=list(friends="Groups of friends"),
+      data_frame="mydf", multi_params="AsIs",
+      name="Questionnaire: friendship networks")
 
 s_myfriends <- form_stage(page=b_brew("myfriends.brew"),
   fields=list(myfriends=frcheck), data_frame="mydf",
@@ -145,8 +137,8 @@ add_stage(expt,
       period(wait_for="all"), s_dict, s_prog_dict, 
       period(wait_for="all"), s_prog_ug_prepare, s_ug, s_prog_ug,
   #    period(wait_for="all"), s_prog_hg_prepare, s_hg3, s_prog3,
-      period(wait_for="all"), s_friends_1, s_prog_friends,
-      period(wait_for="all"), s_friends_2, s_prog_friends,
-      period(wait_for="all"), s_friends_3, s_prog_friends,
+      period(wait_for="all"), s_friends, 
+      period(wait_for="all"), s_friends, 
+      period(wait_for="all"), s_friends, 
       period(wait_for="all"), s_final_calcs, s_show_result)
 

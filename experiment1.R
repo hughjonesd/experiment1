@@ -2,17 +2,15 @@
 # experiment 1 for Birmingham
 
 # TODO:
-# instructions: privacy etc... payments... stages separate...
 # paper consent forms
 # HG: how? 
 # TG?
 # friends: adjust frcount in friendships.brew
+# set up Ns
 # real class1.txt file etc
-# put it up on website
 # check on iPad
 # titles for each stage, for pupils
 # what alternative for pupils who withdraw? - Debbie
-# bug: missing values if you put ---- into my friends
 
 N <- 2
 sessno <- 1
@@ -23,8 +21,6 @@ classfile <- c("class1.txt", "class2.txt")[classno]
 classnames <- scan(classfile, what="character", sep="\n", quiet=TRUE)
 
 library(betr)
-library(tidyr)
-library(dplyr)
 
 ready_fn <- function() {
   mydf <<- experiment_data_frame(expt, dict1=NA, offer2=NA,
@@ -38,8 +34,9 @@ ready_fn <- function() {
 expt <- experiment(N=N, clients_in_url=TRUE, on_ready=ready_fn, seats_file=NULL,
       seed=seed, randomize_ids=TRUE, autostart=TRUE)
 
-s_consent <- text_stage(page=b_brew("consent.brew"), wait=TRUE)
-s_instrns <- text_stage(page=b_brew("instr.brew"), wait=TRUE)
+s_consent <- text_stage(page=b_brew("consent.brew"), wait=TRUE, name="Consent")
+s_instrns <- text_stage(page=b_brew("instr.brew"), wait=TRUE, 
+      name="Instructions")
 
 s_dict <- form_stage(page=b_brew("dict1.brew"), 
       fields=list(dict1=is_one_of(0:10*10)),
@@ -65,14 +62,16 @@ s_prog_dict <- program(run="last",
   }, 
   name="DG profit calculations")
 
-s_prog_ug_prepare <- program(run="first",
+s_ug <- form_stage(page=b_brew("ug2.brew"),
+      fields=list(offer2=is_one_of(0:10*10), accept2=is_one_of(0:10*10)),
+      titles=list(offer2="Amount to offer", accept2="Minimum amount to accept"), 
+      data_frame="mydf", 
+      name="Ultimatum Game")
+
+s_prog_ug <- program(run="last", 
   function(id, period, ...){
     pd <- mydf$period==period
-    # put everyone in pairs with a pair number. One "pair" may have 3.
-    # the first of each pair is B. Others are A.
-    # everyone plays both roles and is matched with one person of the other
-    # role in their pair.
-    # any "extra" person is an A, so one B may respond to two offers.
+    mydf$profit[pd] <- 0
     pair <- rep(1:floor(N/2), 2)
     if (N %% 2 > 0) pair <- c(pair, 1)
     pair <- sample(pair)
@@ -80,18 +79,6 @@ s_prog_ug_prepare <- program(run="first",
     role[!duplicated(pair)] <- "B"
     mydf$role[pd] <<- role
     mydf$pair[pd] <<- pair
-  },
-  name="UG setup")
-
-s_ug <- form_stage(page=b_brew("ug2.brew"),
-      fields=list(offer2=is_one_of(0:10*10), accept2=is_one_of(0:10*10)),
-      titles=list(offer2="Amount to offer", accept2="Minimum amount to accept"), 
-      data_frame="mydf", name="Ultimatum Game")
-
-s_prog_ug <- program(run="last", 
-  function(id, period, ...){
-    pd <- mydf$period==period
-    mydf$profit[pd] <- 0
     # for each B: match with 1/2 As. Figure out payments for all
     mydfp <- mydf[pd,]
     for (pr in mydfp$pair) {
@@ -106,6 +93,16 @@ s_prog_ug <- program(run="last",
     }
   }, 
   name="UG profit calculations")
+
+
+s_hg <- form_stage(
+      page=b_brew("honesty.brew"),
+      fields=list(), titles=list(),
+      name="Honesty game")
+
+s_prog_hg <- program(run="last",
+  
+      name="HG profit calculations")
 
 frcheck <- function(title, values, id, period, params) {
   if (length(values)==1) return("Please tick more than one checkbox to show
@@ -139,7 +136,8 @@ s_myfriends <- form_stage(page=b_brew("myfriends.brew"),
 
 s_final_calcs <- program(run="first",
   function(...) {
-    globals <<- mydf %>% select(id, period, profit) %>% spread(period, profit)
+    globals <<- dcast(melt(mydf[,c("id", "period", "profit")], id=1:2), 
+          id ~ period)
     globals$totalprofit <<- rowSums(globals[-1], na.rm=TRUE)
   }, 
   name="Final calculations")
@@ -147,13 +145,13 @@ s_final_calcs <- program(run="first",
 s_show_result <- text_stage(page=b_brew("results.brew"), name="Final results")
 
 add_stage(expt, 
-#      s_consent, s_instrns, 
-#      period(wait_for="all"), s_dict, s_prog_dict, 
-#      period(wait_for="all"), s_prog_ug_prepare, s_ug, s_prog_ug,
-#     period(wait_for="all"), s_prog_hg_prepare, s_hg3, s_prog3,
-#      period(wait_for="all"), s_friends, 
-#      period(wait_for="none"), s_friends, 
-#      period(wait_for="none"), s_friends, 
+      s_consent, s_instrns, 
+      period(wait_for="all"), s_dict, s_prog_dict, 
+      period(wait_for="all"), s_ug, s_prog_ug,
+      period(wait_for="all"), s_hg, s_prog_hg,
+      period(wait_for="all"), s_friends, 
+      period(wait_for="none"), s_friends, 
+      period(wait_for="none"), s_friends, 
       period(wait_for="none"), s_myfriends, 
       period(wait_for="all"), s_final_calcs, s_show_result)
 

@@ -38,7 +38,7 @@ you will accept if you are pupil B. Your role will be decided at random.</p>
 <!-- example !!! -->
 
 
-<form method="POST" autocomplete="off">
+<form method="POST" autocomplete="off" action="">
 <div class="controls">
 Choose an amount to offer if you are pupil A:<br>
 <input type="button" id="minus" value="-" onClick="changeMe(-10, 'offer2')">

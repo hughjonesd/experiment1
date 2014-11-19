@@ -24,7 +24,7 @@ not find out your name.</p>
 any amount between £0 and £1, in multiples of 10p.</p>
 <p>Please choose how much you will give if you are pupil A.</p>
 </div>
-<form method="POST" autocomplete="off">
+<form method="POST" autocomplete="off" action="">
 <div class="controls">
 Choose an amount to give: 
 <input type="button" id="minus" value="-" onClick="changeDict1(-10)">

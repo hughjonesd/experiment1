@@ -24,7 +24,7 @@ Your profit from stage 1 was <b>£<%= ukp(moi$profit) %></b>.
 In stage 2, you were pupil <b>A</b>. You offered £<%= ukp(moi$offer2) %> to pupil B.
 This offer was <%= if (moi$accepted2) "accepted" else "rejected" %>.
 <% } else { %>
-In stage 2, you were pupil <b>B</b>. You accepted <%= sum(mydf$accepted2[mydf$period==period & mydf$pair==moi$pair], na.rm=TRUE) %> offers from other pupils.
+In stage 2, you were pupil <b>B</b>. You accepted <%= sum(mydf$accepted2[mydf$period==2 & mydf$pair==moi$pair], na.rm=TRUE) %> offers from other pupils.
 <% } %>
 Your profit from stage 2 was <b>£<%= ukp(moi$profit) %></b>.
 </p>

@@ -3,6 +3,7 @@
 
 # TODO:
 # instructions: privacy etc... payments... stages separate...
+# paper consent forms
 # HG: how? 
 # TG?
 # friends: adjust frcount in friendships.brew
@@ -10,6 +11,8 @@
 # put it up on website
 # check on iPad
 # titles for each stage, for pupils
+# what alternative for pupils who withdraw? - Debbie
+# bug: missing values if you put ---- into my friends
 
 N <- 2
 sessno <- 1
@@ -33,8 +36,9 @@ ready_fn <- function() {
 }
 
 expt <- experiment(N=N, clients_in_url=TRUE, on_ready=ready_fn, seats_file=NULL,
-      seed=seed, randomize_ids=TRUE)
+      seed=seed, randomize_ids=TRUE, autostart=TRUE)
 
+s_consent <- text_stage(page=b_brew("consent.brew"), wait=TRUE)
 s_instrns <- text_stage(page=b_brew("instr.brew"), wait=TRUE)
 
 s_dict <- form_stage(page=b_brew("dict1.brew"), 
@@ -143,13 +147,13 @@ s_final_calcs <- program(run="first",
 s_show_result <- text_stage(page=b_brew("results.brew"), name="Final results")
 
 add_stage(expt, 
-      s_instrns, 
-      period(wait_for="all"), s_dict, s_prog_dict, 
-      period(wait_for="all"), s_prog_ug_prepare, s_ug, s_prog_ug,
-  #    period(wait_for="all"), s_prog_hg_prepare, s_hg3, s_prog3,
-      period(wait_for="all"), s_friends, 
-      period(wait_for="none"), s_friends, 
-      period(wait_for="none"), s_friends, 
+#      s_consent, s_instrns, 
+#      period(wait_for="all"), s_dict, s_prog_dict, 
+#      period(wait_for="all"), s_prog_ug_prepare, s_ug, s_prog_ug,
+#     period(wait_for="all"), s_prog_hg_prepare, s_hg3, s_prog3,
+#      period(wait_for="all"), s_friends, 
+#      period(wait_for="none"), s_friends, 
+#      period(wait_for="none"), s_friends, 
       period(wait_for="none"), s_myfriends, 
       period(wait_for="all"), s_final_calcs, s_show_result)
 

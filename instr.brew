@@ -1,10 +1,35 @@
 <%= header("Instructions") %>
 <% brew("styles.brew") %>
 
-<p>Thank you for attending!</p>
+<div class="instructions">
+<p>In this experiment, you will make some choices. Your choices will affect how 
+much you receive for taking part. This money will be paid to you in the form of 
+vouchers for the school tuck shop. You can spend it on anything you like in 
+the tuck shop.</p>
 
-<p>When these instructions have been read out, you may click below to begin the 
-experiment.</p>
+<p>The experiment has four stages. How you behave 
+in any one stage does not affect any of the other stages. Each stage 
+has separate instructions which you will see on screen when the time comes.</p>
+
+<p>The experiment is <i>not a test</i>. It is <i>not an exam</i>. There are no 
+"right" or "wrong" answers to any of the choices. How you decide is up to you.
+</p>
+
+<p>Please stay silent during the experiment, and do not use mobile phones or 
+other communication devices. Please follow the experimenters' instructions at 
+all times. If you do not follow these rules, you may be asked to leave without 
+being paid.</p>
+
+<p>After the experiment there will be some questions about you and 
+your friends. All your answers will be private. We will not show them 
+to anybody else. You do not have to answer any questions, but it will help 
+our research if you give accurate answers.</p>
+
+<p>If you have a question, now or later, please raise your hand and wait 
+for an experimenter to come and help you privately.</p>
+
+<p>When the experimenter tells you, you may click "Begin the experiment".</p>
+</div>
 
 <%= next_form("Begin the experiment") %>
 <%= footer() %>

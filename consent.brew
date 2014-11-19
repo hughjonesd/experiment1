@@ -1,0 +1,25 @@
+<%= header("Instructions") %>
+<% brew("styles.brew") %>
+
+<div class="instructions">
+<p>We are doing a research study about young people's behaviour. 
+If you decide that you want to be part of this study, you will be asked 
+to make some simple choices.</p>
+
+<p>When we are finished with this study we will 
+write a report about what we learned. This report will not mention your name. 
+Nobody will know about the choices you made except us, the researchers.</p>
+
+<p>You do not have to be in this study if you do not want to be. If you decide 
+to stop after we begin, that’s okay too. Your parents know about the study 
+too.</p>
+
+<p>If you do not want to be in the study, just raise your hand.</p>
+
+<p>If you want to be in the study, please sign the paper consent form on your desk.</p>
+
+<p>When the experimenter tells you, click "Next".</p>
+</div>
+
+<%= next_form("Next") %>
+<%= footer() %>

@@ -24,16 +24,21 @@ function changeMe(chn, fld) {
 <h1>Stage Two</h1>
 <p>In this stage, you will be matched with another pupil 
 in this form. You will not find out the name of your match, and they will 
-not find out your name.</p>
-<p>One of you will be <b>pupil A</b>. The other will be <b>pupil B</b>.</p>
+not find out your name. One of you will be chosen at random to be <b>pupil A</b>. 
+The other will be <b>pupil B</b>.</p>
+
 <p>Pupil A gets £1 and makes an offer between £0 and £1, in multiples of 
 10p. Pupil B chooses the lowest offer that they will accept.</p>
-<p>If pupil A's offer is at least as big as the lowest offer pupil B will 
-accept, then B gets the amount offered, and A keeps the rest of the £1.</p>
-<p>If pupil A's offer is less than the lowest offer pupil B will accept, then 
+
+<p>If pupil A's offer is <i>at least as big as</i> pupil B's lowest 
+acceptable offer, 
+then B gets what A offered, and A keeps the rest of the £1.</p>
+
+<p>If A's offer is <i>less than</i> B's lowest acceptable offer, then 
 both A and B get nothing.</p>
-<p>Please choose what offer to make if you are pupil A, and what offer 
-you will accept if you are pupil B. Your role will be decided at random.</p>
+
+<p>Please choose what offer to make if you are pupil A, and the lowest offer 
+you will accept if you are pupil B.</p>
 </div>
 <!-- example !!! -->
 

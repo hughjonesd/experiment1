@@ -13,7 +13,7 @@
 # titles for each stage, for pupils
 # what alternative for pupils who withdraw? - Debbie
 
-N <- 2
+N <- 3
 sessno <- 1
 seed <- c(175804510L, 326704365L, 215164818L, 425463189L, 30750106L, 
       35380967L, 36912668L, 86165470L, 850662828L, 6737400L)[sessno] 

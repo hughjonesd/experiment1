@@ -21,6 +21,7 @@ classfile <- c("class1.txt", "class2.txt")[classno]
 classnames <- scan(classfile, what="character", sep="\n", quiet=TRUE)
 
 library(betr)
+library(reshape2)
 
 ready_fn <- function() {
   mydf <<- experiment_data_frame(expt, dict1=NA, offer2=NA,
@@ -142,6 +143,7 @@ s_final_calcs <- program(run="first",
     globals <<- dcast(melt(mydf[,c("id", "period", "profit")], id=1:2), 
           id ~ period)
     globals$totalprofit <<- rowSums(globals[-1], na.rm=TRUE)
+    write_data(expt, mydf)
   }, 
   name="Final calculations")
 

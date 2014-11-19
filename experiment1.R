@@ -71,7 +71,7 @@ s_ug <- form_stage(page=b_brew("ug2.brew"),
 s_prog_ug <- program(run="last", 
   function(id, period, ...){
     pd <- mydf$period==period
-    mydf$profit[pd] <- 0
+    mydf$profit[pd] <<- 0
     pair <- rep(1:floor(N/2), 2)
     if (N %% 2 > 0) pair <- c(pair, 1)
     pair <- sample(pair)
@@ -81,7 +81,7 @@ s_prog_ug <- program(run="last",
     mydf$pair[pd] <<- pair
     # for each B: match with 1/2 As. Figure out payments for all
     mydfp <- mydf[pd,]
-    for (pr in mydfp$pair) {
+    for (pr in na.omit(unique(mydfp$pair))) {
       thresh <- as.numeric(mydfp$accept2[mydfp$role=="B" & mydfp$pair==pr])
       # may be 2 offers
       offer <- as.numeric(mydfp$offer2[mydfp$role=="A" & mydfp$pair==pr])
@@ -98,11 +98,14 @@ s_prog_ug <- program(run="last",
 s_hg <- form_stage(
       page=b_brew("honesty.brew"),
       fields=list(), titles=list(),
+      data_frame="mydf",
       name="Honesty game")
 
 s_prog_hg <- program(run="last",
-  
-      name="HG profit calculations")
+  fn=function(...) {
+    
+  },
+  name="HG profit calculations")
 
 frcheck <- function(title, values, id, period, params) {
   if (length(values)==1) return("Please tick more than one checkbox to show
@@ -148,7 +151,7 @@ add_stage(expt,
       s_consent, s_instrns, 
       period(wait_for="all"), s_dict, s_prog_dict, 
       period(wait_for="all"), s_ug, s_prog_ug,
-      period(wait_for="all"), s_hg, s_prog_hg,
+ #     period(wait_for="all"), s_hg, s_prog_hg,
       period(wait_for="all"), s_friends, 
       period(wait_for="none"), s_friends, 
       period(wait_for="none"), s_friends, 

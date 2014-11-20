@@ -8,11 +8,19 @@ function flip() {
   var result2;
   var picsrc;
   if (result==1) result2 = "heads"; else result2 = "tails";
-  if (result==1) picsrc = "/images/heads.jpg"; 
-        else picsrc = "/images/tails.jpg";
+  if (result==1) picsrc = "http://54.194.17.233/images/heads.jpg"; 
+        else picsrc = "http://54.194.17.233/images/tails.jpg";
   if (! flipped) document.getElementById('coinflip.real').value = result2;
   flipped = true;
   document.getElementById('coin').src= picsrc;
+}
+
+function report(choice) {
+  var rep;
+  if (choice=="keep") rep = "Keep the £1 for yourself.";
+  else if (choice=="give") rep = "Give the £1 to pupil B.";
+  document.getElementById('decisionoutput').innerHTML = rep;
+
 }
 </script>
 
@@ -37,20 +45,22 @@ tails.</p>
 <form method="POST" autocomplete="off" action="">
 <div class="controls">
 <div class="flip-container" onClick="flip();" ontouchstart="flip();">
-			<img id="coin" src="/images/hidden.jpg">
-	</div>
+			<img id="coin" src="http://54.194.17.233/images/hidden.jpg" style="padding:10px">
+</div>
+
+<label><input type="radio" name="hchoice" value="keep" onclick="report('keep')"> Keep the £1.</label><br>
+<label><input type="radio" name="hchoice" value="give" onclick="report('give')"> Give the £1 to pupil B.</label><br>
+<br>
+<label><input type="radio" name="coinflip" value="no"> I did not flip the coin.</label><br>
+<label><input type="radio" name="coinflip" value="heads"> I flipped the coin and got "heads" (keep the £1).</label><br>
+<label><input type="radio" name="coinflip" value="tails"> I flipped the coin and got "tails" (give the £1 to pupil B).</label><br>
+<input type="hidden" name="coinflip.real" id="coinflip.real" value="no">
+</div>
 
 <div class="decision">
 <h1>Your decision</h1>
-<label><input type="radio" name="hchoice" value="keep">Keep the £1.</label><br>
-<label><input type="radio" name="hchoice" value="give">Give the £1 to pupil B.</label><br>
 
-<label><input type="radio" name="coinflip" value="no">I did not flip the coin.</label>
-<label><input type="radio" name="coinflip" value="heads">I flipped the coin and got "heads" (keep the £1).</label>
-<label><input type="radio" name="coinflip" value="tails">I flipped the coin and got "tails" (give the £1 to pupil B).</label>
-<input type="hidden" name="coinflip.real" id="coinflip.real" value="no">
-
-
+<p id="decisionoutput"></p>
 <p>Click 'Confirm' when you have made your decision.</p>
 <input type="submit" value="Confirm">
 </div>

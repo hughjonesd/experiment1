@@ -14,6 +14,10 @@ input[type='number'] {
   background-color: #DDD;
 }
 
+button {
+  background-color: #CCC;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;

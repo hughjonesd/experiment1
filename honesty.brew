@@ -1,0 +1,111 @@
+<%= header("Stage Three") %>
+
+<% brew("styles.brew") %>
+
+<style>
+.flip-container {
+  -moz-perspective: 1000;
+  perspective: 1000;
+}
+
+/* flip the pane when hovered */
+.flip-container .flipper {
+  -moz-transform: rotateY(1980deg);
+	transform: rotateY(1980deg);
+  -webkit-transform: rotateY(1980deg);
+}
+
+.flipper {
+  -moz-transition: 4s;
+	transition: 4s;
+	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+
+	position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	-webkit-box-shadow:
+	0px 0px 0px 2px rgba(0,0,0,0.6),
+	0px 0px 0px 14px #fff,
+	0px 0px 0px 18px rgba(0,0,0,0.2),
+	6px 6px 8px 17px #555;
+
+	-moz-box-shadow:
+	0px 0px 0px 2px rgba(0,0,0,0.6),
+	0px 0px 0px 14px #fff,
+	0px 0px 0px 18px rgba(0,0,0,0.2),
+	6px 6px 8px 17px #555;
+
+	box-shadow:
+	0px 0px 0px 2px rgba(0,0,0,0.6),
+	0px 0px 0px 14px #fff,
+	0px 0px 0px 18px rgba(0,0,0,0.2),
+	6px 6px 8px 17px #555;
+}
+
+
+</style>
+<script>
+var flipped = false;
+function flip() {
+  var result = Math.floor(Math.random() * 2); // 0 or 1
+  var result2;
+  var picsrc;
+  if (result==1) result2 = "heads"; else result2 = "tails";
+  if (result==1) picsrc = "/images/heads.jpg"; 
+        else picsrc = "/images/tails.jpg";
+  if (! flipped) document.getElementById('coinflip.real').value = result2;
+  flipped = true;
+  document.getElementById('coin').src= picsrc;
+}
+</script>
+
+<% brew("errors.brew") %>
+
+<div class="instructions">
+<h1>Stage Three</h1>
+<p>In this stage, you will be matched with another pupil 
+in this form. You will not find out the name of your match, and they will 
+not find out your name. One of you will be chosen at random to be <b>pupil A
+</b>. The other will be <b>pupil B</b>.</p>
+<p>Pupil A gets £1. They can either keep the £1, or give it to pupil B.</p>
+<p>Please choose whether you will give the £1 or keep the £1 if you are pupil A.
+</p>
+<p>If you wish, you can "flip the coin" onscreen to decide whether to keep the £1 
+or give it. "Heads" means <i>keep the £1</i>. "Tails" means <i>give the £1 away
+</i>. This is a fair way to decide.</p>
+<p>Please say whether you flipped the coin and if so, whether you got heads or 
+tails.</p>
+</div>
+
+<form method="POST" autocomplete="off" action="">
+<div class="controls">
+<div class="flip-container" onClick="flip();" ontouchstart="flip();">
+			<img id="coin" src="/images/coinstart.jpg">
+	</div>
+
+<div class="decision">
+<h1>Your decision</h1>
+<label><input type="radio" name="hchoice" value="keep">Keep the £1.</label><br>
+<label><input type="radio" name="hchoice" value="give">Give the £1 to pupil B.</label><br>
+
+<label><input type="radio" name="coinflip" value="no">I did not flip the coin.</label>
+<label><input type="radio" name="coinflip" value="heads">I flipped the coin and got "heads" (keep the £1).</label>
+<label><input type="radio" name="coinflip" value="tails">I flipped the coin and got "tails" (give the £1 to pupil B).</label>
+<input type="hidden" name="coinflip.real" id="coinflip.real" value="no">
+
+
+<p>Click 'Confirm' when you have made your decision.</p>
+<input type="submit" value="Confirm">
+</div>
+</form>
+
+<%= footer() %>

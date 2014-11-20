@@ -3,14 +3,13 @@
 
 # TODO:
 # paper consent forms
+# randomizers for entry
+# packets for coins?
 # HG: how? 
 # TG?
 # friends: adjust frcount in friendships.brew
 # set up Ns
 # real class1.txt file etc
-# check on iPad
-#  - ug should be shorter!
-# titles for each stage, for pupils
 # what alternative for pupils who withdraw? - Debbie
 
 N <- 3
@@ -18,7 +17,7 @@ sessno <- 1
 seed <- c(175804510L, 326704365L, 215164818L, 425463189L, 30750106L, 
       35380967L, 36912668L, 86165470L, 850662828L, 6737400L)[sessno] 
 classno <- 1
-classfile <- c("class1.txt", "class2.txt")[classno]
+classfile <- paste0("class", classno, ".txt")
 classnames <- scan(classfile, what="character", sep="\n", quiet=TRUE)
 
 library(betr)
@@ -26,7 +25,8 @@ library(reshape2)
 
 ready_fn <- function() {
   mydf <<- experiment_data_frame(expt, dict1=NA, offer2=NA,
-        accept2=NA, accepted2=NA, profit=NA, friends=NA, 
+        accept2=NA, accepted2=NA, hchoice=NA, coinflip=NA, coinflip.real=NA,
+        profit=NA, friends=NA, 
         myfriend1=NA, myfriend2=NA, myfriend3=NA,
         friendlike1=NA, friendlike2=NA, friendlike3=NA,
         rank=sample(N), role=NA, pair=NA, stringsAsFactors=FALSE)
@@ -48,6 +48,7 @@ s_dict <- form_stage(page=b_brew("dict1.brew"),
 s_prog_dict <- program(run="last", 
   function(id, period, ...){
     pd <- mydf$period == period
+    mydf$profit[pd] <<- 0
     pair <- rep(1:floor(N/2), 2)
     if (N %% 2 > 0) pair <- c(pair, 1)
     pair <- sample(pair)
@@ -55,11 +56,12 @@ s_prog_dict <- program(run="last",
     role[!duplicated(pair)] <- "B"
     mydf$role[pd] <<- role
     mydf$pair[pd] <<- pair
-    for (pr in mydf$pair[pd]) {
+    for (pr in unique(mydf$pair[pd])) {
       given <- as.numeric(mydf$dict1[pd & mydf$pair[pd]==pr & 
             mydf$role[pd]=="A"])
       mydf$profit[pd & mydf$pair[pd]==pr & mydf$role[pd]=="A"] <<- 100 - given
-      mydf$profit[pd & mydf$pair[pd]==pr & mydf$role[pd]=="B"] <<- given
+      mydf$profit[pd & mydf$pair[pd]==pr & mydf$role[pd]=="B"] <<- 
+            sum(given)
     }
   }, 
   name="DG profit calculations")
@@ -99,7 +101,9 @@ s_prog_ug <- program(run="last",
 
 s_hg <- form_stage(
       page=b_brew("honesty.brew"),
-      fields=list(), titles=list(),
+      fields=list(hchoice=is_one_of(c("keep", "give"), coinflip=is_one_of(
+      c("no", "heads", "tails")), coinflip.real=is_one_of(c("no", "heads",
+      "tails")))), titles=list(hchoice="Choice", coinflip="Coin flip"),
       data_frame="mydf",
       name="Honesty game")
 

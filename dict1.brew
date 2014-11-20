@@ -1,4 +1,4 @@
-<%= header("Choice 1") %>
+<%= header("Stage One") %>
 
 <% brew("styles.brew") %>
 
@@ -18,8 +18,7 @@ function changeDict1(chn) {
 <h1>Stage One</h1>
 <p>In this stage, you will be matched with another pupil 
 in this form. You will not find out the name of your match, and they will 
-not find out your name.</p>
-<p>One of you will be <b>pupil A</b>. The other will be <b>pupil B</b>.</p>
+not find out your name. One of you will be chosen at random to be <b>pupil A</b>.  The other will be <b>pupil B</b>.</p>
 <p>Pupil A gets £1 and chooses how much to give to pupil B. Pupil A can give 
 any amount between £0 and £1, in multiples of 10p.</p>
 <p>Please choose how much you will give if you are pupil A.</p>

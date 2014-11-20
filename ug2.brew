@@ -1,4 +1,4 @@
-<%= header("Choice 2") %>
+<%= header("Stage Two") %>
 
 <% brew("styles.brew") %>
 

@@ -125,7 +125,7 @@ s_prog_ig <- program(run="last",
     mydf$role[pd] <<- role
     mydf$pair[pd] <<- pair
     # for each B: match with 1/2 As. Figure out payments for all.
-    for (pr in na.omit(unique(mydfp$pair))) {
+    for (pr in na.omit(unique(mydf$pair))) {
       # may be 2 As each giving or not
       mydf$profit[pd & mydf$role=="A" & mydf$pair==pr] <<- 100 * 
             (mydf$hchoice[pd & mydf$role=="A" & mydf$pair==pr] == "keep")

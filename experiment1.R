@@ -17,13 +17,16 @@
 # example
 
 N <- as.numeric(readline("Enter this session's N: "))
-sessno <- 1
+sessno <- as.numeric(readline("Enter the number of this session (1-10): "))
 seed <- c(175804510L, 326704365L, 215164818L, 425463189L, 30750106L, 
       35380967L, 36912668L, 86165470L, 850662828L, 6737400L)[sessno] 
-classno <- 1
+classno <- as.numeric(readline("Enter the class number: "))
 classfile <- paste0("class", classno, ".txt")
-classnames <- scan(classfile, what="character", sep="\n", quiet=TRUE)
+classnames <- sort(scan(classfile, what="character", sep="\n", quiet=TRUE))
+surnames <- sub(".* ", "", classnames) # an assumption here
+classnames <- classnames[order(surnames)]
 cat("Session number is", sessno, "and class number is", classno)
+cat("First 3 class names:", paste(classnames[1:3], collapse=", "))
 
 library(betr)
 library(reshape2)
@@ -185,10 +188,10 @@ s_final_calcs <- program(run="first",
 s_show_result <- text_stage(page=b_brew("results.brew"), name="Final results")
 
 add_stage(expt, 
-      s_consent, s_instrns, 
-      period(wait_for="all"), s_dict, s_prog_dict, 
-      period(wait_for="all"), s_ug, s_prog_ug,
-      period(wait_for="all"), s_ig, s_prog_ig,
+#      s_consent, s_instrns, 
+#      period(wait_for="all"), s_dict, s_prog_dict, 
+#      period(wait_for="all"), s_ug, s_prog_ug,
+#      period(wait_for="all"), s_ig, s_prog_ig,
       period(wait_for="all"), s_friends, 
       period(wait_for="none"), s_friends, 
       period(wait_for="none"), s_friends, 

@@ -8,8 +8,8 @@ function flip() {
   var result2;
   var picsrc;
   if (result==1) result2 = "heads"; else result2 = "tails";
-  if (result==1) picsrc = "http://54.194.17.233/images/heads.jpg"; 
-        else picsrc = "http://54.194.17.233/images/tails.jpg";
+  if (result==1) picsrc = "http://54.194.17.233/images/experiment1/heads.jpg"; 
+        else picsrc = "http://54.194.17.233/images/experiment1/tails.jpg";
   if (! flipped) document.getElementById('coinflip.real').value = result2;
   flipped = true;
   document.getElementById('coin').src = picsrc;
@@ -45,7 +45,7 @@ tails.</p>
 <form method="POST" autocomplete="off" action="">
 <div class="controls">
 <div class="flip-container" onClick="flip();" ontouchstart="flip();">
-			<img id="coin" src="http://54.194.17.233/images/hidden.jpg" style="padding:10px">
+			<img id="coin" src="http://54.194.17.233/images/experiment1/hidden.jpg" style="padding:10px">
 </div>
 
 <label><input type="radio" name="hchoice" value="keep" onclick="report('keep')"> Keep the £1.</label><br>

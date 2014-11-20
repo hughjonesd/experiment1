@@ -4,21 +4,26 @@
 # TODO:
 # paper consent forms
 # randomizers for entry
-# packets for coins?
-# HG: how? 
-# TG?
+# TG? HG?
 # friends: adjust frcount in friendships.brew
 # set up Ns
 # real class1.txt file etc
 # what alternative for pupils who withdraw? - Debbie
+# and, how do we deal with it? hopefully just change N and reload...
+# maybe N <- readline("Enter this session's N:")
+# emphasize PRIVATE questions
+# simple language (consent form)
+# time limits on stages? or advisory timer?
+# example
 
-N <- 2
+N <- as.numeric(readline("Enter this session's N: "))
 sessno <- 1
 seed <- c(175804510L, 326704365L, 215164818L, 425463189L, 30750106L, 
       35380967L, 36912668L, 86165470L, 850662828L, 6737400L)[sessno] 
 classno <- 1
 classfile <- paste0("class", classno, ".txt")
 classnames <- scan(classfile, what="character", sep="\n", quiet=TRUE)
+cat("Session number is", sessno, "and class number is", classno)
 
 library(betr)
 library(reshape2)
@@ -99,8 +104,8 @@ s_prog_ug <- program(run="last",
   name="UG profit calculations")
 
 
-s_hg <- form_stage(
-      page=b_brew("honesty.brew"),
+s_ig <- form_stage(
+      page=b_brew("integrity.brew"),
       fields=list(hchoice=is_one_of(c("keep", "give")), coinflip=is_one_of(
       c("no", "heads", "tails")), coinflip.real=is_one_of(c("no", "heads",
       "tails"))), titles=list(hchoice="Choice", coinflip="Coin flip", 
@@ -108,7 +113,7 @@ s_hg <- form_stage(
       data_frame="mydf",
       name="Integrity game")
 
-s_prog_hg <- program(run="last",
+s_prog_ig <- program(run="last",
   fn=function(id, period, ...) {
     pd <- mydf$period==period
     mydf$profit[pd] <<- 0
@@ -120,7 +125,6 @@ s_prog_hg <- program(run="last",
     mydf$role[pd] <<- role
     mydf$pair[pd] <<- pair
     # for each B: match with 1/2 As. Figure out payments for all.
-    mydfp <- mydf[pd,]
     for (pr in na.omit(unique(mydfp$pair))) {
       # may be 2 As each giving or not
       mydf$profit[pd & mydf$role=="A" & mydf$pair==pr] <<- 100 * 
@@ -181,14 +185,14 @@ s_final_calcs <- program(run="first",
 s_show_result <- text_stage(page=b_brew("results.brew"), name="Final results")
 
 add_stage(expt, 
-#      s_consent, s_instrns, 
-#      period(wait_for="all"), s_dict, s_prog_dict, 
-#      period(wait_for="all"), s_ug, s_prog_ug,
-      period(wait_for="all"), s_hg, s_prog_hg
-#      period(wait_for="all"), s_friends, 
-#      period(wait_for="none"), s_friends, 
-#      period(wait_for="none"), s_friends, 
-#      period(wait_for="none"), s_myfriends, s_friends_like,
-#      period(wait_for="all"), s_final_calcs, s_show_result
+      s_consent, s_instrns, 
+      period(wait_for="all"), s_dict, s_prog_dict, 
+      period(wait_for="all"), s_ug, s_prog_ug,
+      period(wait_for="all"), s_ig, s_prog_ig,
+      period(wait_for="all"), s_friends, 
+      period(wait_for="none"), s_friends, 
+      period(wait_for="none"), s_friends, 
+      period(wait_for="none"), s_myfriends, s_friends_like,
+      period(wait_for="all"), s_final_calcs, s_show_result
       )
 

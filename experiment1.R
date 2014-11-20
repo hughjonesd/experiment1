@@ -12,7 +12,7 @@
 # real class1.txt file etc
 # what alternative for pupils who withdraw? - Debbie
 
-N <- 3
+N <- 2
 sessno <- 1
 seed <- c(175804510L, 326704365L, 215164818L, 425463189L, 30750106L, 
       35380967L, 36912668L, 86165470L, 850662828L, 6737400L)[sessno] 
@@ -101,17 +101,35 @@ s_prog_ug <- program(run="last",
 
 s_hg <- form_stage(
       page=b_brew("honesty.brew"),
-      fields=list(hchoice=is_one_of(c("keep", "give"), coinflip=is_one_of(
+      fields=list(hchoice=is_one_of(c("keep", "give")), coinflip=is_one_of(
       c("no", "heads", "tails")), coinflip.real=is_one_of(c("no", "heads",
-      "tails")))), titles=list(hchoice="Choice", coinflip="Coin flip"),
+      "tails"))), titles=list(hchoice="Choice", coinflip="Coin flip", 
+      coinflip.real=""),
       data_frame="mydf",
-      name="Honesty game")
+      name="Integrity game")
 
 s_prog_hg <- program(run="last",
-  fn=function(...) {
-    
+  fn=function(id, period, ...) {
+    pd <- mydf$period==period
+    mydf$profit[pd] <<- 0
+    pair <- rep(1:floor(N/2), 2)
+    if (N %% 2 > 0) pair <- c(pair, 1)
+    pair <- sample(pair)
+    role <- rep("A", N)
+    role[!duplicated(pair)] <- "B"
+    mydf$role[pd] <<- role
+    mydf$pair[pd] <<- pair
+    # for each B: match with 1/2 As. Figure out payments for all.
+    mydfp <- mydf[pd,]
+    for (pr in na.omit(unique(mydfp$pair))) {
+      # may be 2 As each giving or not
+      mydf$profit[pd & mydf$role=="A" & mydf$pair==pr] <<- 100 * 
+            (mydf$hchoice[pd & mydf$role=="A" & mydf$pair==pr] == "keep")
+      mydf$profit[pd & mydf$role=="B" & mydf$pair==pr] <<- 100 *
+        sum(mydf$hchoice[pd & mydf$role=="A" & mydf$pair==pr] == "give")
+    }
   },
-  name="HG profit calculations")
+  name="IG profit calculations")
 
 frcheck <- function(title, values, id, period, params) {
   if (length(values)==1) return("Please tick more than one checkbox to show
@@ -163,13 +181,14 @@ s_final_calcs <- program(run="first",
 s_show_result <- text_stage(page=b_brew("results.brew"), name="Final results")
 
 add_stage(expt, 
-      s_consent, s_instrns, 
-      period(wait_for="all"), s_dict, s_prog_dict, 
-      period(wait_for="all"), s_ug, s_prog_ug,
- #     period(wait_for="all"), s_hg, s_prog_hg,
-      period(wait_for="all"), s_friends, 
-      period(wait_for="none"), s_friends, 
-      period(wait_for="none"), s_friends, 
-      period(wait_for="none"), s_myfriends, s_friends_like,
-      period(wait_for="all"), s_final_calcs, s_show_result)
+#      s_consent, s_instrns, 
+#      period(wait_for="all"), s_dict, s_prog_dict, 
+#      period(wait_for="all"), s_ug, s_prog_ug,
+      period(wait_for="all"), s_hg, s_prog_hg
+#      period(wait_for="all"), s_friends, 
+#      period(wait_for="none"), s_friends, 
+#      period(wait_for="none"), s_friends, 
+#      period(wait_for="none"), s_myfriends, s_friends_like,
+#      period(wait_for="all"), s_final_calcs, s_show_result
+      )
 

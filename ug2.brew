@@ -16,6 +16,25 @@ function changeMe(chn, fld) {
     document.querySelector('#accept2output2').value = nv;
   }
 }
+
+function toggleExample() {
+  document.
+  randomExample(); 
+  return(false);
+}
+
+function randomExample() {
+  var Aoffer = math.floor(math.Random()*10)*10;
+  var Baccept = math.floor(math.Random()*10)*10;
+  var result;
+  if (Aoffer >= Baccept) result = "A's offer will be accepted by B. B will receive " +
+      Aoffer + " and A will keep the remaining " + (100 - Aoffer) + ".";
+  else result = "A's offer will be rejected by B. Both A and B will receive 0p."
+  document.getElementById('exAoffer').innerHTML = Aoffer;
+  document.getElementById('exBaccept').innerHTML = Baccept;
+  document.getElementById('exresult').innerHTML = result;
+  return(false);
+}
 </script>
 
 <% brew("errors.brew") %>
@@ -40,7 +59,15 @@ both A and B get nothing.</p>
 <p>Please choose what offer to make if you are pupil A, and the lowest offer 
 you will accept if you are pupil B.</p>
 </div>
-<!-- example !!! -->
+
+<div class="example">
+<button value="Show an example" onclick="toggleExample()">
+<div id="example_showhide">
+<p>If pupil A gives <span id="exAoffer"></span> and pupil B's lowest acceptable 
+offer is <span id="exBaccept"></span>, then <span id="exresult"></span>.</p>
+<button value="Show another example" onclick="randomExample()">
+</div>
+</div>
 
 
 <form method="POST" autocomplete="off" action="">

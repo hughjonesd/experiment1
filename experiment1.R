@@ -4,17 +4,18 @@
 # TODO:
 # paper consent forms
 # randomizers for entry
-# TG? HG?
-# friends: adjust frcount in friendships.brew
-# set up Ns
-# real class1.txt file etc
 # what alternative for pupils who withdraw? - Debbie
+
+# COMPUTER TODO:
+# TG? HG?
+# UG example
+# friends: adjust frcount in friendships.brew
+# real class1.txt file etc
 # and, how do we deal with it? hopefully just change N and reload...
-# maybe N <- readline("Enter this session's N:")
 # emphasize PRIVATE questions
 # simple language (consent form)
 # time limits on stages? or advisory timer?
-# example
+
 
 N <- as.numeric(readline("Enter this session's N: "))
 sessno <- as.numeric(readline("Enter the number of this session (1-10): "))
@@ -24,9 +25,10 @@ classno <- as.numeric(readline("Enter the class number: "))
 classfile <- paste0("class", classno, ".txt")
 classnames <- sort(scan(classfile, what="character", sep="\n", quiet=TRUE))
 surnames <- sub(".* ", "", classnames) # an assumption here
-classnames <- classnames[order(surnames)]
-cat("Session number is", sessno, "and class number is", classno)
-cat("First 3 class names:", paste(classnames[1:3], collapse=", "))
+firstnames <- sub(" .*", "", classnames)
+classnames <- classnames[order(surnames, firstnames)]
+cat("Session number is", sessno, "and class number is", classno, ".\n")
+cat("First 3 class names:", paste(classnames[1:3], collapse=", "), ".\n")
 
 library(betr)
 library(reshape2)
@@ -165,17 +167,23 @@ myfrcheck <- function (title, value, id, period, params) {
 nocheck <- function(...) NULL
 
 s_myfriends <- form_stage(page=b_brew("myfriends.brew"),
-  fields=list(myfriend1=myfrcheck, myfriend2=nocheck, myfriend3=nocheck),
-  titles=list(myfriend1="Friend 1", myfriend2="Friend 2", myfriend3="Friend 3"),
-  data_frame="mydf",
-  name="Questionnaire: my friends")
+      fields=list(myfriend1=myfrcheck, myfriend2=nocheck, myfriend3=nocheck),
+      titles=list(myfriend1="Friend 1", myfriend2="Friend 2", myfriend3="Friend 3"),
+      data_frame="mydf",
+      name="Questionnaire: my friends")
 
 s_friends_like <- form_stage(page=b_brew("friendslike.brew"),
-  fields=list(friendlike1=myfrcheck, friendlike2=nocheck, friendlike3=nocheck),
-  titles=list(friendlike1="Friend 1", friendlike2="Friend 2", friendlike3="Friend 3"),
-  data_frame="mydf",
-  name="Questionnaire: friends I'd like")
+      fields=list(friendlike1=myfrcheck, friendlike2=nocheck, friendlike3=nocheck),
+      titles=list(friendlike1="Friend 1", friendlike2="Friend 2", friendlike3="Friend 3"),
+      data_frame="mydf",
+      name="Questionnaire: friends I'd like")
 
+s_qnaire <- form_stage(page=b_brew("qnaire.brew"),
+  fields=list(),
+  titles=list(),
+  data_frame="mydf",
+  name="Questionnaire: other")
+  
 s_final_calcs <- program(run="first",
   function(...) {
     globals <<- dcast(melt(mydf[,c("id", "period", "profit")], id=1:2), 
@@ -188,14 +196,14 @@ s_final_calcs <- program(run="first",
 s_show_result <- text_stage(page=b_brew("results.brew"), name="Final results")
 
 add_stage(expt, 
-#      s_consent, s_instrns, 
-#      period(wait_for="all"), s_dict, s_prog_dict, 
-#      period(wait_for="all"), s_ug, s_prog_ug,
-#      period(wait_for="all"), s_ig, s_prog_ig,
+      s_consent, s_instrns, 
+      period(wait_for="all"), s_dict, s_prog_dict, 
+      period(wait_for="all"), s_ug, s_prog_ug,
+      period(wait_for="all"), s_ig, s_prog_ig,
       period(wait_for="all"), s_friends, 
       period(wait_for="none"), s_friends, 
       period(wait_for="none"), s_friends, 
-      period(wait_for="none"), s_myfriends, s_friends_like,
+      period(wait_for="none"), s_myfriends, s_friends_like, s_qnaire,
       period(wait_for="all"), s_final_calcs, s_show_result
       )
 

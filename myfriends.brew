@@ -14,8 +14,6 @@
 
 <div class='controls'>
 <%
-  surnames <- sub(".* ", "", classnames) # an assumption here
-  classnames <- classnames[order(surnames)]
   fopts <- sapply(classnames, sprintf, fmt="<option value='%1$s'>%1$s</option>")
   fopts <- c('<option value="">-----</option>\n', fopts)
 %>

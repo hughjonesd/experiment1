@@ -15,7 +15,7 @@
 # simple language (consent form)
 # time limits on stages? or advisory timer?
 
-
+ciu <- FALSE
 N <- as.numeric(readline("Enter this session's N: "))
 sessno <- as.numeric(readline("Enter the number of this session (1-10): "))
 seed <- c(175804510L, 326704365L, 215164818L, 425463189L, 30750106L, 
@@ -43,7 +43,7 @@ ready_fn <- function() {
   globals <<- NA
 }
 
-expt <- experiment(N=N, clients_in_url=TRUE, on_ready=ready_fn, seats_file=NULL,
+expt <- experiment(N=N, clients_in_url=ciu, on_ready=ready_fn, seats_file=NULL,
       seed=seed, randomize_ids=TRUE, autostart=TRUE)
 
 s_consent <- text_stage(page=b_brew("consent.brew"), wait=TRUE, name="Consent")

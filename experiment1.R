@@ -7,11 +7,10 @@
 # what alternative for pupils who withdraw? - Debbie
 
 # COMPUTER TODO:
-# TG? HG?
-# UG example
+# TG? HG? elicit of beliefs?
 # friends: adjust frcount in friendships.brew
 # real class1.txt file etc
-# and, how do we deal with it? hopefully just change N and reload...
+# dealing with withdrawals: reload, re-enter N.
 # emphasize PRIVATE questions
 # simple language (consent form)
 # time limits on stages? or advisory timer?
@@ -39,6 +38,7 @@ ready_fn <- function() {
         profit=NA, friends=NA, 
         myfriend1=NA, myfriend2=NA, myfriend3=NA,
         friendlike1=NA, friendlike2=NA, friendlike3=NA,
+        myname=NA, myname2=NA,
         rank=sample(N), role=NA, pair=NA, stringsAsFactors=FALSE)
   globals <<- NA
 }
@@ -178,11 +178,16 @@ s_friends_like <- form_stage(page=b_brew("friendslike.brew"),
       data_frame="mydf",
       name="Questionnaire: friends I'd like")
 
+namecheck <- function(title, value, id, period, params) {
+  if (value == "" && params$myname2 == "") return("Please enter your name") 
+  return(NULL)
+}
+
 s_qnaire <- form_stage(page=b_brew("qnaire.brew"),
-  fields=list(),
-  titles=list(),
-  data_frame="mydf",
-  name="Questionnaire: other")
+      fields=list(myname=namecheck, myname2=nocheck),
+      titles=list(myname="Name", myname2=""),
+      data_frame="mydf",
+      name="Questionnaire: other")
   
 s_final_calcs <- program(run="first",
   function(...) {

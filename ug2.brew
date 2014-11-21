@@ -20,13 +20,13 @@ function changeMe(chn, fld) {
 var show = false;
 function toggleExample() {
   show = ! show;
-  var vis = 'hidden';
-  if (show) vis = 'visible';
-  document.getElementById('example_showhide').style.visibility = vis;
+  var dis = 'none';
+  if (show) dis = 'block';
   var buthtml = "Show an example";
   if (show) buthtml = "Hide example";
-  document.getElementById('extog').innerHTML = buthtml;
+  document.getElementById('extog').value = buthtml;
   randomExample(); 
+  document.getElementById('example_showhide').style.display = dis;
   return(false);
 }
 
@@ -64,11 +64,11 @@ then B gets what A offered, and A keeps the rest of the £1.</p>
 both A and B get nothing.</p>
 
 <div class="example">
-<button id="extog" onclick="toggleExample()">Show an example</button>
-<div id="example_showhide" style="visibility: hidden">
+<input type="button" id="extog" onclick="toggleExample()" value="Show an example">
+<div id="example_showhide" style="display: none">
 <p>If pupil A gives <span id="exAoffer"></span>p and pupil B's lowest acceptable 
 offer is <span id="exBaccept"></span>p, then <span id="exresult"></span></p>
-<button onclick="randomExample()">Show another example</button>
+<input type="button" onclick="randomExample()" value="Show another example">
 </div>
 </div>
 

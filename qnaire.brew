@@ -1,0 +1,33 @@
+<%= header("Questions") %>
+<% brew("styles.brew") %>
+
+<% brew("errors.brew") %>
+
+<div class='instructions'>
+<h1>Questionnaire</h1></div>
+<p>Just a few more questions! Please answer them and click 'submit'.</p>
+
+<div class='controls'>
+<%
+  fopts <- sapply(classnames, sprintf, fmt="<option value='%1$s'>%1$s</option>")
+  fopts <- c('<option value="">Select here:</option>\n', fopts)
+%>
+<form method='POST' action=''>
+<p>What is your name? <select name='myname'><%= fopts %></select></p>
+<p>If your name is not in the dropdown box, type it in here:
+<input type='text' size='30' name='myname2'></p>
+
+<p>Would you say you are...
+<select name='ethnicity'>
+<option name=''></option>
+<option name=''></option>
+<option name=''></option>
+<option name=''></option>
+<option name=''></option>
+</select>
+</div>
+<input type='submit' value='Submit'>
+</form>
+</div>
+
+<%= footer() %>

@@ -14,8 +14,10 @@ input[type='number'] {
   background-color: #DDD;
 }
 
-button {
-  background-color: #CCC;
+#example_showhide {
+  -webkit-transition: height 2s;
+  transition: height 2s;
+  height: 0px;
 }
 
 input::-webkit-outer-spin-button,

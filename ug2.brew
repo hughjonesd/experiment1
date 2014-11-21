@@ -53,11 +53,10 @@ then B gets what A offered, and A keeps the rest of the £1.</p>
 both A and B get nothing.</p>
 
 <div class="example">
-<p>If pupil A gives <span id="exAoffer"></span>p and pupil B's lowest acceptable 
-offer is <span id="exBaccept"></span>p, then <span id="exresult"></span></p>
-<input type="button" onclick="randomExample()" value="Show another example">
+<p>If pupil A gives 30p and pupil B's lowest acceptable 
+offer is 20p, then pupil A's offer will be accepted. Pupil B will get 30p and 
+pupil A will get 70p.</p>
 </div>
-<script>randomExample()</script>
 
 <p>Please choose what offer to make if you are pupil A, and the lowest offer 
 you will accept if you are pupil B.</p>

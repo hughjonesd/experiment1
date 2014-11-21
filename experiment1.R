@@ -15,7 +15,7 @@
 # simple language (consent form)
 # time limits on stages? or advisory timer?
 
-ciu <- FALSE
+ciu <- TRUE
 N <- as.numeric(readline("Enter this session's N: "))
 sessno <- as.numeric(readline("Enter the number of this session (1-10): "))
 seed <- c(175804510L, 326704365L, 215164818L, 425463189L, 30750106L, 

@@ -46,7 +46,7 @@ tails.</p>
 <div class="controls">
 <div class="flip-container" onClick="flip();" ontouchstart="flip();">
 <img id="coin" src="http://54.194.17.233/images/experiment1/hidden.jpg" 
-      style="padding:10px">
+      style="padding:10px; height: 300px; width: 300px;">
 </div>
 
 <label><input type="radio" name="hchoice" value="keep" onclick="report('keep')"> Keep the £1.</label><br>

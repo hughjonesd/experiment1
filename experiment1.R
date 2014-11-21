@@ -202,13 +202,13 @@ s_show_result <- text_stage(page=b_brew("results.brew"), name="Final results")
 
 add_stage(expt, 
       s_consent, s_instrns, 
-      period(wait_for="all"), s_dict, s_prog_dict, 
-      period(wait_for="all"), s_ug, s_prog_ug,
-      period(wait_for="all"), s_ig, s_prog_ig,
-      period(wait_for="all"), s_friends, 
+      period(wait_for="none"), s_dict, s_prog_dict, 
+      period(wait_for="none"), s_ug, s_prog_ug,
+      period(wait_for="none"), s_ig, s_prog_ig,
+      period(wait_for="none"), s_friends, 
       period(wait_for="none"), s_friends, 
       period(wait_for="none"), s_friends, 
       period(wait_for="none"), s_myfriends, s_friends_like, s_qnaire,
-      period(wait_for="all"), s_final_calcs, s_show_result
+      period(wait_for="none"), s_final_calcs, s_show_result
       )
 

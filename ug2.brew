@@ -22,11 +22,14 @@ function toggleExample() {
   show = ! show;
   var dis = 'none';
   if (show) dis = 'block';
+  var ht = '0px';
+  if (show) ht = '100px';
   var buthtml = "Show an example";
   if (show) buthtml = "Hide example";
   document.getElementById('extog').value = buthtml;
   randomExample(); 
   document.getElementById('example_showhide').style.display = dis;
+  document.getElementById('example_showhide').style.height = ht;
   return(false);
 }
 

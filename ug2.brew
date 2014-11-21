@@ -5,7 +5,9 @@
 <script>
 function changeMe(chn, fld) {
   fld = '#' + fld;
-  var nv = Number(document.querySelector(fld).value) + Number(chn);
+  var nv;
+  if (document.querySelector(fld).value=='') nv = 0;
+  else nv = Number(document.querySelector(fld).value) + Number(chn);
   nv = Math.min(100, Math.max(nv, 0));
   document.querySelector(fld).value = nv;
   fldout = fld + 'output';

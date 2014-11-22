@@ -7,7 +7,7 @@ much you receive for taking part. This money will be paid to you in the form of
 vouchers for the school tuck shop. You can spend it on anything you like in 
 the tuck shop.</p>
 
-<p>Your first payment is on your desk. It is a voucher for <?= showup ?>p. You
+<p>Your first payment is on your desk. It is a tuck shop voucher for 20p. You
 can get more vouchers in this experiment, depending on how you act.</p>
 
 <p>The experiment is <i>not a test</i>. It is <i>not an exam</i>. There are no 

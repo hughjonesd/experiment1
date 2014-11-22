@@ -1,7 +1,8 @@
 #!/usr/bin/Rscript
 
 library(RCurl)
-N <- 19
+N <- 18
+cat(commandArgs(), "\n")
 while (TRUE) {
   res <- sapply(1:N, function(i) 
           getURL(paste0("http://54.194.17.233/betr/betr/client-", i)))

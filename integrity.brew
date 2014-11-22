@@ -19,7 +19,7 @@ function flip() {
 function report(choice) {
   var rep;
   if (choice=="keep") rep = "Keep the £1 for yourself.";
-        else if (choice=="give") rep = "Give the £1 to pupil B.";
+        else if (choice=="give") rep = "Give the £1 to the other pupil.";
   document.getElementById('decisionoutput').innerHTML = rep;
 }
 

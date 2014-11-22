@@ -23,7 +23,7 @@ In Stage One, the other pupil was chosen. He gave £<%= ukp(moi$profit) %> to yo
 In Stage Two, you were chosen to make the offer. You offered £<%= ukp(moi$offer2) %>
 to the other pupil. This offer was <%= if (moi$accepted2) "accepted" else "rejected" %>.
 <% } else { %>
-In Stage Two, the other pupil was chosen to make the offer. You were matched with <%= length(mydf$accepted2[mydf$period==2 & mydf$pair==moi$pair], na.rm=TRUE) %> other pupil(s). (You might be matched with 2 pupils if there is an odd number of people
+In Stage Two, the other pupil was chosen to make the offer. You were matched with <%= length(na.omit(mydf$accepted2[mydf$period==2 & mydf$pair==moi$pair])) %> other pupil(s). (You might be matched with 2 pupils if there is an odd number of people
 in the room.) You accepted <%= sum(mydf$accepted2[mydf$period==2 & mydf$pair==moi$pair], na.rm=TRUE) %> offers from the other pupil(s). The total offered was £<%= ukp(moi$profit) %>.
 <% } %>
 </p>

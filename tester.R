@@ -1,11 +1,11 @@
-<<<<<<< HEAD
 #!/usr/bin/Rscript
-library(RCurl)
 
+library(RCurl)
 N <- 19
 while (TRUE) {
-  for (i in 1:N) getURL(paste0("http://54.194.17.233/betr/betr/client-", i))
-  Sys.sleep(sample(1))
+  res <- sapply(1:N, function(i) 
+          getURL(paste0("http://54.194.17.233/betr/betr/client-", i)))
+   if (! any(grepl("betr", res))) cat("Error\n") else cat("OK\n")
 }
 
 # plan:

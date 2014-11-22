@@ -9,7 +9,6 @@ input[type='number'] {
 button, input[type='button'] {
   font-size: 120%;
   height: 2em;
-  width: 20em;
 }
 
 .friends:hover {
@@ -63,7 +62,7 @@ h1 {
   font-size: 120%;
 }
 
-body, p, h1 {
+body, p, h1, div {
   font-family: Verdana, sans-serif;
   font-size: 120%;
 }

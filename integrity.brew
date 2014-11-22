@@ -52,6 +52,7 @@ tails.</p>
 <label><input type="radio" name="hchoice" value="keep" onclick="report('keep')"> Keep the £1.</label><br>
 <label><input type="radio" name="hchoice" value="give" onclick="report('give')"> Give the £1 to pupil B.</label><br>
 <br>
+<p>Did you flip the coin to decide what to do?</p>
 <label><input type="radio" name="coinflip" value="no"> I did not flip the coin.</label><br>
 <label><input type="radio" name="coinflip" value="heads"> I flipped the coin and got "heads" (keep the £1).</label><br>
 <label><input type="radio" name="coinflip" value="tails"> I flipped the coin and got "tails" (give the £1 to pupil B).</label><br>

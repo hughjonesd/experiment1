@@ -21,6 +21,7 @@ here and read your book instead.</p>
 
 <p><b>When the experimenter tells you</b>, click "Next".</p>
 </div>
-
+<div class="controls">
 <%= next_form("Next") %>
+</div>
 <%= footer() %>

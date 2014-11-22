@@ -4,16 +4,14 @@
 # TODO:
 # paper consent forms
 # randomizers for entry
-# what alternative for pupils who withdraw? - Debbie
 
 # COMPUTER TODO:
-# TG? HG? elicit of beliefs?
 # friends: adjust frcount in friendships.brew
 # real class1.txt file etc
 # dealing with withdrawals: reload, re-enter N.
 # emphasize PRIVATE questions
 # simple language (consent form)
-# time limits on stages? or advisory timer?
+# advisory timer
 
 ciu <- TRUE
 N <- as.numeric(readline("Enter this session's N: "))
@@ -209,7 +207,7 @@ add_stage(expt,
       period(wait_for="none"), s_friends, 
       period(wait_for="none"), s_friends, 
       period(wait_for="none"), s_myfriends, s_friends_like, s_qnaire,
-      period(wait_for="none"), s_final_calcs, s_show_result
+      period(wait_for="all"), s_final_calcs, s_show_result
       )
 
 load_commands(expt)

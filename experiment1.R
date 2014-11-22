@@ -202,7 +202,8 @@ s_final_calcs <- program(run="first",
           id ~ period)
     globals$totalprofit <<- rowSums(globals[-1], na.rm=TRUE)
     globals$totalprofit <<- globals$totalprofit
-    write_data(expt, mydf)
+    fdata <- merge_subjects(expt, mydf)
+    write_data(expt, fdata)
   }, 
   name="Final calculations")
 

@@ -14,11 +14,9 @@
 # time limits on stages? or advisory timer?
 # advisory timer
 
-Rprofmem("Rprofmem.out", threshold = 1000)
-ciu <- TRUE
-showup <- 20 # fee in pence. NB: this is already on their desk, so we don't
-# include in the totalprofit figure
-N <- 20 
+# Rprofmem("Rprofmem.out", threshold = 1000)
+ciu <- FALSE
+N <- 2 
 sessno <- 1
 seed <- c(175804510L, 326704365L, 215164818L, 425463189L, 30750106L, 
       35380967L, 36912668L, 86165470L, 850662828L, 6737400L)[sessno] 
@@ -45,7 +43,7 @@ ready_fn <- function() {
   globals <<- NA
 }
 
-expt <- experiment(N=N, clients_in_url=ciu, on_ready=ready_fn, seats_file=NULL,
+expt <- experiment(N=N, clients_in_url=ciu, on_ready=ready_fn, 
       seed=seed, randomize_ids=TRUE, autostart=TRUE, client_refresh=1)
 
 s_consent <- text_stage(page=b_brew("consent.brew"), wait=TRUE, name="Consent")

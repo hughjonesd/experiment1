@@ -212,3 +212,5 @@ add_stage(expt,
       period(wait_for="none"), s_final_calcs, s_show_result
       )
 
+load_commands(expt)
+

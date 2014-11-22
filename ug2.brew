@@ -44,7 +44,7 @@ both A and B get nothing.</p>
 <div class="example">
 <p>This table shows some examples.</p>
 <table class="ug_example">
-<tr><th>You offer</th>They accept<th></th>They get<th></th>You get<th></th></tr>
+<tr><th>You offer</th><th>They accept</th><th>They get</th><th>You get</th></tr>
 <tr><td>30p</td><td>at least 30p</td><td>30p</td><td>70p</td></tr>
 <tr><td>30p</td><td>at least 50p</td><td>0p</td><td>0p</td></tr>
 <tr><td>60p</td><td>at least 50p</td><td>60p</td><td>40p</td></tr>

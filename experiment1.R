@@ -204,6 +204,13 @@ s_final_calcs <- program(run="first",
     globals$totalprofit <<- globals$totalprofit
     fdata <- merge_subjects(expt, mydf)
     write_data(expt, fdata)
+    globals <<- merge_subjects(expt, globals)[,c("seat", "id", "IP", "client",
+          "totalprofit")]
+    globals <<- globals[order(globals$seat),]
+    payfile <- paste0("session-", sessno, "-paydata.csv")
+    write.csv(globals, file=payfile)
+    cat("Payment data written to", sQuote(payfile), ".\n")
+    cat("Look at 'globals' to display it now.\n")
   }, 
   name="Final calculations")
 

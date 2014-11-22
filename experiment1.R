@@ -17,11 +17,11 @@
 Rprofmem("Rprofmem.out", threshold = 1000)
 
 ciu <- TRUE
-N <- as.numeric(readline("Enter this session's N: "))
-sessno <- as.numeric(readline("Enter the number of this session (1-10): "))
+N <- 20 
+sessno <- 1
 seed <- c(175804510L, 326704365L, 215164818L, 425463189L, 30750106L, 
       35380967L, 36912668L, 86165470L, 850662828L, 6737400L)[sessno] 
-classno <- as.numeric(readline("Enter the class number: "))
+classno <- 1
 classfile <- paste0("class", classno, ".txt")
 classnames <- sort(scan(classfile, what="character", sep="\n", quiet=TRUE))
 surnames <- sub(".* ", "", classnames) # an assumption here
@@ -212,4 +212,5 @@ add_stage(expt,
       period(wait_for="none"), s_myfriends, s_friends_like, s_qnaire,
       period(wait_for="none"), s_final_calcs, s_show_result
       )
-
+ready(expt)
+load_commands(expt)

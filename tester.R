@@ -1,9 +1,10 @@
+#!/usr/bin/Rscript
 library(RCurl)
 
-N <- 20
+N <- 19
 while (TRUE) {
   for (i in 1:N) getURL(paste0("http://54.194.17.233/betr/betr/client-", i))
-  Sys.sleep(sample(1:5))
+  Sys.sleep(sample(1))
 }
 
 # plan:

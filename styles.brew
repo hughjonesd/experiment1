@@ -19,6 +19,9 @@ button, input[type='button'] {
   background-color: #DDD;
 }
 
+.ug_example {
+
+}
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

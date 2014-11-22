@@ -42,9 +42,13 @@ then B gets what A offered, and A keeps the rest of the £1.</p>
 both A and B get nothing.</p>
 
 <div class="example">
-<p>If pupil A gives 30p and pupil B's lowest acceptable 
-offer is 20p, then pupil A's offer will be accepted. Pupil B will get 30p and 
-pupil A will get 70p.</p>
+<p>This table shows some examples.</p>
+<table class="ug_example">
+<tr><th>You offer</th>They accept<th></th>They get<th></th>You get<th></th></tr>
+<tr><td>30p</td><td>at least 30p</td><td>30p</td><td>70p</td></tr>
+<tr><td>30p</td><td>at least 50p</td><td>0p</td><td>0p</td></tr>
+<tr><td>60p</td><td>at least 50p</td><td>60p</td><td>40p</td></tr>
+</table>
 </div>
 
 <p>Please choose what offer to make if you are pupil A, and the lowest offer 

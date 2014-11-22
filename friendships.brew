@@ -23,6 +23,8 @@ that hang around together, don't tick any boxes.</p>
       <input type='checkbox' name='friends[]' value='%1$s'>&nbsp;%1$s</label><br>") 
 %>
 </div>
+<br>
+<br>
 <input type='submit' value='Submit'>
 </form>
 </div>

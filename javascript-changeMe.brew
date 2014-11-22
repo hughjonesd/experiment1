@@ -1,0 +1,20 @@
+<script>
+function changeMe(chn, fld) {
+  fld = '#' + fld;
+  var nv;
+  if (document.querySelector(fld).value=='') nv = 0;
+  else nv = Number(document.querySelector(fld).value) + Number(chn);
+  nv = Math.min(100, Math.max(nv, 0));
+  document.querySelector(fld).value = nv;
+  fldout = fld + 'output';
+  document.querySelector(fldout).value = nv;
+  if (fld == '#offer2') {
+    document.querySelector('#offer2keepoutput').value = 100 - nv;
+  } else {
+    document.querySelector('#accept2output2').value = nv;
+  }
+}
+
+
+</script>
+

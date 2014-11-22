@@ -12,7 +12,7 @@ being paid.</p>
 for an experimenter to come and help you privately. <b>Please do <u>not</u> ask
 your question out loud!</b></p>
 
-<p><b>When the experimenter tells you</b>, click "Next".</p>
+<p><b>When the experimenter tells you</b>, press "Next".</p>
 </div>
 <div class="controls">
 <%= next_form("Next") %>

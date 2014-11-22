@@ -1,0 +1,65 @@
+<%= header("Stage Two, Continued") %>
+
+<% brew("styles.brew") %>
+
+<script>
+function changeMe(chn, fld) {
+  fld = '#' + fld;
+  var nv;
+  if (document.querySelector(fld).value=='') nv = 0;
+  else nv = Number(document.querySelector(fld).value) + Number(chn);
+  nv = Math.min(100, Math.max(nv, 0));
+  document.querySelector(fld).value = nv;
+  fldout = fld + 'output';
+  document.querySelector(fldout).value = nv;
+  if (fld == '#offer2') {
+    document.querySelector('#offer2keepoutput').value = 100 - nv;
+  } else {
+    document.querySelector('#accept2output2').value = nv;
+  }
+}
+
+
+</script>
+
+<% brew("errors.brew") %>
+
+
+<div class="instructions">
+<h1>Stage Two, Continued</h1>
+<p>Now suppose that in this stage the other pupil is chosen to have the £1 and
+make the offer.</p>
+
+<p>What is the lowest offer you will accept? Remember, if the other pupil's offer
+is at least as big as this, you will get what they offered and they keep the rest
+of the £1. If their offer is lower than this, both of you get nothing from this stage.</p>
+
+<div class="example">
+<p>Here are the examples again.</p>
+<table class="ug_example">
+<tr><th>They offer</th><th>You accept</th><th>You get</th><th>They get</th></tr>
+<tr><td>30p</td><td>at least 30p</td><td>30p</td><td>70p</td></tr>
+<tr><td>30p</td><td>at least 50p</td><td>0p</td><td>0p</td></tr>
+<tr><td>60p</td><td>at least 50p</td><td>60p</td><td>40p</td></tr>
+</table>
+</div>
+
+</div>
+
+<form method="POST" autocomplete="off" action="">
+<div class="controls">
+Choose the lowest offer you will accept:<br>
+<input type="button" id="minus" value="-" onClick="changeMe(-10, 'accept2')">
+<input type="number" min="0" max="100" step="10" name="accept2" id="accept2" readonly required>
+<input type="button" id="plus" value="+" onClick="changeMe(10, 'accept2')">
+</div>
+
+<div class="decision">
+<h1>Your decision</h1>
+<p>Accept offers of <output for="accept2" id="accept2output">--</output>p or above. If the other pupil offers less than this, both of you will get 0p.</p>
+
+<input type="submit" value="Confirm">
+</div>
+</form>
+
+<%= footer() %>

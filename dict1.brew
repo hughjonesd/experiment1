@@ -18,13 +18,16 @@ function changeDict1(chn) {
 
 <div class="instructions">
 <h1>Stage One</h1>
-<p>In this stage, you will be matched with another pupil 
-in this form. You will not find out the name of your match, and they will 
-not find out your name. One of you will be chosen at random to be <b>pupil A</b>.  The other will be <b>pupil B</b>.</p>
-<p>Pupil A gets £1 and chooses how much to give to pupil B. Pupil A can give 
-any amount between £0 and £1, in multiples of 10p.</p>
-<p>Please choose how much you will give if you are pupil A.</p>
+<p>In this stage, you get £1 in vouchers. The other pupil gets £0. You can give 
+them some, none or all of your vouchers, in multiples of 10p.</p>
+
+<p>Remember, if the computer picks you, your choice will decide how much
+you and the other pupil get from this stage.</p>
+
+<p>Please choose how much you will give the other pupil. Click 'Confirm' when 
+you have made your decision.</p>
 </div>
+
 <form method="POST" autocomplete="off" action="">
 <div class="controls">
 Choose an amount to give: 
@@ -34,9 +37,8 @@ Choose an amount to give:
 </div>
 <div class="decision">
 <h1>Your decision</h1>
-<p>Give <output for="dict1" id="dict1other">--</output>p to pupil B 
+<p>Give <output for="dict1" id="dict1other">--</output>p to the other pupil
 and keep <output for="dict1" id="dict1me">--</output>p for yourself.</p>
-<p>Click 'Confirm' when you have made your decision.</p>
 <input type="submit" value="Confirm">
 </div>
 </form>

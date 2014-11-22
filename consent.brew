@@ -19,7 +19,7 @@ here and read your book instead.</p>
 
 <p>If you want to be in the study, please sign the paper consent form on your desk.</p>
 
-<p><b>When the experimenter tells you</b>, click "Next".</p>
+<p><b>When the experimenter tells you</b>, touch "Next" on the iPad screen.</p>
 </div>
 <div class="controls">
 <%= next_form("Next") %>

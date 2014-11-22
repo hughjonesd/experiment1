@@ -10,10 +10,6 @@ the tuck shop.</p>
 <p>Your first payment is on your desk. It is a voucher for <?= showup ?>p. You
 can get more vouchers in this experiment, depending on how you act.</p>
 
-<p>The experiment has three stages. How you behave 
-in any one stage does not affect any of the other stages. Each stage 
-has separate instructions which you will see on screen when the time comes.</p>
-
 <p>The experiment is <i>not a test</i>. It is <i>not an exam</i>. There are no 
 "right" or "wrong" answers to any of the choices. How you decide is up to you.
 </p>
@@ -23,7 +19,7 @@ your friends. All your answers will be private. We will not show them
 to anybody else. You do not have to answer any questions, but it will help 
 our research if you give accurate answers.</p>
 
-<p><b>When the experimenter tells you</b>, click "Next".</p>
+<p><b>When the experimenter tells you</b>, press "Next".</p>
 </div>
 
 <div class="controls">

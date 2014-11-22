@@ -36,7 +36,7 @@ of the £1. If their offer is lower than this, both of you get nothing from this
 
 <div class="example">
 <p>Here are the examples again.</p>
-<table class="ug_example">
+<table class="ugexample">
 <tr><th>They offer</th><th>You accept</th><th>You get</th><th>They get</th></tr>
 <tr><td>30p</td><td>at least 30p</td><td>30p</td><td>70p</td></tr>
 <tr><td>30p</td><td>at least 50p</td><td>0p</td><td>0p</td></tr>

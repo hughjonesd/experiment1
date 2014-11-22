@@ -13,9 +13,7 @@
 # simple language (consent form)
 # advisory timer
 
-ciu <- TRUE
-showup <- 20 # fee in pence. NB: this is already on their desk, so we don't
-# include in the totalprofit figure
+ciu <- FALSE
 N <- as.numeric(readline("Enter this session's N: "))
 sessno <- as.numeric(readline("Enter the number of this session (1-10): "))
 seed <- c(175804510L, 326704365L, 215164818L, 425463189L, 30750106L, 
@@ -35,7 +33,7 @@ library(reshape2)
 ready_fn <- function() {
   mydf <<- experiment_data_frame(expt, dict1=NA, offer2=NA,
         accept2=NA, accepted2=NA, hchoice=NA, coinflip=NA, coinflip.real=NA,
-        profit=NA, friends=NA, 
+        profit=NA, ngroups=NA, friends=NA, 
         myfriend1=NA, myfriend2=NA, myfriend3=NA,
         friendlike1=NA, friendlike2=NA, friendlike3=NA,
         myname=NA, myname2=NA,
@@ -148,6 +146,15 @@ s_prog_ig <- program(run="last",
   },
   name="IG profit calculations")
 
+
+s_friendsintro <-  form_stage(
+  page=b_brew("friends_intro.brew"),
+  fields=list(ngroups=is_one_of(0:6)), 
+  titles=list(ngroups="Number of groups in your class"),
+  data_frame="mydf", multi_params="paste",
+  name="Questionnaire: friends intro")
+
+
 frcheck <- function(title, values, id, period, params) {
   if (length(values)==1) return("Please tick more than one checkbox to show
     who else hangs around with this pupil.")
@@ -157,10 +164,22 @@ frcheck <- function(title, values, id, period, params) {
         sep=""))
 }
 
- 
+frpagefn <- function(id, period, params, errors) {
+  ng <- mydf$ngroups[mydf$id==id & ! is.na(mydf$ngroups)]
+  done <- FALSE
+  if (length(na.omit(mydf$friends[mydf$id==id])) >= ng) done <- TRUE 
+  # if they couldn't think of anyone else:
+  if (is.na(mydf$friends[mydf$id==id & mydf$period==period-1])) done <- TRUE   
+  # but not if we're on first round:
+  if (! is.na(mydf$ngroups[mydf$id==id & mydf$period==period])) done <- FALSE
+  if (done) return(NEXT)
+  return(b_brew("friendships.brew")(id, period, params, errors))
+}
+
 s_friends <-  form_stage(
-      page=b_brew("friendships.brew"),
-      fields=list(friends=frcheck), titles=list(friends="Groups of friends"),
+      page=frpagefn,
+      fields=list(friends=frcheck), 
+      titles=list(friends="Groups of friends"),
       data_frame="mydf", multi_params="paste",
       name="Questionnaire: friendship networks")
 
@@ -223,6 +242,9 @@ add_stage(expt, checkpoint(),
       period(wait_for="none"), s_dict, s_prog_dict, 
       period(wait_for="none"), s_ug, checkpoint("none"), s_ug_cont, s_prog_ug,
       period(wait_for="none"), s_ig, s_prog_ig,
+      period(wait_for="none"), s_friendsintro, s_friends, 
+      period(wait_for="none"), s_friends, 
+      period(wait_for="none"), s_friends, 
       period(wait_for="none"), s_friends, 
       period(wait_for="none"), s_friends, 
       period(wait_for="none"), s_friends, 

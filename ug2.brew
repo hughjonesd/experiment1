@@ -22,7 +22,7 @@ your offer will be rejected, and both of you will get <b>nothing</b> from this s
 </p>
 
 <p>This table shows some examples.</p>
-<table class="ug_example">
+<table class="ugexample">
 <tr><th>You offer</th><th>They accept</th><th>They get</th><th>You get</th></tr>
 <tr><td>30p</td><td>at least 30p</td><td>30p</td><td>70p</td></tr>
 <tr><td>30p</td><td>at least 50p</td><td>0p</td><td>0p</td></tr>

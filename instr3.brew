@@ -2,7 +2,13 @@
 <% brew("styles.brew") %>
 
 <div class="instructions">
-<p>After the experiment and the questionnaire, we will calculate how many
+
+<p>After the experiment there will be some questions about you and 
+your friends. All your answers will be private. We will not show them 
+to anybody else. You do not have to answer any questions, but it will help 
+our research if you give accurate answers.</p>
+
+<p>After the questionnaire, we will calculate how many
 vouchers each pupil gets and hand them out to you. We will hand them out in 
 envelopes, so nobody else can see how much you got.</p>
 

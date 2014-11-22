@@ -21,11 +21,11 @@ button, input[type='button'], input[type='submit'] {
   background-color: #DDD;
 }
 
-table.ug_example {
+table.ugexample {
   border-collapse: collapse;
 }
 
-table.ug_example, tr, th, td {
+table.ugexample, tr, th, td {
   border: 1px solid #BBB;
   padding-left: 8px;
   padding-right: 8px;
@@ -35,10 +35,21 @@ table.ug_example, tr, th, td {
 tr:nth-child(even) {
   background: #EEE;
 }
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
+
+.flipcontainer {
+  float: right;
+}
+
+#coin {
+  padding:10px; 
+  height: 160px; 
+  width: 160px;
+}  
 
 .instructions {
   border: 1px solid #CCC; 
@@ -81,5 +92,6 @@ body, table, input {
   font-family: Verdana, sans-serif;
   font-size: large;
 }
+
 
 </style>

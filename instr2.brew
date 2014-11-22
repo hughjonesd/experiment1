@@ -1,4 +1,4 @@
-<%= header("Instructions Page 1") %>
+<%= header("Instructions Page 2") %>
 <% brew("styles.brew") %>
 
 <div class="instructions">

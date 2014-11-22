@@ -2,6 +2,8 @@
 
 library(RCurl)
 N <- 18
+pn <- commandArgs(TRUE)
+if (length(pn)) N <- pn
 cat(commandArgs(), "\n")
 while (TRUE) {
   res <- sapply(1:N, function(i) 

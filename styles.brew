@@ -25,9 +25,11 @@ table.ug_example {
   border-collapse: collapse;
 }
 
-table, tr, th, td {
+table.ug_example, tr, th, td {
   border: 1px solid #BBB;
-  padding: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-size: medium;
 }
 
 tr:nth-child(even) {

@@ -46,10 +46,11 @@ ready_fn <- function() {
 expt <- experiment(N=N, clients_in_url=ciu, on_ready=ready_fn, 
       seed=seed, randomize_ids=TRUE, autostart=TRUE, client_refresh=1)
 
-s_consent <- text_stage(page=b_brew("consent.brew"), wait=TRUE, name="Consent")
-s_rules <- text_stage(page=b_brew("rules.brew"), wait=TRUE, name="Rules")
-s_instr <- text_stage(page=b_brew("instr.brew"), wait=TRUE, name="Instructions")
+s_consent <-text_stage(page=b_brew("consent.brew"), wait=TRUE, name="Consent")
+s_rules <-  text_stage(page=b_brew("rules.brew"), wait=TRUE, name="Rules")
+s_instr <-  text_stage(page=b_brew("instr.brew"), wait=TRUE, name="Instructions")
 s_instr2 <- text_stage(page=b_brew("instr2.brew"), wait=TRUE, name="Instructions 2")
+s_instr3 <- text_stage(page=b_brew("instr3.brew"), wait=TRUE, name="Instructions 3")
 
 s_dict <- form_stage(page=b_brew("dict1.brew"), 
       fields=list(dict1=is_one_of(0:10*10)),
@@ -218,7 +219,7 @@ s_show_result <- text_stage(page=b_brew("results.brew"), name="Final results")
 
 add_stage(expt, checkpoint(),
       s_consent, checkpoint(), s_rules, checkpoint(), s_instr,
-      checkpoint(), s_instr2,
+      checkpoint(), s_instr2, checkpoint(), s_instr3,
       period(wait_for="none"), s_dict, s_prog_dict, 
       period(wait_for="none"), s_ug, checkpoint("none"), s_ug_cont, s_prog_ug,
       period(wait_for="none"), s_ig, s_prog_ig,

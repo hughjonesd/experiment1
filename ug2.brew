@@ -7,21 +7,20 @@
 
 <div class="instructions">
 <h1>Stage Two</h1>
-<p>You have now been matched with a new, different pupil in this room.</p>
+<p>You have been matched with a new, different pupil.</p>
 
 <p>In this stage, you get £1 and decide how much to offer to the other pupil.
-However, this time, they will be able to accept or reject your offer. On the next
-screen, we will ask you both what the smallest amount is that you'll accept.</p>
+However, this time, they can accept or reject your offer. On the next
+screen, we will ask you both for the smallest amount that you will accept.</p>
 
 <p>If your offer is <i>as big
 or bigger than</i> the smallest amount your pair will accept, then they get what you 
 offered and you keep the rest of the £1, just like the last stage.</p>
 
 <p>If your offer is <i>lower</i> than what the other pupil will accept, then
-your offer will be rejected, and <b>both of you will get nothing from this stage.
-</b></p>
+your offer will be rejected, and both of you will get <b>nothing</b> from this stage.
+</p>
 
-<div class="example">
 <p>This table shows some examples.</p>
 <table class="ug_example">
 <tr><th>You offer</th><th>They accept</th><th>They get</th><th>You get</th></tr>
@@ -29,7 +28,6 @@ your offer will be rejected, and <b>both of you will get nothing from this stage
 <tr><td>30p</td><td>at least 50p</td><td>0p</td><td>0p</td></tr>
 <tr><td>60p</td><td>at least 50p</td><td>60p</td><td>40p</td></tr>
 </table>
-</div>
 
 <p>Please choose what offer to make.</p>
 </div>

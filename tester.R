@@ -2,7 +2,8 @@
 
 library(RCurl)
 N <- 18
-cat(commandArgs(), "\n")
+pn <- commandArgs(TRUE)
+if (length(pn)) N <- pn
 while (TRUE) {
   res <- sapply(1:N, function(i) 
           getURL(paste0("http://54.194.17.233/betr/betr/client-", i)))

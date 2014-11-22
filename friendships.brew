@@ -3,7 +3,7 @@
 
 <% brew("errors.brew") %>
 <%
-  frcount <- period - 2
+  frcount <- period - 3
 %>
 <div class='instructions'>
 <h1>Questionnaire: Friends <%= frcount %></h1>

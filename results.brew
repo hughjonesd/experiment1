@@ -1,50 +1,56 @@
 <%= header("Results") %>
 <% brew("styles.brew") %>
-<% 
-ukp <- function(x) format(x/100, nsmall=2)
-%>
+<% ukp <- function(x) format(x/100, nsmall=2) %>
 
 <div>
 <h1>Results</h1>
 
 <% moi <- mydf[mydf$id==id & mydf$period==1,] %>
-<p>In stage 1, you were pupil <b><%= moi$role %></b>. 
+<p>
 <% if (moi$role=="A") { %>
-You gave £<%= ukp(moi$dict1) %> to pupil B. 
+In Stage One, you were chosen from your pair. You gave £<%= ukp(moi$dict1) %> to the
+other pupil. 
 <% } else { %>
-Pupil A gave £<%= ukp(moi$profit) %> to you. 
+In Stage One, the other pupil was chosen. He gave £<%= ukp(moi$profit) %> to you. 
 <% } %>
-You get <b>£<%= ukp(moi$profit) %></b> from stage 1.
 </p>
+<p>You get <b>£<%= ukp(moi$profit) %></b> from Stage One.</p>
 
 
 <% moi <- mydf[mydf$id==id & mydf$period==2,] %>
 <p>
 <% if (moi$role=="A") { %>
-In stage 2, you were pupil <b>A</b>. You offered £<%= ukp(moi$offer2) %> to pupil B. 
-This offer was <%= if (moi$accepted2) "accepted" else "rejected" %>.
+In Stage Two, you were chosen to make the offer. You offered £<%= ukp(moi$offer2) %>
+to the other pupil. This offer was <%= if (moi$accepted2) "accepted" else "rejected" %>.
 <% } else { %>
-In stage 2, you were pupil <b>B</b>. You accepted <%= sum(mydf$accepted2[mydf$period==2 & mydf$pair==moi$pair], na.rm=TRUE) %> offers from other pupils.
+In Stage Two, the other pupil was chosen to make the offer. You were matched with <%= length(mydf$accepted2[mydf$period==2 & mydf$pair==moi$pair], na.rm=TRUE) %> other pupil(s). (You might be matched with 2 pupils if there is an odd number of people
+in the room.) You accepted <%= sum(mydf$accepted2[mydf$period==2 & mydf$pair==moi$pair], na.rm=TRUE) %> offers from the other pupil(s). The total offered was £<%= ukp(moi$profit) %>.
 <% } %>
-You get <b>£<%= ukp(moi$profit) %></b> from stage 2.
 </p>
+<p>You get <b>£<%= ukp(moi$profit) %></b> from Stage Two.</p>
 
 <% moi <- mydf[mydf$id==id & mydf$period==3,] %>
 <p>
 <% if (moi$role=="A") { %>
-In stage 3, you were pupil <b>A</b>. You chose to <%= if (moi$hchoice=="keep") 
-      "keep the £1." else "give the £1 to pupil B." %>
+In Stage Three, you were chosen. You chose to <%= if (moi$hchoice=="keep") 
+      "keep the £1." else "give the £1 to the other pupil." %>
 <% } else { %>
-In stage 3, you were pupil <b>B</b>. Pupil A chose to <%= if (moi$profit==0) 
+In stage 3, the other pupil was chosen. They chose to <%= if (moi$profit==0) 
       "keep the £1." else "give the £1 to you." %>
 <% } %>
-You get <b>£<%= ukp(moi$profit) %></b> from stage 3.
+You get <b>£<%= ukp(moi$profit) %></b> from Stage Three.
 </p>
 
-<p>In total, you will receive <b>£<%= ukp(globals$totalprofit[globals$id==id]) %></b>.
+<p>In total, you will receive <b>£<%= ukp(globals$totalprofit[globals$id==id]) %></b>, as well as your initial 20p.
 </p>
 
-<p>Please wait quietly until you are asked to leave the room.</p>
+<p>Please wait quietly while we hand out vouchers. When we have finished,
+please leave the room quietly.</p>
+
+<h1>One more thing!</h1>
+<p>If you enjoyed this experiment, please don't tell anybody else in the other
+classes about it until this afternoon! We don't want them to know about it
+in advance.</p>
 </div>
 
 <%= footer() %>

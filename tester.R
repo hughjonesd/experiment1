@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #!/usr/bin/Rscript
 library(RCurl)
 

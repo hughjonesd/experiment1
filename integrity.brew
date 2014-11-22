@@ -4,15 +4,16 @@
 <script>
 var flipped = false;
 function flip() {
+  if (flipped) return();
   var result = Math.floor(Math.random() * 2); // 0 or 1
   var result2;
   var picsrc;
   if (result==1) result2 = "heads"; else result2 = "tails";
   if (result==1) picsrc = "http://54.194.17.233/images/experiment1/heads.jpg"; 
         else picsrc = "http://54.194.17.233/images/experiment1/tails.jpg";
-  if (! flipped) document.getElementById('coinflip.real').value = result2;
-  flipped = true;
+  document.getElementById('coinflip.real').value = result2;
   document.getElementById('coin').src = picsrc;
+  flipped = true;
 }
 
 function report(choice) {
@@ -52,6 +53,7 @@ tails.</p>
 <label><input type="radio" name="hchoice" value="keep" onclick="report('keep')"> Keep the £1.</label><br>
 <label><input type="radio" name="hchoice" value="give" onclick="report('give')"> Give the £1 to pupil B.</label><br>
 <br>
+<p>Did you flip the coin to decide what to do?</p>
 <label><input type="radio" name="coinflip" value="no"> I did not flip the coin.</label><br>
 <label><input type="radio" name="coinflip" value="heads"> I flipped the coin and got "heads" (keep the £1).</label><br>
 <label><input type="radio" name="coinflip" value="tails"> I flipped the coin and got "tails" (give the £1 to pupil B).</label><br>

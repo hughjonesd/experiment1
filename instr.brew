@@ -28,7 +28,7 @@ our research if you give accurate answers.</p>
 <p>If you have a question, now or later, please raise your hand and wait 
 for an experimenter to come and help you privately.</p>
 
-<p>When the experimenter tells you, you may click "Begin the experiment".</p>
+<p><b>When the experimenter tells you</b>, click "Begin the experiment".</p>
 </div>
 
 <%= next_form("Begin the experiment") %>

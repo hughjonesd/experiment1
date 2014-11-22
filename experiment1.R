@@ -212,5 +212,6 @@ add_stage(expt,
       period(wait_for="none"), s_myfriends, s_friends_like, s_qnaire,
       period(wait_for="none"), s_final_calcs, s_show_result
       )
-ready(expt)
+
 load_commands(expt)
+

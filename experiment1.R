@@ -14,6 +14,8 @@
 # advisory timer
 
 ciu <- TRUE
+showup <- 20 # fee in pence. NB: this is already on their desk, so we don't
+# include in the totalprofit figure
 N <- as.numeric(readline("Enter this session's N: "))
 sessno <- as.numeric(readline("Enter the number of this session (1-10): "))
 seed <- c(175804510L, 326704365L, 215164818L, 425463189L, 30750106L, 
@@ -45,8 +47,8 @@ expt <- experiment(N=N, clients_in_url=ciu, on_ready=ready_fn, seats_file=NULL,
       seed=seed, randomize_ids=TRUE, autostart=TRUE, client_refresh=30)
 
 s_consent <- text_stage(page=b_brew("consent.brew"), wait=TRUE, name="Consent")
-s_instrns <- text_stage(page=b_brew("instr.brew"), wait=TRUE, 
-      name="Instructions")
+s_rules <- text_stage(page=b_brew("rules.brew"), wait=TRUE, name="Rules")
+s_instrns <- text_stage(page=b_brew("instr.brew"), wait=TRUE, name="Instructions")
 
 s_dict <- form_stage(page=b_brew("dict1.brew"), 
       fields=list(dict1=is_one_of(0:10*10)),
@@ -192,14 +194,15 @@ s_final_calcs <- program(run="first",
     globals <<- dcast(melt(mydf[,c("id", "period", "profit")], id=1:2), 
           id ~ period)
     globals$totalprofit <<- rowSums(globals[-1], na.rm=TRUE)
+    globals$totalprofit <<- globals$totalprofit
     write_data(expt, mydf)
   }, 
   name="Final calculations")
 
 s_show_result <- text_stage(page=b_brew("results.brew"), name="Final results")
 
-add_stage(expt, 
-      s_consent, s_instrns, 
+add_stage(expt, checkpoint(),
+      s_consent, checkpoint(), s_rules, checkpoint(), s_instrns,
       period(wait_for="none"), s_dict, s_prog_dict, 
       period(wait_for="none"), s_ug, s_prog_ug,
       period(wait_for="none"), s_ig, s_prog_ig,

@@ -1,4 +1,4 @@
-<%= header("Instructions") %>
+<%= header("Instructions Page 1") %>
 <% brew("styles.brew") %>
 
 <div class="instructions">
@@ -7,7 +7,10 @@ much you receive for taking part. This money will be paid to you in the form of
 vouchers for the school tuck shop. You can spend it on anything you like in 
 the tuck shop.</p>
 
-<p>The experiment has four stages. How you behave 
+<p>Your first payment is on your desk. It is a voucher for <?= showup ?>p. You
+can get more vouchers in this experiment, depending on how you act.</p>
+
+<p>The experiment has three stages. How you behave 
 in any one stage does not affect any of the other stages. Each stage 
 has separate instructions which you will see on screen when the time comes.</p>
 
@@ -15,21 +18,15 @@ has separate instructions which you will see on screen when the time comes.</p>
 "right" or "wrong" answers to any of the choices. How you decide is up to you.
 </p>
 
-<p>Please stay silent during the experiment, and do not use mobile phones or 
-other communication devices. Please follow the experimenters' instructions at 
-all times. If you do not follow these rules, you may be asked to leave without 
-being paid.</p>
-
 <p>After the experiment there will be some questions about you and 
 your friends. All your answers will be private. We will not show them 
 to anybody else. You do not have to answer any questions, but it will help 
 our research if you give accurate answers.</p>
 
-<p>If you have a question, now or later, please raise your hand and wait 
-for an experimenter to come and help you privately.</p>
-
-<p><b>When the experimenter tells you</b>, click "Begin the experiment".</p>
+<p><b>When the experimenter tells you</b>, click "Next".</p>
 </div>
 
-<%= next_form("Begin the experiment") %>
+<div class="controls">
+<%= next_form("Next") %>
+</div>
 <%= footer() %>

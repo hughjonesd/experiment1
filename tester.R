@@ -6,7 +6,6 @@ while (TRUE) {
   res <- sapply(1:N, function(i) 
           getURL(paste0("http://54.194.17.233/betr/betr/client-", i)))
    if (! any(grepl("aiting", res))) cat("Error\n")
-  Sys.sleep(sample(1))
 }
 
 # plan:

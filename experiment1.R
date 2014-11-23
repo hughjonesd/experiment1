@@ -238,8 +238,8 @@ s_final_calcs <- program(run="first",
 s_show_result <- text_stage(page=b_brew("results.brew"), name="Final results")
 
 add_stage(expt, checkpoint(),
-      s_consent, checkpoint(), s_rules, checkpoint(), s_instr,
-      checkpoint(), s_instr2, checkpoint(), s_instr3,
+#      s_consent, checkpoint(), s_rules, checkpoint(), s_instr,
+#      checkpoint(), s_instr2, checkpoint(), s_instr3,
       period(wait_for="none"), s_dict, s_prog_dict, 
       period(wait_for="none"), s_ug, checkpoint("none"), s_ug_cont, s_prog_ug,
       period(wait_for="none"), s_ig, s_prog_ig,

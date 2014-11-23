@@ -28,6 +28,7 @@ function report(choice) {
 <% brew("errors.brew") %>
 
 <div class="instructions">
+<% brew("timer.brew") %>
 <h1>Stage Three</h1>
 <p>You have again been matched with a different pupil in this room.</p>
 <p>In this stage, you get £1. You can either keep the £1, or give it to the other pupil. If you wish, you can "flip the coin" onscreen to decide whether to keep the £1 

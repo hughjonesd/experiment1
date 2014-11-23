@@ -13,6 +13,10 @@ button, input[type='button'], input[type='submit'] {
   height: 2.5em;
 }
 
+#timer {
+  float: right;
+}
+
 #friends {
   -webkit-column-count: 3; 
   -moz-column-count: 3; 
@@ -93,6 +97,7 @@ input::-webkit-inner-spin-button {
 h1 {
   font-weight: bold;
   font-size: large;
+  vertical-align: bottom;
 }
 
 body, table, input, select {
@@ -100,5 +105,16 @@ body, table, input, select {
   font-size: large;
 }
 
+@-webkit-keyframes blinker { 
+  from { opacity: 1.0; } to { opacity: 0.0; } 
+} 
+
+.timerblink { 
+  color: #D00;
+  -webkit-animation-name: blinker; 
+  -webkit-animation-iteration-count: infinite; 
+  -webkit-animation-timing-function: cubic-bezier(1.0,0,0,1.0); 
+  -webkit-animation-duration: 1s;
+}
 
 </style>

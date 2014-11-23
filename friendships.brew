@@ -6,6 +6,7 @@
   frcount <- period - 3
 %>
 <div class='instructions'>
+<% brew("timer.brew") %>
 <h1>Questionnaire: Friends <%= frcount %></h1>
 <p>Please tick the names of the pupils in the <i>
 <%= 

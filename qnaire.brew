@@ -4,8 +4,10 @@
 <% brew("errors.brew") %>
 
 <div class='instructions'>
-<h1>Questionnaire</h1></div>
+<% brew("timer.brew") %>
+<h1>Questionnaire</h1>
 <p>Just a few more questions! Please answer them and click 'submit'.</p>
+</div>
 
 <div class='controls'>
 <%

@@ -33,7 +33,6 @@ function report(choice) {
 <form method="POST" autocomplete="off" action="">
 <div class="controls">
 <div id="coinflip" onClick="flip();" ontouchstart="flip();">
-
 </div>
 <br>
 <p>Will you keep the £1 or give it to the other pupil?</p>

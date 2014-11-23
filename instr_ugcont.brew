@@ -1,0 +1,11 @@
+<%= header("Instructions Stage 2 Part 2") %>
+<% brew("styles.brew") %>
+
+<div class="instructions">
+<% brew("instr_ugcont_inner.brew") %>
+</div>
+
+<div class="controls">
+<%= next_form("Next") %>
+</div>
+<%= footer() %>

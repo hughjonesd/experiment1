@@ -72,9 +72,9 @@ input::-webkit-inner-spin-button {
 
 .slidedown {
   max-height: 800px;
-  -webkit-transition: max-height 1.2s, color 0.6s;
-  -moz-transition: max-height 1.2s, color 0.6s;
-	transition: max-height 1.2s, color 0.6s;
+  -webkit-transition: max-height 1.2s, color 1.2s;
+  -moz-transition: max-height 1.2s, color 1.2s;
+	transition: max-height 1.2s, color 1.2s;
   overflow: hidden;
   color: #000;
 }

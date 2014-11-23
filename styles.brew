@@ -52,15 +52,15 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
 
-.flipcontainer {
+#coinflip {
   float: right;
-}
-
-#coin {
+  margin:0 auto;
   padding:10px; 
   height: 160px; 
   width: 160px;
-}  
+  transition: background-image 1s ease-in-out;
+  background-image:url("/images/hidden.jpg");
+}
 
 .instructions {
   border: 1px solid #CCC; 

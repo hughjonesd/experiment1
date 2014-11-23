@@ -17,7 +17,7 @@ experiment, the computer will pick one of each pair at random. If you are picked
 <p>You will have <%= countdown  %> seconds to make each choice. After this
 you will see a reminder to hurry up.</p>
 
-<p><b>When the experimenter tells you</b>, press "Next".</p>
+<p>When the experimenter tells you, press "Next".</p>
 </div>
 
 <div class="controls">

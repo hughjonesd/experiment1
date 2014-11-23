@@ -1,11 +1,11 @@
-<h1>Stage One</h1>
+<%= header("Instructions Stage 1") %>
+<% brew("styles.brew") %>
 
-<p>In this stage, you get £1 in vouchers. The other pupil gets £0. You can give 
-them some, none or all of your vouchers, in multiples of 10p.</p>
+<div class="instructions">
+<% brew("instr_dict_inner.brew") %>
+</div>
 
-<p>Remember, if the computer picks you, your choice will decide how much
-you and the other pupil get from this stage.</p>
-
-<p>Please choose how much you will give the other pupil. Click 'Confirm' when 
-you have made your decision.</p>
-
+<div class="controls">
+<%= next_form("Next") %>
+</div>
+<%= footer() %>

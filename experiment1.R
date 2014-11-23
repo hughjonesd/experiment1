@@ -13,7 +13,7 @@
 # simple language (consent form)
 # advisory timer
 
-ciu <- FALSE
+ciu <- TRUE
 countdown <- 90 # 2 mins before you hassle subjects
 N <- as.numeric(readline("Enter this session's N: "))
 sessno <- as.numeric(readline("Enter the number of this session (1-10): "))
@@ -56,16 +56,8 @@ s_prog_timer <- program(run="all", function(id, period) {
   timeout[id] <<- as.numeric(Sys.time()) + countdown 
 }, name="Start timer")
 
-brew_instr <- function(ib, it) {
-  function(id, period, params, error) {
-    innerbrew <- ib
-    ititle <- it
-    b_brew("instr_shell.brew")(id, period, params, error)
-  }
-}
-s_instr_dict <- text_stage(page=brew_instr("instr_dict.brew", 
-      "Instructions Stage One"), wait=TRUE, name="Rules")
 
+s_instr_dict <- text_stage(page=b_brew("instr_dict.brew"), wait=TRUE, name="Stage 1 Instructions")
 
 s_dict <- form_stage(page=b_brew("dict1.brew"), 
       fields=list(dict1=is_one_of(0:10*10)),
@@ -92,6 +84,10 @@ s_prog_dict <- program(run="last",
     }
   }, 
   name="DG profit calculations")
+
+
+s_instr_ug <- text_stage(page=b_brew("instr_ug.brew"), wait=TRUE, 
+      name="Stage 2 Instructions")
 
 s_ug <- form_stage(page=b_brew("ug2.brew"),
       fields=list(offer2=is_one_of(0:10*10)),
@@ -131,6 +127,8 @@ s_prog_ug <- program(run="last",
   }, 
   name="UG profit calculations")
 
+s_instr_ig <- text_stage(page=b_brew("instr_ig.brew"), wait=TRUE, 
+  name="Stage 3 Instructions")
 
 s_ig <- form_stage(
       page=b_brew("integrity.brew"),
@@ -253,12 +251,14 @@ s_final_calcs <- program(run="first",
 s_show_result <- text_stage(page=b_brew("results.brew"), name="Final results")
 
 add_stage(expt, checkpoint(),
-      s_consent, checkpoint(), s_rules, checkpoint(), s_instr,
-      checkpoint(), s_instr2, checkpoint(), s_instr3,
-      period(wait_for="none"), s_prog_timer, s_dict, s_prog_dict, 
-      period(wait_for="none"), s_prog_timer, s_ug, checkpoint("none"), 
+#      s_consent, checkpoint(), s_rules, checkpoint(), s_instr,
+#      checkpoint(), s_instr2, checkpoint(), s_instr3,
+      period(wait_for="all"), s_instr_dict, checkpoint(), 
+      s_prog_timer, s_dict, s_prog_dict, 
+      period(wait_for="all"), s_instr_ug, checkpoint(),
+      s_prog_timer, s_ug, checkpoint(), 
       s_prog_timer, s_ug_cont, s_prog_ug,
-      period(wait_for="none"), s_prog_timer, s_ig, s_prog_ig,
+      period(wait_for="all"), s_prog_timer, s_ig, s_prog_ig,
       period(wait_for="none"), s_prog_timer, s_friendsintro, s_friends, 
       period(wait_for="none"), s_prog_timer, s_friends, 
       period(wait_for="none"), s_prog_timer, s_friends, 

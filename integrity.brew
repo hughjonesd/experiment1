@@ -23,9 +23,10 @@ function report(choice) {
 }
 
 </script>
+<% brew("onload_div_toggle.brew") %>
 
 <% brew("errors.brew") %>
-<div class="instructions slidedown" onclick="toggleHeight(this)">
+<div class="instructions slidedown" id="instructions" onclick="toggleHeight(this)">
 <% brew("timer.brew") %>
 <% brew("instr_ig_inner.brew") %>
 </div>

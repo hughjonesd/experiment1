@@ -6,7 +6,7 @@
 <div class='instructions'>
 <% brew("timer.brew") %>
 <h1>Questionnaire</h1>
-<p>Just a few more questions! Please answer them and click 'submit'.</p>
+<p>These are the last questions.</p>
 </div>
 
 <div class='controls'>

@@ -35,7 +35,7 @@ library(reshape2)
 ready_fn <- function() {
   mydf <<- experiment_data_frame(expt, dict1=NA, offer2=NA,
         accept2=NA, accepted2=NA, hchoice=NA, coinflip=NA, coinflip.real=NA,
-        profit=NA, friends=NA, 
+        profit=NA, ngroups=NA, friends=NA, 
         myfriend1=NA, myfriend2=NA, myfriend3=NA,
         friendlike1=NA, friendlike2=NA, friendlike3=NA,
         myname=NA, myname2=NA,
@@ -46,10 +46,11 @@ ready_fn <- function() {
 expt <- experiment(N=N, clients_in_url=ciu, on_ready=ready_fn, 
       seed=seed, randomize_ids=TRUE, autostart=TRUE, client_refresh=1)
 
-s_consent <- text_stage(page=b_brew("consent.brew"), wait=TRUE, name="Consent")
-s_rules <- text_stage(page=b_brew("rules.brew"), wait=TRUE, name="Rules")
-s_instr <- text_stage(page=b_brew("instr.brew"), wait=TRUE, name="Instructions")
+s_consent <-text_stage(page=b_brew("consent.brew"), wait=TRUE, name="Consent")
+s_rules <-  text_stage(page=b_brew("rules.brew"), wait=TRUE, name="Rules")
+s_instr <-  text_stage(page=b_brew("instr.brew"), wait=TRUE, name="Instructions")
 s_instr2 <- text_stage(page=b_brew("instr2.brew"), wait=TRUE, name="Instructions 2")
+s_instr3 <- text_stage(page=b_brew("instr3.brew"), wait=TRUE, name="Instructions 3")
 
 s_dict <- form_stage(page=b_brew("dict1.brew"), 
       fields=list(dict1=is_one_of(0:10*10)),
@@ -147,6 +148,15 @@ s_prog_ig <- program(run="last",
   },
   name="IG profit calculations")
 
+
+s_friendsintro <-  form_stage(
+  page=b_brew("friends_intro.brew"),
+  fields=list(ngroups=is_one_of(0:6)), 
+  titles=list(ngroups="Number of groups in your class"),
+  data_frame="mydf", multi_params="paste",
+  name="Questionnaire: friends intro")
+
+
 frcheck <- function(title, values, id, period, params) {
   if (length(values)==1) return("Please tick more than one checkbox to show
     who else hangs around with this pupil.")
@@ -156,10 +166,22 @@ frcheck <- function(title, values, id, period, params) {
         sep=""))
 }
 
- 
+frpagefn <- function(id, period, params, errors) {
+  ng <- mydf$ngroups[mydf$id==id & ! is.na(mydf$ngroups)]
+  done <- FALSE
+  if (length(na.omit(mydf$friends[mydf$id==id])) >= ng) done <- TRUE 
+  # if they couldn't think of anyone else:
+  if (is.na(mydf$friends[mydf$id==id & mydf$period==period-1])) done <- TRUE   
+  # but not if we're on first round:
+  if (! is.na(mydf$ngroups[mydf$id==id & mydf$period==period])) done <- FALSE
+  if (done) return(NEXT)
+  return(b_brew("friendships.brew")(id, period, params, errors))
+}
+
 s_friends <-  form_stage(
-      page=b_brew("friendships.brew"),
-      fields=list(friends=frcheck), titles=list(friends="Groups of friends"),
+      page=frpagefn,
+      fields=list(friends=frcheck), 
+      titles=list(friends="Groups of friends"),
       data_frame="mydf", multi_params="paste",
       name="Questionnaire: friendship networks")
 
@@ -218,10 +240,13 @@ s_show_result <- text_stage(page=b_brew("results.brew"), name="Final results")
 
 add_stage(expt, checkpoint(),
       s_consent, checkpoint(), s_rules, checkpoint(), s_instr,
-      checkpoint(), s_instr2,
+      checkpoint(), s_instr2, checkpoint(), s_instr3,
       period(wait_for="none"), s_dict, s_prog_dict, 
       period(wait_for="none"), s_ug, checkpoint("none"), s_ug_cont, s_prog_ug,
       period(wait_for="none"), s_ig, s_prog_ig,
+      period(wait_for="none"), s_friendsintro, s_friends, 
+      period(wait_for="none"), s_friends, 
+      period(wait_for="none"), s_friends, 
       period(wait_for="none"), s_friends, 
       period(wait_for="none"), s_friends, 
       period(wait_for="none"), s_friends, 

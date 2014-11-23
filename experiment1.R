@@ -171,7 +171,7 @@ frpagefn <- function(id, period, params, errors) {
   if (length(na.omit(mydf$friends[mydf$id==id])) >= ng) return(NEXT)
   # if they couldn't think of anyone else, and it's not the first qn
   if (is.na(mydf$friends[mydf$id==id & mydf$period==period-1]) &&
-        is.na(mydf$ngroups[mydf$id==id & mydf$period==period]) return(NEXT) 
+        is.na(mydf$ngroups[mydf$id==id & mydf$period==period])) return(NEXT) 
   return(b_brew("friendships.brew")(id, period, params, errors))
 }
 

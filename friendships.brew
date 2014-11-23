@@ -13,6 +13,8 @@
   if (frcount==1) "first" else if (frcount==2) "second" else 
         if (frcount==3) "third" else paste0(frcount, "th") 
 %></i> group of friends you thought of.</p>
+<p>Remember, by groups of friends we mean pupils who are all friends with each
+other.</p>
 <p>If you cannot think any <%= if (frcount>1) "other " else "" %>pupils 
 that are friends with each other, don't tick any boxes.</p>
 <p>When you have finished, click 'Submit'.</p>

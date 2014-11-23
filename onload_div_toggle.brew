@@ -1,0 +1,3 @@
+<script>
+window.onload = function() toggleHeight(document.getElementById('instructions'));
+</script>

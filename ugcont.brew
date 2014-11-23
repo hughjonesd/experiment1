@@ -40,7 +40,7 @@ of the £1. If their offer is lower than this, both of you get nothing from this
 <div class="example">
 <p>Here are the examples again.</p>
 <table class="ugexample">
-<tr><th>You offer</th><th>They accept offers of</th><th>They get</th><th>You get</th></tr>
+<tr><th>They offer</th><th>You accept offers of</th><th>You get</th><th>They get</th></tr>
 <tr><td>30p</td><td>30p or more</td><td>30p</td><td>70p</td></tr>
 <tr><td>30p</td><td>50p or more</td><td>0p</td><td>0p</td></tr>
 <tr><td>60p</td><td>50p or more</td><td>60p</td><td>40p</td></tr>

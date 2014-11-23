@@ -14,7 +14,7 @@ Also, in each stage, you will be matched with a different person. You will never
 how many tuck shop vouchers you and the other pupil get. At the end of the 
 experiment, the computer will pick one of each pair at random. If you are picked, then your choice will determine how many vouchers you and your pair get from that stage.</p>
 
-<p>You will have <%= countdown / 60  %> minutes to make each choice. After this
+<p>You will have <%= countdown  %> seconds to make each choice. After this
 you will see a reminder to hurry up.</p>
 
 <p><b>When the experimenter tells you</b>, press "Next".</p>

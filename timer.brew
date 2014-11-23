@@ -10,4 +10,4 @@ function myTimer() {
     if (mytime < 10) el.className =  'timerblink';
 }
 </script>
-<div id="timer"></div>
+<div id="timer" class="timer"></div>

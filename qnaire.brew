@@ -15,11 +15,10 @@
   fopts <- c('<option value="">Select here:</option>\n', fopts)
 %>
 <form method='POST' action=''>
-<p>What is your name? <select name='myname'><%= fopts %></select></p>
-<p>If your name is not in the dropdown box, type it in here:
-<input type='text' size='30' name='myname2' value='Your name'></p>
+<p>Choose your name from the list: <select name='myname'><%= fopts %></select></p>
+<p>If your name is not in the list, type it in here:
+<input type='text' size='30' name='myname2' placeholder='Your name'></p>
 
-</div>
 <input type='submit' value='Submit'>
 </form>
 </div>

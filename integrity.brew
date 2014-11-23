@@ -25,14 +25,9 @@ function report(choice) {
 </script>
 
 <% brew("errors.brew") %>
-
 <div class="instructions">
 <% brew("timer.brew") %>
-<h1>Stage Three</h1>
-<p>You have again been matched with a different pupil in this room.</p>
-<p>In this stage, you get £1. You can either keep the £1, or give it to the other pupil. If you wish, you can "flip the coin" onscreen to decide whether to keep the £1 
-or give it. "Heads" means <i>keep the £1</i>. "Tails" means <i>give the £1 away</i>. This is a fair way to decide.</p>
-<p>Please choose whether you will give the £1 or keep the £1. Also tell us whether you flipped the coin, and if so, whether you got heads or tails.</p>
+<% brew("instr_ig_inner.brew") %>
 </div>
 
 <form method="POST" autocomplete="off" action="">

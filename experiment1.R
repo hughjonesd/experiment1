@@ -56,6 +56,17 @@ s_prog_timer <- program(run="all", function(id, period) {
   timeout[id] <<- as.numeric(Sys.time()) + countdown 
 }, name="Start timer")
 
+brew_instr <- function(ib, it) {
+  function(id, period, params, error) {
+    innerbrew <- ib
+    ititle <- it
+    b_brew("instr_shell.brew")(id, period, params, error)
+  }
+}
+s_instr_dict <- text_stage(page=brew_instr("instr_dict.brew", 
+      "Instructions Stage One"), wait=TRUE, name="Rules")
+
+
 s_dict <- form_stage(page=b_brew("dict1.brew"), 
       fields=list(dict1=is_one_of(0:10*10)),
       titles=list(dict1="Amount to give"), data_frame="mydf", 

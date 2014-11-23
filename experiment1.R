@@ -16,7 +16,7 @@
 
 # Rprofmem("Rprofmem.out", threshold = 1000)
 ciu <- FALSE
-countdown <- 120 # 2 mins before you hassle subjects
+countdown <- 90 # 2 mins before you hassle subjects
 N <- 2 
 sessno <- 1
 seed <- c(175804510L, 326704365L, 215164818L, 425463189L, 30750106L, 

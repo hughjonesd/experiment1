@@ -8,13 +8,14 @@ has separate instructions which you will see on screen when the time comes.</p>
 
 <p>In each stage, you will be matched in a pair with another pupil in this room.
 You will not find out who this other pupil is, and they will not know who you are.
-But they will be somebody else in this room. Also, in each stage, you will be matched with a different person. You will never be matched with the same pupil twice.</p>
+Also, in each stage, you will be matched with a different person. You will never be matched with the same pupil twice.</p>
 
-<p>In each stage, you will make a choice. This choice will affect
+<p>In each stage, you will make a choice about
 how many tuck shop vouchers you and the other pupil get. At the end of the 
-experiment, the computer will pick one of each pair at random. We will carry out
-that person's choice. In other words, if you are picked, then your decision will
-decide how many vouchers you and your pair get from that stage.</p>
+experiment, the computer will pick one of each pair at random. If you are picked, then your choice will determine how many vouchers you and your pair get from that stage.</p>
+
+<p>You will have <%= countdown  %> seconds to make each choice. After this
+you will see a reminder to hurry up.</p>
 
 <p><b>When the experimenter tells you</b>, press "Next".</p>
 </div>

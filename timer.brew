@@ -3,8 +3,8 @@ var timeout = <%= timeout[id]  %>;
 var myVar = setInterval(function(){myTimer()},1000);
 function myTimer() {
     var d = new Date();
-    var mytime = timeout - d.getTime();
-    if (mytime > 0) ih = mytime; else ih = "Please hurry up!";
+    var mytime = timeout - d.getTime()/1000;
+    if (mytime > 0) ih = Math.round(mytime); else ih = "Please hurry up!";
     el = document.getElementById("timer");
     el.innerHTML = ih;
     if (mytime < 10) el.className =  'timerblink';

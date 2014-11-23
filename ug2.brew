@@ -5,7 +5,7 @@
 <% brew("javascript-changeMe.brew") %>
 <% brew("errors.brew") %>
 
-<div class="instructions">
+<div class="instructions slidedown" onclick="toggleheight(this)">
 <% brew("timer.brew") %>
 <% brew("instr_ug_inner.brew") %>
 </div>

@@ -57,7 +57,8 @@ s_prog_timer <- program(run="all", function(id, period) {
 }, name="Start timer")
 
 
-s_instr_dict <- text_stage(page=b_brew("instr_dict.brew"), wait=TRUE, name="Stage 1 Instructions")
+s_instr_dict <- text_stage(page=b_brew("instr_dict.brew"), wait=TRUE, 
+      name="Stage 1 Instructions")
 
 s_dict <- form_stage(page=b_brew("dict1.brew"), 
       fields=list(dict1=is_one_of(0:10*10)),
@@ -95,11 +96,14 @@ s_ug <- form_stage(page=b_brew("ug2.brew"),
       data_frame="mydf", 
       name="Ultimatum Game part 1")
 
+s_instr_ugcont <- text_stage(page=b_brew("instr_ugcont.brew"), wait=TRUE, 
+      name="Stage 2 Part 2 Instructions")
+
 s_ug_cont <- form_stage(page=b_brew("ugcont.brew"),
-  fields=list(accept2=is_one_of(0:10*10)),
-  titles=list(accept2="Minimum amount to accept"), 
-  data_frame="mydf", 
-  name="Ultimatum Game part 2")
+      fields=list(accept2=is_one_of(0:10*10)),
+      titles=list(accept2="Minimum amount to accept"), 
+      data_frame="mydf", 
+      name="Ultimatum Game part 2")
 
 s_prog_ug <- program(run="last", 
   function(id, period, ...){
@@ -257,6 +261,7 @@ add_stage(expt, checkpoint(),
       s_prog_timer, s_dict, s_prog_dict, 
       period(wait_for="all"), s_instr_ug, checkpoint(),
       s_prog_timer, s_ug, checkpoint(), 
+      s_instr_ugcont, checkpoint(),
       s_prog_timer, s_ug_cont, s_prog_ug,
       period(wait_for="all"), s_instr_ig, checkpoint(), 
       s_prog_timer, s_ig, s_prog_ig,

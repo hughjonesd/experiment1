@@ -16,7 +16,7 @@ function changeDict1(chn) {
 
 <% brew("errors.brew") %>
 
-<div class="instructions">
+<div class="instructions slidedown" onclick="toggleheight(this)">
 <% brew("timer.brew") %>
 <% brew("instr_dict_inner.brew") %>
 </div>

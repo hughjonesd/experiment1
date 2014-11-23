@@ -70,6 +70,13 @@ input::-webkit-inner-spin-button {
   border-radius: 10px;
 }
 
+.slidedown {
+  height: 20px;
+  -webkit-transition: height 0.8s;
+  -moz-transition: height 0.8s;
+	transition: height 0.8s;
+}
+
 .decision {
   background-color: #FFD;
   border: 1px solid #C88; 
@@ -119,3 +126,8 @@ body, table, input, select {
 }
 
 </style>
+<script>
+function toggleHeight(elem) {
+  if (elem.style.height == 'auto') elem.style.height = 25px;
+  else elem.style.height = 'auto';
+}

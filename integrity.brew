@@ -25,7 +25,7 @@ function report(choice) {
 </script>
 
 <% brew("errors.brew") %>
-<div class="instructions">
+<div class="instructions slidedown" onclick="toggleheight(this)">
 <% brew("timer.brew") %>
 <% brew("instr_ig_inner.brew") %>
 </div>

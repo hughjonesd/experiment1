@@ -1,0 +1,34 @@
+<%= header("Questions") %>
+<% brew("styles.brew") %>
+
+<% brew("errors.brew") %>
+<%
+  frcount <- period - 3
+%>
+<div class='instructions'>
+<h1>Questionnaire: Friends Introduction</h1>
+
+<p>Think about your class in school. How many different groups of friends can you think of?</p>
+<p>By group of friends we mean pupils who are all friends with each other. Some of them might be friends with other people in class too. You could be one of the group yourself.</p>
+<p>Please choose the number of groups you can think of.</p>
+</div>
+
+<div class='controls'>
+<form method='POST' action=''>
+<p>How many groups of friends can you think of in this form?
+<select name='ngroups'>
+<option value='' disabled selected>Pick one...</option>
+<option value='0'>I can't think of any</option>
+<option value='1'>1</option>
+<option value='2'>2</option>
+<option value='3'>3</option>
+<option value='4'>4</option>
+<option value='5'>5</option>
+<option value='6'>6 or more</option>
+<option value='-1'>I don't want to answer this question</option>
+</select></p>
+<input type='submit' value='Submit'>
+</form>
+</div>
+
+<%= footer() %>

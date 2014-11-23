@@ -151,7 +151,7 @@ s_prog_ig <- program(run="last",
 
 s_friendsintro <-  form_stage(
   page=b_brew("friends_intro.brew"),
-  fields=list(ngroups=is_one_of(0:6)), 
+  fields=list(ngroups=is_one_of(-1:6)), 
   titles=list(ngroups="Number of groups in your class"),
   data_frame="mydf", multi_params="paste",
   name="Questionnaire: friends intro")
@@ -169,12 +169,11 @@ frcheck <- function(title, values, id, period, params) {
 frpagefn <- function(id, period, params, errors) {
   ng <- mydf$ngroups[mydf$id==id & ! is.na(mydf$ngroups)]
   done <- FALSE
-  if (length(na.omit(mydf$friends[mydf$id==id])) >= ng) done <- TRUE 
-  # if they couldn't think of anyone else:
-  if (is.na(mydf$friends[mydf$id==id & mydf$period==period-1])) done <- TRUE   
-  # but not if we're on first round:
-  if (! is.na(mydf$ngroups[mydf$id==id & mydf$period==period])) done <- FALSE
-  if (done) return(NEXT)
+  # 0 or -1 also gets hit by this
+  if (length(na.omit(mydf$friends[mydf$id==id])) >= ng) return(NEXT)
+  # if they couldn't think of anyone else, and it's not the first qn
+  if (is.na(mydf$friends[mydf$id==id & mydf$period==period-1]) &&
+        is.na(mydf$ngroups[mydf$id==id & mydf$period==period]) return(NEXT) 
   return(b_brew("friendships.brew")(id, period, params, errors))
 }
 

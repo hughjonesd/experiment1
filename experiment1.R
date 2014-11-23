@@ -45,7 +45,7 @@ ready_fn <- function() {
   timeout <<- NA
 }
 
-expt <- experiment(N=N, clients_in_url=ciu, on_ready=ready_fn, name="brum1", 
+expt <- experiment(N=N, clients_in_url=ciu, on_ready=ready_fn, 
       seed=seed, randomize_ids=TRUE, autostart=TRUE, client_refresh=1)
 
 s_consent <-text_stage(page=b_brew("consent.brew"), wait=TRUE, name="Consent")

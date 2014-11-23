@@ -7,10 +7,13 @@
 %>
 <div class='instructions'>
 <h1>Questionnaire: Friends <%= frcount %></h1>
-<p>Can you name any <%= if (frcount>1) "other " else "" %>pupils that hang around together in a group?</p>
-<p>If so, please tick the names of these pupils.</p>
-<p>If you do not know any <%= if (frcount>1) "other " else "" %>pupils 
-that hang around together, don't tick any boxes.</p>
+<p>Please tick the names of the pupils in the <i>
+<%= 
+  if (frcount==1) "first" else if (frcount==2) "second" else 
+        if (frcount==3) "third" else paste0(frcount, "th") 
+%></i> group of friends you thought of.</p>
+<p>If you cannot think any <%= if (frcount>1) "other " else "" %>pupils 
+that are friends with each other, don't tick any boxes.</p>
 <p>When you have finished, click 'Submit'.</p>
 </div>
 

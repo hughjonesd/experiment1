@@ -186,7 +186,7 @@ myfrcheck <- function (title, value, id, period, params) {
   friends <- params[nchar(params)>0]
   if (anyDuplicated(friends)) 
         return("Please choose different names in all 3 boxes, 
-        or leave them blank")
+        or leave some of them blank")
   return(NULL)
 }
 

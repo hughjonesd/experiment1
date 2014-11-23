@@ -6,6 +6,7 @@
 </div>
 
 <div class="controls">
-<%= next_form("Next") %>
+<p>When the experimenter tells you, press "Continue Stage Two".</p>
+<%= next_form("Continue Stage Two") %>
 </div>
 <%= footer() %>

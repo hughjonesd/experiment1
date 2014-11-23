@@ -34,9 +34,7 @@ library(reshape2)
 ready_fn <- function() {
   mydf <<- experiment_data_frame(expt, dict1=NA, offer2=NA,
         accept2=NA, accepted2=NA, hchoice=NA, coinflip=NA, coinflip.real=NA,
-        profit=NA, ngroups=NA, friends=NA, 
-        myfriend1=NA, myfriend2=NA, myfriend3=NA,
-        friendlike1=NA, friendlike2=NA, friendlike3=NA,
+        profit=NA, ngroups=NA, friends=NA, myfriends=NA, friendslike=NA,
         myname=NA, myname2=NA,
         rank=sample(N), role=NA, pair=NA, stringsAsFactors=FALSE)
   globals <<- NA
@@ -202,26 +200,33 @@ s_friends <-  form_stage(
       data_frame="mydf", multi_params="paste",
       name="Questionnaire: friendship networks")
 
-myfrcheck <- function (title, value, id, period, params) {
-  friends <- params[nchar(params)>0]
-  if (anyDuplicated(friends)) 
-        return("Please choose different names in all 3 boxes, 
-        or leave some of them blank")
-  return(NULL)
+myfrcheck <- function(title, values, id, period, params) {
+  if (all(values %in% classnames)) return(NULL)
+  wrong <- setdiff(frs, classnames)
+  return(paste("Unrecognized pupil names: ", paste(wrong, collapse=", "), 
+    sep=""))
 }
 
 nocheck <- function(...) NULL
 
 s_myfriends <- form_stage(page=b_brew("myfriends.brew"),
-      fields=list(myfriend1=myfrcheck, myfriend2=nocheck, myfriend3=nocheck),
-      titles=list(myfriend1="Friend 1", myfriend2="Friend 2", myfriend3="Friend 3"),
-      data_frame="mydf",
+      fields=list(myfriends=myfrcheck),
+      titles=list(myfriends="My Friends"),
+      data_frame="mydf", multi_params="paste",
       name="Questionnaire: my friends")
 
+frlikecheck <- function(title, values, id, period, params) {
+  if (length(values) > 3) return("Please only tick up to 3 pupils")
+  if (all(values %in% classnames)) return(NULL)
+  wrong <- setdiff(frs, classnames)
+  return(paste("Unrecognized pupil names: ", paste(wrong, collapse=", "), 
+    sep=""))
+}
+
 s_friends_like <- form_stage(page=b_brew("friendslike.brew"),
-      fields=list(friendlike1=myfrcheck, friendlike2=nocheck, friendlike3=nocheck),
-      titles=list(friendlike1="Friend 1", friendlike2="Friend 2", friendlike3="Friend 3"),
-      data_frame="mydf",
+      fields=list(friendslike=frlikecheck),
+      titles=list(friendslike="Friends I would like"),
+      data_frame="mydf", multi_params="paste",
       name="Questionnaire: friends I'd like")
 
 namecheck <- function(title, value, id, period, params) {

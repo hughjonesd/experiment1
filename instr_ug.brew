@@ -1,4 +1,4 @@
-<%= header("Instructions Stage 2") %>
+<%= header("Instructions Stage Two") %>
 <% brew("styles.brew") %>
 
 <div class="instructions">
@@ -6,6 +6,7 @@
 </div>
 
 <div class="controls">
-<%= next_form("Next") %>
+<p>When the experimenter tells you, press "Begin Stage Two".</p>
+<%= next_form("Begin Stage Two") %>
 </div>
 <%= footer() %>

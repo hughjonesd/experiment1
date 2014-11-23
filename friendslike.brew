@@ -8,30 +8,23 @@
 <div class='instructions'>
 <% brew("timer.brew") %>
 <h1>Questionnaire: Who I'd like to be friends with</h1>
-<p>Next, please choose the 3 pupils that you would <b>most like to be friends with
-</b> from this class. You can list people that you are already friends with if
+<p>Next, please choose <b>up to 3</b> pupils that you would <b>most like to be friends with
+</b> from this class. You can choose people that you are already friends with if
 you want.</p>
-<p>Remember, this choice is private and will not be shown to anybody else.</p>
-<p>If you don't want to list 3 people, just leave some fields blank.</p>
+<p>Again, this answer is private. We will not show it to anybody else.</p>
 </div>
 
 <div class='controls'>
-<%
-  surnames <- sub(".* ", "", classnames) # an assumption here
-  classnames <- classnames[order(surnames)]
-  fopts <- sapply(classnames, sprintf, fmt="<option value='%1$s'>%1$s</option>")
-  fopts <- c('<option value="">-----</option>\n', fopts)
-%>
 <form method='POST' action=''>
-<p>Friend 1: <select name='friendlike1'>
-<%= fopts %>
-</select></p>
-<p>Friend 2: <select name='friendlike2'>
-<%= fopts %>
-</select></p>
-<p>Friend 3: <select name='friendlike3'>
-<%= fopts %>
-</select></p>
+<div id='friends'>
+<%=
+  sapply(classnames, sprintf, 
+        fmt="<label class='friends'>
+      <input type='checkbox' name='friendslike[]' value='%1$s'>&nbsp;%1$s</label><br>") 
+%>
+</div>
+<br>
+<br>
 <input type='submit' value='Submit'>
 </form>
 </div>

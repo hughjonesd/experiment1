@@ -1,6 +1,5 @@
 <% if (length(errors) > 0) { %>
 <div class='errors'>
-There were some errors:<br>
 <%= paste(errors, collapse="<br>") %>
 </div>
 <% } %>

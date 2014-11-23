@@ -17,7 +17,9 @@ function changeDict1(chn) {
 <% brew("errors.brew") %>
 
 <div class="instructions">
+<% brew("timer.brew") %>
 <h1>Stage One</h1>
+
 <p>In this stage, you get £1 in vouchers. The other pupil gets £0. You can give 
 them some, none or all of your vouchers, in multiples of 10p.</p>
 

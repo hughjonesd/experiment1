@@ -6,6 +6,7 @@
   frcount <- period - 2
 %>
 <div class='instructions'>
+<% brew("timer.brew") %>
 <h1>Questionnaire: Who I'd like to be friends with</h1>
 <p>Next, please choose up to 3 pupils that you would <b>like to be friends with
 </b> from this class.</p>

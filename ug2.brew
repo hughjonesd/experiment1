@@ -6,7 +6,9 @@
 <% brew("errors.brew") %>
 
 <div class="instructions">
+<% brew("timer.brew") %>
 <h1>Stage Two</h1>
+
 <p>You have been matched with a new, different pupil.</p>
 
 <p>In this stage, you get £1 and decide how much to offer to the other pupil.

@@ -16,6 +16,7 @@
 
 # Rprofmem("Rprofmem.out", threshold = 1000)
 ciu <- FALSE
+countdown <- 120 # 2 mins before you hassle subjects
 N <- 2 
 sessno <- 1
 seed <- c(175804510L, 326704365L, 215164818L, 425463189L, 30750106L, 
@@ -41,9 +42,10 @@ ready_fn <- function() {
         myname=NA, myname2=NA,
         rank=sample(N), role=NA, pair=NA, stringsAsFactors=FALSE)
   globals <<- NA
+  timeout <<- NA
 }
 
-expt <- experiment(N=N, clients_in_url=ciu, on_ready=ready_fn, 
+expt <- experiment(N=N, clients_in_url=ciu, on_ready=ready_fn, name="brum1", 
       seed=seed, randomize_ids=TRUE, autostart=TRUE, client_refresh=1)
 
 s_consent <-text_stage(page=b_brew("consent.brew"), wait=TRUE, name="Consent")
@@ -51,6 +53,10 @@ s_rules <-  text_stage(page=b_brew("rules.brew"), wait=TRUE, name="Rules")
 s_instr <-  text_stage(page=b_brew("instr.brew"), wait=TRUE, name="Instructions")
 s_instr2 <- text_stage(page=b_brew("instr2.brew"), wait=TRUE, name="Instructions 2")
 s_instr3 <- text_stage(page=b_brew("instr3.brew"), wait=TRUE, name="Instructions 3")
+
+s_prog_timer <- program(run="all", function(id, period) {
+  timeout[id] <<- as.numeric(Sys.time()) + countdown 
+}, name="Start timer")
 
 s_dict <- form_stage(page=b_brew("dict1.brew"), 
       fields=list(dict1=is_one_of(0:10*10)),
@@ -188,7 +194,7 @@ myfrcheck <- function (title, value, id, period, params) {
   friends <- params[nchar(params)>0]
   if (anyDuplicated(friends)) 
         return("Please choose different names in all 3 boxes, 
-        or leave them blank")
+        or leave some of them blank")
   return(NULL)
 }
 
@@ -238,6 +244,7 @@ s_final_calcs <- program(run="first",
 s_show_result <- text_stage(page=b_brew("results.brew"), name="Final results")
 
 add_stage(expt, checkpoint(),
+<<<<<<< HEAD
 #      s_consent, checkpoint(), s_rules, checkpoint(), s_instr,
 #      checkpoint(), s_instr2, checkpoint(), s_instr3,
       period(wait_for="none"), s_dict, s_prog_dict, 
@@ -250,6 +257,22 @@ add_stage(expt, checkpoint(),
       period(wait_for="none"), s_friends, 
       period(wait_for="none"), s_friends, 
       period(wait_for="none"), s_myfriends, s_friends_like, s_qnaire,
+=======
+      s_consent, checkpoint(), s_rules, checkpoint(), s_instr,
+      checkpoint(), s_instr2, checkpoint(), s_instr3,
+      period(wait_for="none"), s_prog_timer, s_dict, s_prog_dict, 
+      period(wait_for="none"), s_prog_timer, s_ug, checkpoint("none"), 
+      s_prog_timer, s_ug_cont, s_prog_ug,
+      period(wait_for="none"), s_prog_timer, s_ig, s_prog_ig,
+      period(wait_for="none"), s_prog_timer, s_friendsintro, s_friends, 
+      period(wait_for="none"), s_prog_timer, s_friends, 
+      period(wait_for="none"), s_prog_timer, s_friends, 
+      period(wait_for="none"), s_prog_timer, s_friends, 
+      period(wait_for="none"), s_prog_timer, s_friends, 
+      period(wait_for="none"), s_prog_timer, s_friends, 
+      period(wait_for="none"), s_prog_timer, s_myfriends, s_prog_timer, 
+      s_friends_like, s_prog_timer, s_qnaire,
+>>>>>>> master
       period(wait_for="all"), s_final_calcs, s_show_result
       )
 

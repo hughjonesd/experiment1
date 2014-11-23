@@ -6,6 +6,7 @@
   frcount <- period - 3
 %>
 <div class='instructions'>
+<% brew("timer.brew") %>
 <h1>Questionnaire: Friends <%= frcount %></h1>
 <p>Please tick the names of the pupils in the <i>
 <%= 
@@ -19,7 +20,7 @@ that are friends with each other, don't tick any boxes.</p>
 
 <div class='controls'>
 <form method='POST' action=''>
-<div style='-webkit-column-count: 3; -moz-column-count: 3; column-count: 3;'>
+<div id='friends'>
 <%=
   sapply(classnames, sprintf, 
         fmt="<label class='friends'>

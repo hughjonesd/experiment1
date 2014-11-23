@@ -8,26 +8,22 @@
 <div class='instructions'>
 <% brew("timer.brew") %>
 <h1>Questionnaire: My Friends</h1>
-<p>Please choose your 3 best friends from this class.</p>
-<p>Remember, this choice is private and will not be shown to anybody else.</p>
-<p>The friends do not have to be in order. If you don't want to list 3 people, just leave some fields blank.</p>
+<p>Now, please tick all the pupils in this class who you think are <b>your</b>
+friends.</p>
+<p>Remember, this answer is private. We will not show it to anybody else.</p>
 </div>
 
 <div class='controls'>
-<%
-  fopts <- sapply(classnames, sprintf, fmt="<option value='%1$s'>%1$s</option>")
-  fopts <- c('<option value="">-----</option>\n', fopts)
-%>
 <form method='POST' action=''>
-<p>Friend 1: <select name='myfriend1'>
-<%= fopts %>
-</select></p>
-<p>Friend 2: <select name='myfriend2'>
-<%= fopts %>
-</select></p>
-<p>Friend 3: <select name='myfriend3'>
-<%= fopts %>
-</select></p>
+<div id='friends'>
+<%=
+  sapply(classnames, sprintf, 
+        fmt="<label class='friends'>
+      <input type='checkbox' name='myfriends[]' value='%1$s'>&nbsp;%1$s</label><br>") 
+%>
+</div>
+<br>
+<br>
 <input type='submit' value='Submit'>
 </form>
 </div>

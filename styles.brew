@@ -59,7 +59,7 @@ input::-webkit-inner-spin-button {
   height: 160px; 
   width: 160px;
   transition: background-image 1s ease-in-out;
-  background-image:url("/images/experiment1/hidden.jpg");
+  background-image:url("http://54.194.17.233/images/experiment1/hidden.jpg");
   background-size: 100% 100%;
 }
 
@@ -68,6 +68,15 @@ input::-webkit-inner-spin-button {
   padding: 15px;
   margin: 15px;
   border-radius: 10px;
+}
+
+.slidedown {
+  max-height: 50px;
+  -webkit-transition: max-height 0.8s, color 0.8s;
+  -moz-transition: max-height 0.8s, color 0.8s;
+	transition: max-height 0.8s, color 0.8s;
+  overflow: hidden;
+  color: #AAA;
 }
 
 .decision {
@@ -110,6 +119,10 @@ body, table, input, select {
   from { opacity: 1.0; } to { opacity: 0.0; } 
 } 
 
+.timer {
+  color: #000;
+}
+
 .timerblink { 
   color: #D00;
   -webkit-animation-name: blinker; 
@@ -119,3 +132,15 @@ body, table, input, select {
 }
 
 </style>
+<script>
+function toggleHeight(elem) {
+  if (elem.style.maxHeight == '800px') {
+    elem.style.maxHeight = '50px';
+    elem.style.color = '#AAA';
+  }
+  else {
+    elem.style.maxHeight = '800px';
+    elem.style.color = '#000';
+  }
+}
+</script>

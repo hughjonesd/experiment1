@@ -1,0 +1,12 @@
+<%= header("Instructions Stage One") %>
+<% brew("styles.brew") %>
+
+<div class="instructions">
+<% brew("instr_dict_inner.brew") %>
+</div>
+
+<div class="controls">
+<p>When the experimenter tells you, press "Begin Stage One".</p>
+<%= next_form("Begin Stage One") %>
+</div>
+<%= footer() %>

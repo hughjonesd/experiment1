@@ -3,7 +3,7 @@
 
 <% brew("errors.brew") %>
 <%
-  frcount <- period - 3
+  frcount <- period - 2
 %>
 <div class='instructions'>
 <% brew("timer.brew") %>

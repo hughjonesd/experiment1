@@ -1,7 +1,7 @@
 #!/usr/bin/Rscript
 
 library(RCurl)
-N <- 18
+N <- 16
 pn <- commandArgs(TRUE)
 if (length(pn)) N <- pn
 while (TRUE) {

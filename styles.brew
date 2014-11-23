@@ -71,10 +71,12 @@ input::-webkit-inner-spin-button {
 }
 
 .slidedown {
-  height: 20px;
-  -webkit-transition: height 0.8s;
-  -moz-transition: height 0.8s;
-	transition: height 0.8s;
+  max-height: 50px;
+  -webkit-transition: max-height 0.8s;
+  -moz-transition: max-height 0.8s;
+	transition: max-height 0.8s;
+  overflow: hidden;
+  border-bottom: 1px dashed #CCC;
 }
 
 .decision {
@@ -128,6 +130,7 @@ body, table, input, select {
 </style>
 <script>
 function toggleHeight(elem) {
-  if (elem.style.height == 'auto') elem.style.height = 25px;
-  else elem.style.height = 'auto';
+  if (elem.style.maxHeight == '800px') elem.style.maxHeight = '50px';
+  else elem.style.maxHeight = '800px';
 }
+</script>

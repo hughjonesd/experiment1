@@ -1,0 +1,18 @@
+<%= header("Questionnaire Start") %>
+
+<% brew("styles.brew") %>
+
+<% brew("errors.brew") %>
+
+<div class='instructions'>
+<p>Thank you for taking part in the experiment!</p>
+<p>The next screens have some questions for you to answer.</p>
+<p>You can start straight away!</p>
+</div>
+
+<div class='controls'>
+<%= next_form("Start the questionnaire") %>
+</div>
+
+<%= footer() %>
+

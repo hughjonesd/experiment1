@@ -165,6 +165,7 @@ s_prog_ig <- program(run="last",
   },
   name="IG profit calculations")
 
+s_q_intro <- text_stage(page=b_brew("q_intro.brew"), name="Questionnaire Intro")
 
 s_friendsintro <-  form_stage(
   page=b_brew("friends_intro.brew"),
@@ -264,7 +265,7 @@ add_stage(expt, checkpoint(),
       s_instr_ugcont, checkpoint(),
       s_prog_timer, s_ug_cont, s_prog_ug,
       period(wait_for="all"), s_instr_ig, checkpoint(), 
-      s_prog_timer, s_ig, s_prog_ig,
+      s_prog_timer, s_ig, s_prog_ig, s_q_intro,
       period(wait_for="none"), s_prog_timer, s_friendsintro, s_friends, 
       period(wait_for="none"), s_prog_timer, s_friends, 
       period(wait_for="none"), s_prog_timer, s_friends, 

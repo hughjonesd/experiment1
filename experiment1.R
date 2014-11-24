@@ -1,27 +1,13 @@
 
 # experiment 1 for Birmingham
 
-# TODO:
-# paper consent forms
-# randomizers for entry
-
-# COMPUTER TODO:
-# friends: adjust frcount in friendships.brew
-# real class1.txt file etc
-# dealing with withdrawals: reload, re-enter N.
-# emphasize PRIVATE questions
-# simple language (consent form)
-# time limits on stages? or advisory timer?
-# advisory timer
-
-# Rprofmem("Rprofmem.out", threshold = 1000)
-ciu <- FALSE
-countdown <- 90 # 2 mins before you hassle subjects
-N <- 2 
-sessno <- 1
+ciu <- TRUE
+countdown <- 120 # 2 mins before you hassle subjects
+N <- as.numeric(readline("Enter this session's N: "))
+sessno <- as.numeric(readline("Enter the number of this session (1-10): "))
 seed <- c(175804510L, 326704365L, 215164818L, 425463189L, 30750106L, 
       35380967L, 36912668L, 86165470L, 850662828L, 6737400L)[sessno] 
-classno <- 1
+classno <- as.numeric(readline("Enter the class number: "))
 classfile <- paste0("class", classno, ".txt")
 classnames <- sort(scan(classfile, what="character", sep="\n", quiet=TRUE))
 surnames <- sub(".* ", "", classnames) # an assumption here
@@ -44,11 +30,11 @@ ready_fn <- function() {
 }
 
 expt <- experiment(N=N, clients_in_url=ciu, on_ready=ready_fn, 
-      seed=seed, randomize_ids=TRUE, autostart=TRUE, client_refresh=1)
+      seed=seed, randomize_ids=TRUE, autostart=TRUE, client_refresh=5)
 
 s_consent <-text_stage(page=b_brew("consent.brew"), wait=TRUE, name="Consent")
 s_rules <-  text_stage(page=b_brew("rules.brew"), wait=TRUE, name="Rules")
-s_instr <-  text_stage(page=b_brew("instr.brew"), wait=TRUE, name="Instructions")
+s_instr <-  text_stage(page=b_brew("instr.brew"), wait=TRUE, name="Instructions 1")
 s_instr2 <- text_stage(page=b_brew("instr2.brew"), wait=TRUE, name="Instructions 2")
 s_instr3 <- text_stage(page=b_brew("instr3.brew"), wait=TRUE, name="Instructions 3")
 
@@ -63,7 +49,7 @@ s_instr_dict <- text_stage(page=b_brew("instr_dict.brew"), wait=TRUE,
 s_dict <- form_stage(page=b_brew("dict1.brew"), 
       fields=list(dict1=is_one_of(0:10*10)),
       titles=list(dict1="Amount to give"), data_frame="mydf", 
-      name="Dictator Game")
+      name="Stage 1 Dictator Game")
 
 s_prog_dict <- program(run="last", 
   function(id, period, ...){
@@ -88,13 +74,13 @@ s_prog_dict <- program(run="last",
 
 
 s_instr_ug <- text_stage(page=b_brew("instr_ug.brew"), wait=TRUE, 
-      name="Stage 2 Instructions")
+      name="Stage 2 Part 1 Instructions")
 
 s_ug <- form_stage(page=b_brew("ug2.brew"),
       fields=list(offer2=is_one_of(0:10*10)),
       titles=list(offer2="Amount to offer"), 
       data_frame="mydf", 
-      name="Ultimatum Game part 1")
+      name="Stage 2 Ultimatum Game, Part 1")
 
 s_instr_ugcont <- text_stage(page=b_brew("instr_ugcont.brew"), wait=TRUE, 
       name="Stage 2 Part 2 Instructions")
@@ -103,7 +89,7 @@ s_ug_cont <- form_stage(page=b_brew("ugcont.brew"),
       fields=list(accept2=is_one_of(0:10*10)),
       titles=list(accept2="Minimum amount to accept"), 
       data_frame="mydf", 
-      name="Ultimatum Game part 2")
+      name="Stage 2 Ultimatum Game, Part 2")
 
 s_prog_ug <- program(run="last", 
   function(id, period, ...){
@@ -167,12 +153,29 @@ s_prog_ig <- program(run="last",
 
 s_q_intro <- text_stage(page=b_brew("q_intro.brew"), name="Questionnaire Intro")
 
+write_payment_data <- function(...) {
+  globals <<- dcast(melt(mydf[,c("id", "period", "profit")], id=1:2), 
+    id ~ period)
+  globals$totalprofit <<- rowSums(globals[-1], na.rm=TRUE)
+  globals$totalprofit <<- globals$totalprofit
+  globals <<- merge_subjects(expt, globals)[,c("seat", "id", "IP", "client",
+    "totalprofit")]
+  globals <<- globals[order(globals$seat, globals$id),]
+  payfile <- paste0("session-", sessno, "-paydata.csv")
+  write.csv(globals, file=payfile)
+  message("Payment data written to ", sQuote(payfile), ".")
+  message("Look at 'globals' to display it now.\n")
+}
+
+s_prog_paydata <- program(run="last", write_payment_data, 
+      name="Write payment data")
+
 s_friendsintro <-  form_stage(
-  page=b_brew("friends_intro.brew"),
-  fields=list(ngroups=is_one_of(-1:6)), 
-  titles=list(ngroups="Number of groups in your class"),
-  data_frame="mydf", multi_params="paste",
-  name="Questionnaire: friends intro")
+      page=b_brew("friends_intro.brew"),
+      fields=list(ngroups=is_one_of(-1:6)), 
+      titles=list(ngroups="Number of groups in your class"),
+      data_frame="mydf", multi_params="paste",
+      name="Questionnaire: friends intro")
 
 
 frcheck <- function(title, values, id, period, params) {
@@ -240,23 +243,12 @@ s_qnaire <- form_stage(page=b_brew("qnaire.brew"),
       fields=list(myname=namecheck, myname2=nocheck),
       titles=list(myname="Name", myname2=""),
       data_frame="mydf",
-      name="Questionnaire: other")
-  
+      name="Questionnaire: final")
+
 s_final_calcs <- program(run="first",
   function(...) {
-    globals <<- dcast(melt(mydf[,c("id", "period", "profit")], id=1:2), 
-          id ~ period)
-    globals$totalprofit <<- rowSums(globals[-1], na.rm=TRUE)
-    globals$totalprofit <<- globals$totalprofit
     fdata <- merge_subjects(expt, mydf)
     write_data(expt, fdata)
-    globals <<- merge_subjects(expt, globals)[,c("seat", "id", "IP", "client",
-          "totalprofit")]
-    globals <<- globals[order(globals$seat),]
-    payfile <- paste0("session-", sessno, "-paydata.csv")
-    write.csv(globals, file=payfile)
-    cat("Payment data written to", sQuote(payfile), ".\n")
-    cat("Look at 'globals' to display it now.\n")
   }, 
   name="Final calculations")
 
@@ -272,7 +264,8 @@ add_stage(expt, checkpoint(),
       s_instr_ugcont, checkpoint(),
       s_prog_timer, s_ug_cont, s_prog_ug,
       period(wait_for="all"), s_instr_ig, checkpoint(), 
-      s_prog_timer, s_ig, s_prog_ig, s_q_intro,
+      s_prog_timer, s_ig, s_prog_ig, 
+      checkpoint(name="Completed experiment"), s_q_intro, s_prog_paydata,
       period(wait_for="none"), s_prog_timer, s_friendsintro, s_friends, 
       period(wait_for="none"), s_prog_timer, s_friends, 
       period(wait_for="none"), s_prog_timer, s_friends, 

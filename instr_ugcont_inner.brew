@@ -9,12 +9,15 @@ of the £1. If their offer is lower than this, both of you get nothing from this
 
 <div class="example">
 <p>Here are the examples again.</p>
-<table class="ugexample">
+<table class="ugexample" id="ugexample">
 <tr><th>They offer</th><th>You accept offers of</th><th>You get</th><th>They get</th></tr>
 <tr><td>30p</td><td>30p or more</td><td>30p</td><td>70p</td></tr>
 <tr><td>30p</td><td>50p or more</td><td>0p</td><td>0p</td></tr>
 <tr><td>60p</td><td>50p or more</td><td>60p</td><td>40p</td></tr>
 </table>
+<% brew('javascript-redoExample.brew') %>
+<br>
+<button onclick="redoExample()">Show another example</button>
 </div>
 
 <p>You have to choose the lowest offer that you will accept.</p>

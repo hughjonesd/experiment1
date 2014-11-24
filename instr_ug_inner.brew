@@ -11,12 +11,14 @@ offered, and you keep the rest of the £1, just like the last stage. If they
 </p>
 
 <p>This table shows some examples.</p>
-<table class="ugexample">
+<table class="ugexample" id="ugexample">
 <tr><th>You offer</th><th>They accept offers of</th><th>They get</th><th>You get</th></tr>
 <tr><td>30p</td><td>30p or more</td><td>30p</td><td>70p</td></tr>
 <tr><td>30p</td><td>50p or more</td><td>0p</td><td>0p</td></tr>
 <tr><td>60p</td><td>50p or more</td><td>60p</td><td>40p</td></tr>
 </table>
-
+<% brew('javascript-redoExample.brew') %>
+<br>
+<button onclick="redoExample()">Show another example</button>
 <p>You have to choose what offer to make.</p>
 

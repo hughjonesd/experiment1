@@ -1,0 +1,27 @@
+<script>
+function redoExample() {
+    var tb = document.getElementById('ugexample');
+    var ex = [[0,0,0,0],[0,0,0,0],[0,0,0,0]];
+    ex[0][0] = Math.floor(Math.random() * 10) * 10;
+    ex[1][0] = ex[0][0];
+    ex[0][1] = ex[0][0] - Math.floor(Math.random() * ex[0][0]/10) * 10;
+    ex[1][1] = ex[0][0] + Math.floor(Math.random() * (100 - ex[0][0])/10) * 10;
+    ex[2][0] = Math.floor(Math.random() * 10) * 10;
+    ex[2][1] = Math.floor(Math.random() * 10) * 10;
+
+    //start at second row:
+    for (l = 1; l < tb.rows.length; l++) {
+      var exr = ex[l-1];
+      if (exr[0] >= exr[1]) {
+        exr[2] = exr[0] + "p";
+        exr[3] = (100 - exr[0]) + "p";
+      } else {
+        exr[2] = exr[3] = "0p";
+      }
+      exr[0] = exr[0] + "p";
+      exr[1] = exr[1] + "p or more";
+      for (j=0;j<=3;j++) tb.rows[l].cells[j].innerHTML = exr[j]
+    }
+}
+redoExample();
+</script>

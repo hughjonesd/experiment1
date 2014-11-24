@@ -71,12 +71,12 @@ input::-webkit-inner-spin-button {
 }
 
 .slidedown {
-  max-height: 800px;
+  max-height: 50px;
   -webkit-transition: max-height 1.2s, color 1.2s;
   -moz-transition: max-height 1.2s, color 1.2s;
 	transition: max-height 1.2s, color 1.2s;
   overflow: hidden;
-  color: #000;
+  color: #AAA;
 }
 
 .decision {

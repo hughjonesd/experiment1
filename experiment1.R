@@ -239,22 +239,26 @@ s_qnaire <- form_stage(page=b_brew("qnaire.brew"),
       titles=list(myname="Name", myname2=""),
       data_frame="mydf",
       name="Questionnaire: other")
-  
+
+write_payment_data <- function() {
+  globals <<- dcast(melt(mydf[,c("id", "period", "profit")], id=1:2), 
+    id ~ period)
+  globals$totalprofit <<- rowSums(globals[-1], na.rm=TRUE)
+  globals$totalprofit <<- globals$totalprofit
+  globals <<- merge_subjects(expt, globals)[,c("seat", "id", "IP", "client",
+    "totalprofit")]
+  globals <<- globals[order(globals$seat, globals$id),]
+  payfile <- paste0("session-", sessno, "-paydata.csv")
+  write.csv(globals, file=payfile)
+  cat("Payment data written to", sQuote(payfile), ".\n")
+  cat("Look at 'globals' to display it now.\n")
+}
+
 s_final_calcs <- program(run="first",
   function(...) {
-    globals <<- dcast(melt(mydf[,c("id", "period", "profit")], id=1:2), 
-          id ~ period)
-    globals$totalprofit <<- rowSums(globals[-1], na.rm=TRUE)
-    globals$totalprofit <<- globals$totalprofit
     fdata <- merge_subjects(expt, mydf)
     write_data(expt, fdata)
-    globals <<- merge_subjects(expt, globals)[,c("seat", "id", "IP", "client",
-          "totalprofit")]
-    globals <<- globals[order(globals$seat),]
-    payfile <- paste0("session-", sessno, "-paydata.csv")
-    write.csv(globals, file=payfile)
-    cat("Payment data written to", sQuote(payfile), ".\n")
-    cat("Look at 'globals' to display it now.\n")
+    write_payment_data()
   }, 
   name="Final calculations")
 

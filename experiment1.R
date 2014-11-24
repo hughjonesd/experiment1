@@ -10,7 +10,7 @@ seed <- c(175804510L, 326704365L, 215164818L, 425463189L, 30750106L,
 classno <- as.numeric(readline("Enter the class number: "))
 shn <- read.csv("Shell names info.csv", stringsAsFactors=FALSE)
 classcode <- c("SHB", "SHJ", "SHM", "SHP", "SHF")[classno]
-shn <- shn[,shn$Reg==classcode]
+shn <- shn[shn$Reg==classcode,]
 classnames <- paste(shn$Forename, shn$Surname)
 classnames <- classnames[order(shn$Surname, shn$Forename)]
 cat("Session number is", sessno, "and class is", classcode, ".\n")

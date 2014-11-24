@@ -15,6 +15,8 @@
   fopts <- c('<option value="">Select here:</option>\n', fopts)
 %>
 <form method='POST' action=''>
+<p>Please tell us your name so that we can write it on your tuck shop vouchers!</p>
+<p>Remember, we won't tell anyone else about your choices in this experiment.</p>
 <p>Choose your name from the list: <select name='myname'><%= fopts %></select></p>
 <p>If your name is not in the list, type it in here:
 <input type='text' size='30' name='myname2' placeholder='Your name'></p>

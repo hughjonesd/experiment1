@@ -110,6 +110,10 @@ h1 {
   vertical-align: bottom;
 }
 
+b {
+  font-weight: bold;
+  color: #005;
+}
 body, table, input, select {
   font-family: Verdana, sans-serif;
   font-size: large;

@@ -23,7 +23,7 @@ Choose an amount to offer:<br>
 <div class="decision">
 <h1>Your decision</h1>
 Offer <output for="offer2" id="offer2output">--</output>p to the other pupil. 
-If the offer is accepted you will keep <output for="offer2" id="offer2keepoutput">--</output>p for yourself. If it is rejected you will get 0p.</p>
+If the other pupil accepts the offer you will keep <output for="offer2" id="offer2keepoutput">--</output>p for yourself. If he rejects the offer you will get 0p.</p>
 
 <input type="submit" value="Confirm">
 </div>

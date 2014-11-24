@@ -1,18 +1,6 @@
 
 # experiment 1 for Birmingham
 
-# TODO:
-# paper consent forms
-# randomizers for entry
-
-# COMPUTER TODO:
-# friends: adjust frcount in friendships.brew
-# real class1.txt file etc
-# dealing with withdrawals: reload, re-enter N.
-# emphasize PRIVATE questions
-# simple language (consent form)
-# advisory timer
-
 ciu <- TRUE
 countdown <- 120 # 2 mins before you hassle subjects
 N <- as.numeric(readline("Enter this session's N: "))

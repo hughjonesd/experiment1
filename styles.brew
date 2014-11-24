@@ -144,7 +144,7 @@ function toggleHeight(elem) {
   }
   else {
     elem.style.maxHeight = '50px';
-    elem.style.color = '#AAA';
+    elem.style.color = '#CCC';
   }
 }
 </script>

@@ -8,12 +8,12 @@ sessno <- as.numeric(readline("Enter the number of this session (1-10): "))
 seed <- c(175804510L, 326704365L, 215164818L, 425463189L, 30750106L, 
       35380967L, 36912668L, 86165470L, 850662828L, 6737400L)[sessno] 
 classno <- as.numeric(readline("Enter the class number: "))
-classfile <- paste0("class", classno, ".txt")
-classnames <- sort(scan(classfile, what="character", sep="\n", quiet=TRUE))
-surnames <- sub(".* ", "", classnames) # an assumption here
-firstnames <- sub(" .*", "", classnames)
-classnames <- classnames[order(surnames, firstnames)]
-cat("Session number is", sessno, "and class number is", classno, ".\n")
+shn <- read.csv("Shell names info.csv", stringsAsFactors=FALSE)
+classcode <- c("SHB", "SHJ", "SHM", "SHP", "SHF")[classno]
+shn <- shn[,shn$Reg==classcode]
+classnames <- paste(shn$Forename, shn$Surname)
+classnames <- classnames[order(shn$Surname, shn$Forename)]
+cat("Session number is", sessno, "and class is", classcode, ".\n")
 cat("First 3 class names:", paste(classnames[1:3], collapse=", "), ".\n")
 
 library(betr)

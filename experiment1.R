@@ -261,8 +261,7 @@ s_final_calcs <- program(run="first",
 s_show_result <- text_stage(page=b_brew("results.brew"), name="Final results")
 
 add_stage(expt, checkpoint(),
-      s_consent, checkpoint(), s_rules, checkpoint(), s_instr,
-      checkpoint(), s_instr2, checkpoint(), s_instr3,
+      s_consent, s_rules,  s_instr, s_instr2,  s_instr3,
       period(wait_for="all"), s_instr_dict, checkpoint(), 
       s_prog_timer, s_dict, s_prog_dict, 
       period(wait_for="all"), s_instr_ug, checkpoint(),

@@ -38,6 +38,7 @@ In stage 3, the other pupil was chosen. They chose to <%= if (moi$profit==0)
 You get <b>£<%= ukp(moi$profit) %></b> from Stage Three.
 </p>
 
+<% moi <- mydf[mydf$id==id & mydf$period==4,] %>
 <p>The computer randomly chose one of your guesses about the other pupils. 
 <% if (moi$guess_profit>0) { %>
 This guess was correct, so you get an additional <b><% ukp(moi$guess_profit>)</b>.

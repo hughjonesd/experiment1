@@ -80,22 +80,22 @@ s_prog_dict <- program(run="last",
 
 
 s_instr_ug <- text_stage(page=b_brew("instr_ug.brew"), wait=TRUE, 
-      name="Stage 2 Part 1 Instructions")
+      name="Stage 2 Part 1 Instrns")
 
 s_ug <- form_stage(page=b_brew("ug2.brew"),
       fields=list(offer2=is_one_of(0:10*10)),
       titles=list(offer2="Amount to offer"), 
       data_frame="mydf", 
-      name="Stage 2 Ultimatum Game, Part 1")
+      name="Stage 2 UG, Part 1")
 
 s_instr_ugcont <- text_stage(page=b_brew("instr_ugcont.brew"), wait=TRUE, 
-      name="Stage 2 Part 2 Instructions")
+      name="Stage 2 Part 2 Instrns")
 
 s_ug_cont <- form_stage(page=b_brew("ugcont.brew"),
       fields=list(accept2=is_one_of(0:10*10)),
       titles=list(accept2="Minimum amount to accept"), 
       data_frame="mydf", 
-      name="Stage 2 Ultimatum Game, Part 2")
+      name="Stage 2 UG, Part 2")
 
 s_prog_ug <- program(run="last", 
   function(id, period, ...){
@@ -133,7 +133,7 @@ s_ig <- form_stage(
       "tails"))), titles=list(hchoice="Choice", coinflip="Coin flip", 
       coinflip.real=""),
       data_frame="mydf",
-      name="Integrity game")
+      name="Stage 3 Integrity Game")
 
 s_prog_ig <- program(run="last",
   fn=function(id, period, ...) {

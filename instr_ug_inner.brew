@@ -1,10 +1,9 @@
 <h1>Stage Two Instructions</h1>
 
-<p>You have been matched with a new pupil.</p>
+<p>You have been matched with a new, different pupil.</p>
 
 <p>In this stage, you get £1 and decide how much to offer to the other pupil.
-However, this time, they can <i>accept</i> or <i>reject</i> your offer. Later, 
-we will ask both of you for the lowest offer that you will accept.</p>
+However, this time, they can <i>accept</i> or <i>reject</i> your offer.</p>
 
 <p>If they <i>accept</i> your offer, then they get what you 
 offered, and you keep the rest of the £1, just like the last stage. If they 
@@ -24,5 +23,4 @@ offered, and you keep the rest of the £1, just like the last stage. If they
 <button onclick="redoExample()">Show another example</button>
 </div>
 <p>You have to choose what offer to make.</p>
-
 

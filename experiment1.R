@@ -40,7 +40,7 @@ expt <- experiment(N=N, clients_in_url=ciu, on_ready=ready_fn, auth=auth_fn,
 
 s_consent <-text_stage(page=b_brew("consent.brew"), wait=TRUE, name="Consent")
 s_rules <-  text_stage(page=b_brew("rules.brew"), wait=TRUE, name="Rules")
-s_instr <-  text_stage(page=b_brew("instr.brew"), wait=TRUE, name="Instructions 1")
+s_instr <-  text_stage(page=b_brew("instr.brew"), wait=TRUE, name="Instructions")
 s_instr2 <- text_stage(page=b_brew("instr2.brew"), wait=TRUE, name="Instructions 2")
 s_instr3 <- text_stage(page=b_brew("instr3.brew"), wait=TRUE, name="Instructions 3")
 
@@ -55,7 +55,7 @@ s_instr_dict <- text_stage(page=b_brew("instr_dict.brew"), wait=TRUE,
 s_dict <- form_stage(page=b_brew("dict1.brew"), 
       fields=list(dict1=is_one_of(0:10*10)),
       titles=list(dict1="Amount to give"), data_frame="mydf", 
-      name="Stage 1 Dictator Game")
+      name="Dictator Game")
 
 s_prog_dict <- program(run="last", 
   function(id, period, ...){
@@ -159,29 +159,12 @@ s_prog_ig <- program(run="last",
 
 s_q_intro <- text_stage(page=b_brew("q_intro.brew"), name="Questionnaire Intro")
 
-write_payment_data <- function(...) {
-  globals <<- dcast(melt(mydf[,c("id", "period", "profit")], id=1:2), 
-    id ~ period)
-  globals$totalprofit <<- rowSums(globals[-1], na.rm=TRUE)
-  globals$totalprofit <<- globals$totalprofit
-  globals <<- merge_subjects(expt, globals)[,c("seat", "id", "IP", "client",
-    "totalprofit")]
-  globals <<- globals[order(globals$seat, globals$id),]
-  payfile <- paste0("session-", sessno, "-paydata.csv")
-  write.csv(globals, file=payfile)
-  message("Payment data written to ", sQuote(payfile), ".")
-  message("Look at 'globals' to display it now.\n")
-}
-
-s_prog_paydata <- program(run="last", write_payment_data, 
-      name="Write payment data")
-
 s_friendsintro <-  form_stage(
-      page=b_brew("friends_intro.brew"),
-      fields=list(ngroups=is_one_of(-1:6)), 
-      titles=list(ngroups="Number of groups in your class"),
-      data_frame="mydf", multi_params="paste",
-      name="Questionnaire: friends intro")
+  page=b_brew("friends_intro.brew"),
+  fields=list(ngroups=is_one_of(-1:6)), 
+  titles=list(ngroups="Number of groups in your class"),
+  data_frame="mydf", multi_params="paste",
+  name="Questionnaire: friends intro")
 
 
 frcheck <- function(title, values, id, period, params) {
@@ -249,12 +232,27 @@ s_qnaire <- form_stage(page=b_brew("qnaire.brew"),
       fields=list(myname=namecheck, myname2=nocheck),
       titles=list(myname="Name", myname2=""),
       data_frame="mydf",
-      name="Questionnaire: final")
+      name="Questionnaire: other")
+
+write_payment_data <- function() {
+  globals <<- dcast(melt(mydf[,c("id", "period", "profit")], id=1:2), 
+    id ~ period)
+  globals$totalprofit <<- rowSums(globals[-1], na.rm=TRUE)
+  globals$totalprofit <<- globals$totalprofit
+  globals <<- merge_subjects(expt, globals)[,c("seat", "id", "IP", "client",
+    "totalprofit")]
+  globals <<- globals[order(globals$seat, globals$id),]
+  payfile <- paste0("session-", sessno, "-paydata.csv")
+  write.csv(globals, file=payfile)
+  cat("Payment data written to", sQuote(payfile), ".\n")
+  cat("Look at 'globals' to display it now.\n")
+}
 
 s_final_calcs <- program(run="first",
   function(...) {
     fdata <- merge_subjects(expt, mydf)
     write_data(expt, fdata)
+    write_payment_data()
   }, 
   name="Final calculations")
 
@@ -269,8 +267,7 @@ add_stage(expt, checkpoint(),
       s_instr_ugcont, checkpoint(),
       s_prog_timer, s_ug_cont, s_prog_ug,
       period(wait_for="all"), s_instr_ig, checkpoint(), 
-      s_prog_timer, s_ig, s_prog_ig, 
-      checkpoint(name="Completed experiment"), s_q_intro, s_prog_paydata,
+      s_prog_timer, s_ig, s_prog_ig, s_q_intro,
       period(wait_for="none"), s_prog_timer, s_friendsintro, s_friends, 
       period(wait_for="none"), s_prog_timer, s_friends, 
       period(wait_for="none"), s_prog_timer, s_friends, 

@@ -2,6 +2,7 @@
 # experiment 1 for Birmingham
 
 ciu <- TRUE
+testmode <- TRUE # for auth
 countdown <- 120 # 2 mins before you hassle subjects
 N <- as.numeric(readline("Enter this session's N: "))
 sessno <- as.numeric(readline("Enter the number of this session (1-10): "))
@@ -30,7 +31,7 @@ ready_fn <- function() {
 }
 
 auth_fn <- function (ip, params, cookies) {
-  return(TRUE)
+  if (testmode) return(TRUE)
   if (ip %in% "91.125.232.165") return(TRUE)
   if ("betr-seat" %in% names(cookies)) return(TRUE)
   return(FALSE)

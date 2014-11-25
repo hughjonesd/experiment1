@@ -5,7 +5,7 @@
 <script>
 function changeDict1(chn) {
   var nv;
-  if (document.querySelector('#dict1').value=='') nv = 0;
+  if (document.querySelector('#dict1').value=='') nv = (chn > 0) ? 0 : 100;
   else nv = Number(document.querySelector('#dict1').value) + Number(chn);
   nv = Math.min(100, Math.max(nv, 0));
   document.querySelector('#dict1').value = nv;

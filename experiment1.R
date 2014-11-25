@@ -40,9 +40,8 @@ auth_fn <- function (ip, params, cookies) {
   return(FALSE)
 }
 
-
 expt <- experiment(N=N, clients_in_url=ciu, on_ready=ready_fn, auth=auth_fn,
-      seed=seed, randomize_ids=TRUE, autostart=TRUE, client_refresh=5)
+      seed=seed, randomize_ids=TRUE, autostart=TRUE, client_refresh=2)
 
 # CHECK FUNCTIONS ===================
 

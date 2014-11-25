@@ -24,7 +24,13 @@ function report(choice) {
 
 </script>
 <% brew("onload_div_toggle.brew") %>
-
+<script>
+  // preloading
+  h1 = new Image();
+  h1.src = "http://54.194.17.233/images/experiment1/heads.jpg";
+  h2 = new Image();
+  h2.src = "http://54.194.17.233/images/experiment1/tails.jpg";
+</script>
 <% brew("errors.brew") %>
 <div class="instructions slidedown" id="instructions" onclick="toggleHeight(this)">
 <% brew("timer.brew") %>

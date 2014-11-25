@@ -9,7 +9,7 @@ seed <- c(175804510L, 326704365L, 215164818L, 425463189L, 30750106L,
       35380967L, 36912668L, 86165470L, 850662828L, 6737400L)[sessno] 
 classno <- as.numeric(readline("Enter the class number: "))
 shn <- read.csv("Shell names info.csv", stringsAsFactors=FALSE)
-classcode <- c("SHB", "SHJ", "SHM", "SHP", "SHF")[classno]
+classcode <- c("SHP", "SHJ", "SHM", "SHB", "SHF")[classno]
 shn <- shn[shn$Reg==classcode,]
 classnames <- paste(shn$Forename, shn$Surname)
 classnames <- classnames[order(shn$Surname, shn$Forename)]

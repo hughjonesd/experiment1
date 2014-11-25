@@ -255,7 +255,7 @@ s_prog_guess <- program(run="last",
       return(tguess == myguess)
     }, g=g)
     mydf$guess_profit[pd] <<- 50 * aim
-    mydf$profit[mydf$period == (period + 1)] <<- mydf$guess_profit[pd]
+    mydf$profit[pd] <<- mydf$guess_profit[pd]
     mydf$paidguess[pd] <<- g
   },
   name="Calculate guess profits")
@@ -320,7 +320,8 @@ add_stage(expt, checkpoint(),
       period(wait_for="all"), s_instr_ig, checkpoint(), 
       s_prog_timer, s_ig, s_prog_ig, 
       s_q_intro, 
-      s_prog_timer, s_qnaire, checkpoint(),
+      s_prog_timer, s_qnaire, 
+      period(wait_for="none"),
       s_prog_timer, s_prog_prepare_guess, s_guess, s_prog_guess, s_prog_paydata,
       period(wait_for="none"), s_prog_timer, s_friendsintro, s_friends, 
       period(wait_for="none"), s_prog_timer, s_friends, 

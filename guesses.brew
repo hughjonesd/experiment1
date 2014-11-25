@@ -1,0 +1,35 @@
+<%= header("Questions") %>
+<% brew("styles.brew") %>
+
+<% brew("errors.brew") %>
+
+<div class='instructions'>
+<% brew("timer.brew") %>
+<h1>Questionnaire</h1>
+<p>Think back to Stage One. You had £1 and had to choose how much to give away 
+in multiples of 10p.</p>
+<p>Below are the names of three of your classmates. How much do you think
+they gave away?</p>
+<p>The computer will pick <b>one</b> of these three pupils at random, and 
+<b>give you an extra 50p</b> if you guessed right for this person.</p>
+</div>
+
+<div class='controls'>
+
+<form method='POST' action=''>
+<% moi <- mydf[mydf$period==period & mydf$id==id,] %>
+<% for (g in 1:3) { %>
+<p>Guess how much <%= moi[,paste0("guessname",g)] %> gave to his or her pair:
+<select name='guess<%= g %>'>
+<option value='' disabled>Pick one...</option>
+<%   for (val in 0:10*10) { %>
+<option value='<%= val %>'><%= val %></option>
+<%   } %>
+</select>
+</p>
+<% } %>
+<input type='submit' value='Submit'>
+</form>
+</div>
+
+<%= footer() %>

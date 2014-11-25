@@ -26,7 +26,7 @@ ready_fn <- function() {
         profit=NA, ngroups=NA, friends=NA, myfriends=NA, friendslike=NA,
         myname=NA, myname2=NA,
         guessname1=NA, guessname2=NA, guessname3=NA,
-        guess1=NA, guess2=NA, guess3=NA,
+        guess1=NA, guess2=NA, guess3=NA, guess_profit=NA,
         paidguess=NA,
         rank=sample(N), role=NA, pair=NA, stringsAsFactors=FALSE)
   globals <<- NA
@@ -79,9 +79,6 @@ pupilcheck <- function(title, values, id, period, params) {
 }
 
 
-
-
-
 # STAGES ================
 
 s_consent <-text_stage(page=b_brew("consent.brew"), wait=TRUE, name="Consent")
@@ -104,7 +101,7 @@ s_dict <- form_stage(page=b_brew("dict1.brew"),
       name="Stage 1 Dictator Game")
 
 s_prog_dict <- program(run="last", 
-  function(id, period, ...){
+  function(id, period){
     pd <- mydf$period == period
     mydf$profit[pd] <<- 0
     pair <- rep(1:floor(N/2), 2)
@@ -141,10 +138,10 @@ s_ug_cont <- form_stage(page=b_brew("ugcont.brew"),
       name="Stage 2 UG, Part 2")
 
 s_prog_ug <- program(run="last", 
-  function(id, period, ...){
+  function(id, period){
     pd <- mydf$period==period
     mydf$profit[pd] <<- 0
-    pair <- mydf$pair[pd]
+    pair <- mydf$pair[mydf$period==1]
     pdp <- pair[duplicated(pair)] 
     pair[duplicated(pair)] <- (pdp+ .5) %% max(pair) + .5
     role <- rep("A", N)
@@ -179,10 +176,10 @@ s_ig <- form_stage(
       name="Stage 3 Integrity Game")
 
 s_prog_ig <- program(run="last",
-  fn=function(id, period, ...) {
+  fn=function(id, period) {
     pd <- mydf$period==period
     mydf$profit[pd] <<- 0
-    pair <- mydf$pair[pd]
+    pair <- mydf$pair[mydf$period==2]
     pdp <- pair[duplicated(pair)] 
     pair[duplicated(pair)] <- (pdp+ .5) %% max(pair) + .5
     role <- rep("A", N)
@@ -202,7 +199,7 @@ s_prog_ig <- program(run="last",
   name="IG profit calculations")
 
 
-write_payment_data <- function() {
+write_payment_data <- function(...) {
   globals <<- dcast(melt(mydf[,c("id", "period", "profit")], id=1:2), 
     id ~ period)
   globals$totalprofit <<- rowSums(globals[-1], na.rm=TRUE)
@@ -225,14 +222,17 @@ s_qnaire <- form_stage(page=b_brew("qnaire.brew"),
       name="Questionnaire: name")
 
 s_prog_prepare_guess <- program(run="first", 
-  fn=function(id, period, ...) {
+  fn=function(id, period) {
     pd <- mydf$period==period
-    mydf$myname[pd] <<- ifelse (nzchar(mydf$myname[pd]), mydf$myname[pd], mydf$myname2[pd])
+    mydf$myname[pd] <<- ifelse ((! is.na(mydf$myname[pd])) & nzchar(mydf$myname[pd]),
+          mydf$myname[pd], mydf$myname2[pd])
     mynames <- mydf$myname[pd]
     l <- length(mynames)
     mydf$guessname1[pd] <<- mynames[c(2:l, 1)]
     mydf$guessname2[pd] <<- mynames[c(3:l, 1:2)]
     mydf$guessname3[pd] <<- mynames[c(4:l, 1:3)]
+    # for debugging:
+    if (l < 4) mydf$guessname3[pd] <<- mydf$guessname2[pd] <<- mydf$guessname1[pd]
   },
   name="Prepare guess names")
 
@@ -244,17 +244,18 @@ s_guess <- form_stage(page=b_brew("guesses.brew"),
       name="Questionnaire: guesses")
 
 s_prog_guess <- program(run="last", 
-  fn=function(id, period, ...) {
+  fn=function(id_unused, period) {
     pd <- mydf$period==period
     g <- sample(1:3, 1)
     aim <- sapply(mydf$id[pd], function(id, g) {
-      guessfield <- paste0("guessname", g)
-      guessname <- mydf[pd & mydf$id==id, guessfield]
+      guessname <- mydf[pd & mydf$id==id, paste0("guessname", g)]
+      myguess <- mydf[pd & mydf$id==id,paste0("guess", g)]
       tgtid <- mydf$id[pd & mydf$myname == guessname]
       tguess <- mydf$dict1[mydf$period==1 & mydf$id==tgtid]
-      return(tguess == mydf[,paste0("guess", g)])
+      return(tguess == myguess)
     }, g=g)
-    mydf$profit[pd] <<- mydf$profit[pd] + 50 * aim
+    mydf$guess_profit[pd] <<- 50 * aim
+    mydf$profit[mydf$period == (period + 1)] <<- mydf$guess_profit[pd]
     mydf$paidguess[pd] <<- g
   },
   name="Calculate guess profits")
@@ -262,11 +263,11 @@ s_prog_guess <- program(run="last",
 s_prog_paydata <- program(run="last", write_payment_data,  name="Write payment data")
 
 s_friendsintro <-  form_stage(
-  page=b_brew("friends_intro.brew"),
-  fields=list(ngroups=is_one_of(-1:4)), 
-  titles=list(ngroups="Number of groups in your class"),
-  data_frame="mydf", multi_params="paste",
-  name="Questionnaire: friends intro")
+      page=b_brew("friends_intro.brew"),
+      fields=list(ngroups=is_one_of(-1:4)), 
+      titles=list(ngroups="Number of groups in your class"),
+      data_frame="mydf", multi_params="paste",
+      name="Questionnaire: friends intro")
 
 frpagefn <- function(id, period, params, errors) {
   ng <- mydf$ngroups[mydf$id==id & ! is.na(mydf$ngroups)]
@@ -319,8 +320,8 @@ add_stage(expt, checkpoint(),
       period(wait_for="all"), s_instr_ig, checkpoint(), 
       s_prog_timer, s_ig, s_prog_ig, 
       s_q_intro, 
-      s_prog_timer, s_qnaire, 
-      s_prog_timer, s_guess, s_prog_paydata,
+      s_prog_timer, s_qnaire, checkpoint(),
+      s_prog_timer, s_prog_prepare_guess, s_guess, s_prog_guess, s_prog_paydata,
       period(wait_for="none"), s_prog_timer, s_friendsintro, s_friends, 
       period(wait_for="none"), s_prog_timer, s_friends, 
       period(wait_for="none"), s_prog_timer, s_friends, 

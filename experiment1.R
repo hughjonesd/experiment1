@@ -333,4 +333,12 @@ add_stage(expt, checkpoint(),
       )
 
 load_commands(expt)
+SAFENEXT <- function() {
+  if (! all(sapply(expt$stages[expt$subjects$stage], class) %in% 
+          "TextStage") || ! all(expt$stages[expt$subjects$stage]$wait)) {
+    message("Some subjects are not at 'wait' TextStages. Not moving on.")
+    return(invisible())
+  }
+  next_stage(expt)
+}
 

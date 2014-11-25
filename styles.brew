@@ -58,9 +58,9 @@ input::-webkit-inner-spin-button {
   padding:10px; 
   height: 160px; 
   width: 160px;
-  transition: background-image 1s ease-in-out;
   -webkit-transition: background-image 1s ease-in-out;
   -moz-transition: background-image 1s ease-in-out;
+  transition: background-image 1s ease-in-out;
   background-image:url("http://54.194.17.233/images/experiment1/hidden.jpg");
   background-size: 100% 100%;
 }

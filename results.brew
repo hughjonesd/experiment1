@@ -38,6 +38,14 @@ In stage 3, the other pupil was chosen. They chose to <%= if (moi$profit==0)
 You get <b>£<%= ukp(moi$profit) %></b> from Stage Three.
 </p>
 
+<p>The computer randomly chose one of your guesses about the other pupils. 
+<% if (moi$guess_profit>0) { %>
+This guess was correct, so you get an additional <b><% ukp(moi$guess_profit>)</b>.
+<% } else { %>
+This guess was incorrect, so you don't get any additional money.
+<% } %>
+</p>
+
 <p>In total, you will receive <b>£<%= ukp(globals$totalprofit[globals$id==id]) %></b>, as well as your initial 20p.
 </p>
 

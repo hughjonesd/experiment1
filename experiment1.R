@@ -30,6 +30,7 @@ ready_fn <- function() {
 }
 
 auth_fn <- function (ip, params, cookies) {
+  return(TRUE)
   if (ip %in% "91.125.232.165") return(TRUE)
   if ("betr-seat" %in% names(cookies)) return(TRUE)
   return(FALSE)
@@ -55,7 +56,7 @@ s_instr_dict <- text_stage(page=b_brew("instr_dict.brew"), wait=TRUE,
 s_dict <- form_stage(page=b_brew("dict1.brew"), 
       fields=list(dict1=is_one_of(0:10*10)),
       titles=list(dict1="Amount to give"), data_frame="mydf", 
-      name="Dictator Game")
+      name="Stage 1 Dictator Game")
 
 s_prog_dict <- program(run="last", 
   function(id, period, ...){
@@ -69,11 +70,9 @@ s_prog_dict <- program(run="last",
     mydf$role[pd] <<- role
     mydf$pair[pd] <<- pair
     for (pr in unique(mydf$pair[pd])) {
-      given <- as.numeric(mydf$dict1[pd & mydf$pair[pd]==pr & 
-            mydf$role[pd]=="A"])
+      given <- as.numeric(mydf$dict1[pd & mydf$pair[pd]==pr & mydf$role[pd]=="A"])
       mydf$profit[pd & mydf$pair[pd]==pr & mydf$role[pd]=="A"] <<- 100 - given
-      mydf$profit[pd & mydf$pair[pd]==pr & mydf$role[pd]=="B"] <<- 
-            sum(given)
+      mydf$profit[pd & mydf$pair[pd]==pr & mydf$role[pd]=="B"] <<- sum(given)
     }
   }, 
   name="DG profit calculations")

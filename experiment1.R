@@ -101,9 +101,9 @@ s_prog_ug <- program(run="last",
   function(id, period, ...){
     pd <- mydf$period==period
     mydf$profit[pd] <<- 0
-    pair <- rep(1:floor(N/2), 2)
-    if (N %% 2 > 0) pair <- c(pair, 1)
-    pair <- sample(pair)
+    pair <- mydf$pair[pd]
+    pdp <- pair[duplicated(pair)] 
+    pair[duplicated(pair)] <- (pdp+ .5) %% max(pair) + .5
     role <- rep("A", N)
     role[!duplicated(pair)] <- "B"
     mydf$role[pd] <<- role
@@ -139,9 +139,9 @@ s_prog_ig <- program(run="last",
   fn=function(id, period, ...) {
     pd <- mydf$period==period
     mydf$profit[pd] <<- 0
-    pair <- rep(1:floor(N/2), 2)
-    if (N %% 2 > 0) pair <- c(pair, 1)
-    pair <- sample(pair)
+    pair <- mydf$pair[pd]
+    pdp <- pair[duplicated(pair)] 
+    pair[duplicated(pair)] <- (pdp+ .5) %% max(pair) + .5
     role <- rep("A", N)
     role[!duplicated(pair)] <- "B"
     mydf$role[pd] <<- role

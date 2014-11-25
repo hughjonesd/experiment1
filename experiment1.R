@@ -223,9 +223,9 @@ s_qnaire <- form_stage(page=b_brew("qnaire.brew"),
 
 s_prog_prepare_guess <- program(run="first", 
   fn=function(id, period) {
-    pd <- mydf$period==period
-    mydf$myname[pd] <<- ifelse ((! is.na(mydf$myname[pd])) & nzchar(mydf$myname[pd]),
-          mydf$myname[pd], mydf$myname2[pd])
+    pd <- mydf$period == period
+    mydf$myname[pd] <<- with(mydf[pd,], ifelse ((! is.na(myname)) & 
+          nzchar(myname), myname, myname2))
     mynames <- mydf$myname[pd]
     l <- length(mynames)
     mydf$guessname1[pd] <<- mynames[c(2:l, 1)]
@@ -310,18 +310,17 @@ s_final_calcs <- program(run="first",
 s_show_result <- text_stage(page=b_brew("results.brew"), name="Final results")
 
 add_stage(expt, checkpoint(),
-      s_consent, s_rules,  s_instr, s_instr2,  s_instr3,
+#      s_consent, s_rules,  s_instr, s_instr2,  s_instr3,
       period(wait_for="all"), s_instr_dict, checkpoint(), 
       s_prog_timer, s_dict, s_prog_dict, 
-      period(wait_for="all"), s_instr_ug, checkpoint(),
-      s_prog_timer, s_ug, checkpoint(), 
-      s_instr_ugcont, checkpoint(),
-      s_prog_timer, s_ug_cont, s_prog_ug,
-      period(wait_for="all"), s_instr_ig, checkpoint(), 
-      s_prog_timer, s_ig, s_prog_ig, 
-      s_q_intro, 
-      s_prog_timer, s_qnaire, 
-      period(wait_for="none"),
+#      period(wait_for="all"), s_instr_ug, checkpoint(),
+#      s_prog_timer, s_ug, checkpoint(), 
+#      s_instr_ugcont, checkpoint(),
+#      s_prog_timer, s_ug_cont, s_prog_ug,
+#      period(wait_for="all"), s_instr_ig, checkpoint(), 
+#      s_prog_timer, s_ig, s_prog_ig, 
+      period(wait_for="all"), s_q_intro, 
+      s_prog_timer, s_qnaire, checkpoint(),
       s_prog_timer, s_prog_prepare_guess, s_guess, s_prog_guess, s_prog_paydata,
       period(wait_for="none"), s_prog_timer, s_friendsintro, s_friends, 
       period(wait_for="none"), s_prog_timer, s_friends, 

@@ -50,7 +50,8 @@ expt <- experiment(N=N, clients_in_url=ciu, on_ready=ready_fn, auth=auth_fn,
 nocheck <- function(...) NULL
 
 namecheck <- function(title, value, id, period, params) {
-  if (value == "" && params$myname2 == "") return("Please enter your name") 
+  if ((value == "" || is.null(value)) && (params$myname2 == "" || 
+        is.null(params$myname2))) return("Please enter your name") 
   return(NULL)
 }
 
@@ -310,15 +311,15 @@ s_final_calcs <- program(run="first",
 s_show_result <- text_stage(page=b_brew("results.brew"), name="Final results")
 
 add_stage(expt, checkpoint(),
-#      s_consent, s_rules,  s_instr, s_instr2,  s_instr3,
+      s_consent, s_rules,  s_instr, s_instr2,  s_instr3,
       period(wait_for="all"), s_instr_dict, checkpoint(), 
       s_prog_timer, s_dict, s_prog_dict, 
-#      period(wait_for="all"), s_instr_ug, checkpoint(),
-#      s_prog_timer, s_ug, checkpoint(), 
-#      s_instr_ugcont, checkpoint(),
-#      s_prog_timer, s_ug_cont, s_prog_ug,
-#      period(wait_for="all"), s_instr_ig, checkpoint(), 
-#      s_prog_timer, s_ig, s_prog_ig, 
+      period(wait_for="all"), s_instr_ug, checkpoint(),
+      s_prog_timer, s_ug, checkpoint(), 
+      s_instr_ugcont, checkpoint(),
+      s_prog_timer, s_ug_cont, s_prog_ug,
+      period(wait_for="all"), s_instr_ig, checkpoint(), 
+      s_prog_timer, s_ig, s_prog_ig, 
       period(wait_for="all"), s_q_intro, 
       s_prog_timer, s_qnaire, checkpoint(),
       s_prog_timer, s_prog_prepare_guess, s_guess, s_prog_guess, s_prog_paydata,

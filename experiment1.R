@@ -160,7 +160,7 @@ s_q_intro <- text_stage(page=b_brew("q_intro.brew"), name="Questionnaire Intro")
 
 s_friendsintro <-  form_stage(
   page=b_brew("friends_intro.brew"),
-  fields=list(ngroups=is_one_of(-1:6)), 
+  fields=list(ngroups=is_one_of(-1:4)), 
   titles=list(ngroups="Number of groups in your class"),
   data_frame="mydf", multi_params="paste",
   name="Questionnaire: friends intro")

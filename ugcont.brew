@@ -33,7 +33,7 @@ function changeMe(nv, fld) {
 <form method="POST" autocomplete="off" action="">
 <div class="controls">
 Choose the lowest offer you will accept:<br>
-<select name="accept2" onchange=(this.selectedOption.value, 'accept2')>
+<select name="accept2" size="12" onchange=(this.selectedOption.value, 'accept2')>
 <option value="" disabled selected>Pick one...</option>
 <% for (j in 0:10*10) {%>
 <option value="<%= j %>"><%= j %></option>

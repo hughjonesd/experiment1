@@ -15,7 +15,7 @@
 <form method="POST" autocomplete="off" action="">
 <div class="controls">
 Choose an amount to offer:<br>
-<select name="offer2" onchange="changeMe(this.selectedOption.value, 'offer')">
+<select name="offer2" size="12" onchange="changeMe(this.selectedOption.value, 'offer')">
 <option value="" disabled selected>Pick one...</option>
 <% for (j in 0:10*10) {%>
 <option value="<%= j %>"><%= j %></option>

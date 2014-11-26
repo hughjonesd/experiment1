@@ -42,7 +42,6 @@ function report(choice) {
 <div class="controls">
 <div id="coinflip" onClick="flip();" ontouchstart="flip();">
 </div>
-<br>
 <p>Will you keep the £1 or give it to the other pupil?</p>
 <p>
 <label><input type="radio" name="hchoice" value="keep" onclick="report('keep')"> Keep the £1.</label>
@@ -50,6 +49,7 @@ function report(choice) {
 <p>
 <label><input type="radio" name="hchoice" value="give" onclick="report('give')"> Give the £1 to the other pupil.</label>
 </p>
+<br>
 <p>Did you flip the coin to decide what to do?</p>
 <p>
 <label><input type="radio" name="coinflip" value="no"> I did not flip the coin.</label>

@@ -10,6 +10,11 @@ input[type='number'] {
 
 input[type='radio'] {
   height: 2em;
+  vertical-align: middle;
+}
+
+label {
+  vertical-align: middle;
 }
 
 button, input[type='button'], input[type='submit'] {

@@ -3,7 +3,7 @@
 
 <% brew("errors.brew") %>
 <%
-  frcount <- period - 3
+  frcount <- period - 4
 %>
 <div class='instructions'>
 <% brew("timer.brew") %>
@@ -31,7 +31,7 @@ that are friends with each other, don't tick any boxes.</p>
 </div>
 <br>
 <br>
-<input type='submit' value='Submit'>&nbsp;<button type='submit' name='myfriends[]' value='Noreply'><span style='font-size:normal';>I don't want to answer this question</span></button>
+<input type='submit' value='Submit'>&nbsp;<button type='submit' name='friends[]' value='Noreply'><span style='font-size:normal';>I don't want to answer this question</span></button>
 </form>
 </div>
 

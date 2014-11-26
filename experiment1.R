@@ -253,7 +253,9 @@ s_prog_guess <- program(run="last",
       myguess <- mydf[pd & mydf$id==id,paste0("guess", g)]
       tgtid <- mydf$id[pd & mydf$myname == guessname]
       tguess <- mydf$dict1[mydf$period==1 & mydf$id==tgtid]
-      return(tguess == myguess)
+      result <- (tguess == myguess)
+      if (length(result)==0) return(TRUE)
+      return(result[1])
     }, g=g)
     mydf$guess_profit[pd] <<- 50 * aim
     mydf$profit[pd] <<- mydf$guess_profit[pd]

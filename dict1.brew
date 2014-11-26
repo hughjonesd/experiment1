@@ -25,9 +25,12 @@ function changeDict1(chn) {
 <form method="POST" autocomplete="off" action="">
 <div class="controls">
 Choose an amount to give: 
-<input type="button" id="minus" value="-" onClick="changeDict1(-10)">
-<input type="number" min="0" max="100" width="4" step="10" name="dict1" id="dict1" readonly required>
-<input type="button" id="plus" value="+" onClick="changeDict1(10)">
+<select name="dict1">
+<option value="" disabled selected>Pick one...</option>
+<% for (j in 0:10*10) {%>
+<option value="<%= j %>"><%= j %></option>
+<% } %>
+</select>
 </div>
 <div class="decision">
 <h1>Your decision</h1>

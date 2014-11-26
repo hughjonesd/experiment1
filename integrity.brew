@@ -4,6 +4,7 @@
 <script>
 var flipped = false;
 function flip() {
+  if (flipped) return(0);
   var result = Math.floor(Math.random() * 2); // 0 or 1
   var result2;
   var picsrc;
@@ -43,13 +44,23 @@ function report(choice) {
 </div>
 <br>
 <p>Will you keep the £1 or give it to the other pupil?</p>
-<label><input type="radio" name="hchoice" value="keep" onclick="report('keep')"> Keep the £1.</label><br>
+<p>
+<label><input type="radio" name="hchoice" value="keep" onclick="report('keep')"> Keep the £1.</label>
+</p>
+<p>
 <label><input type="radio" name="hchoice" value="give" onclick="report('give')"> Give the £1 to the other pupil.</label>
-<br>
+</p>
 <p>Did you flip the coin to decide what to do?</p>
-<label><input type="radio" name="coinflip" value="no"> I did not flip the coin.</label><br>
-<label><input type="radio" name="coinflip" value="heads"> I flipped the coin and got "heads" (keep the £1).</label><br>
-<label><input type="radio" name="coinflip" value="tails"> I flipped the coin and got "tails" (give the £1 away).</label><br>
+<p>
+<label><input type="radio" name="coinflip" value="no"> I did not flip the coin.</label>
+</p>
+<p>
+<label><input type="radio" name="coinflip" value="heads"> 
+I flipped the coin and got "heads" (keep the £1).</label>
+</p>
+<p>
+<label><input type="radio" name="coinflip" value="tails"> I flipped the coin and got "tails" (give the £1 away).</label>
+</p>
 <input type="hidden" name="coinflip.real" id="coinflip.real" value="no">
 </div>
 

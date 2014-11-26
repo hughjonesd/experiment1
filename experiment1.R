@@ -8,7 +8,7 @@ N <- as.numeric(readline("Enter this session's N: "))
 sessno <- as.numeric(readline("Enter the number of this session (1-10): "))
 seed <- c(175804510L, 326704365L, 215164818L, 425463189L, 30750106L, 
       35380967L, 36912668L, 86165470L, 850662828L, 6737400L)[sessno] 
-classcode <- as.numeric(readline("Enter the class code (SHP, SHJ, SHM, SHB or SHF): "))
+classcode <- readline("Enter the class code (SHP, SHJ, SHM, SHB or SHF): ")
 if (! classcode %in% c("SHP", "SHJ", "SHM", "SHB", "SHF")) stop("Class code not recognized")
 shn <- read.csv("Shell names info.csv", stringsAsFactors=FALSE)
 shn <- shn[shn$Reg==classcode,]

@@ -1,7 +1,8 @@
-<%= header("Instructions") %>
+<%= header("Consent") %>
 <% brew("styles.brew") %>
 
 <div class="instructions">
+<h1>Consent</h1>
 <p>We are doing a research study about young people's behaviour. 
 If you decide that you want to be part of this study, you will be asked 
 to make some simple choices.</p>

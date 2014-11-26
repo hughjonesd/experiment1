@@ -2,6 +2,7 @@
 <% brew("styles.brew") %>
 
 <div class="instructions">
+<h1>Instructions Page 1</h1>
 <p>In this experiment, you will make some choices. Your choices will affect how 
 much money you receive for taking part. This money will be paid to you in the form of 
 vouchers for the school tuck shop. You can spend it on anything you like in 

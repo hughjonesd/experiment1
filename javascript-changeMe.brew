@@ -1,6 +1,5 @@
 <script>
 function changeMe(nv, fld) {
-  //fld = '#' + fld;
   //var nv;
   //if (document.querySelector(fld).value=='') {
   //  nv = (chn > 0) ? 0 : 100;
@@ -9,6 +8,7 @@ function changeMe(nv, fld) {
   //}
   //nv = Math.min(100, Math.max(nv, 0));
   //document.querySelector(fld).value = nv;
+  fld = '#' + fld;
   fldout = fld + 'output';
   document.querySelector(fldout).value = nv;
   if (fld == '#offer2') {

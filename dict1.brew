@@ -3,11 +3,8 @@
 <% brew("styles.brew") %>
 
 <script>
-function changeDict1(nv) {
-  //if (document.querySelector('#dict1').value=='') nv = (chn > 0) ? 0 : 100;
-  //else nv = Number(document.querySelector('#dict1').value) + Number(chn);
-  //nv = Math.min(100, Math.max(nv, 0));
-  //document.querySelector('#dict1').value = nv;
+function changeDict1(elem) {
+  var nv = elem.options[elem.selectedIndex].value;
   document.querySelector('#dict1other').value = nv;
   document.querySelector('#dict1me').value = 100 - nv;
 }
@@ -24,7 +21,7 @@ function changeDict1(nv) {
 <form method="POST" autocomplete="off" action="">
 <div class="controls">
 Choose an amount to give: 
-<select name="dict1" size="12" onchange="changedict1(this.selectedOption.value)">
+<select name="dict1" size="12" onchange="changeDict1(this)">
 <option value="" disabled selected>Pick one...</option>
 <% for (j in 0:10*10) {%>
 <option value="<%= j %>"><%= j %></option>

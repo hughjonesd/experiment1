@@ -32,7 +32,7 @@ You get <b>£<%= ukp(moi$profit) %></b> from Stage Two.</p>
 In Stage Three, you were chosen. You chose to <%= if (moi$hchoice=="keep") 
       "keep the £1." else "give the £1 to the other pupil." %>
 <% } else { %>
-In stage 3, the other pupil was chosen. They chose to <%= if (moi$profit==0) 
+In Stage Three, the other pupil was chosen. They chose to <%= if (moi$profit==0) 
       "keep the £1." else "give the £1 to you." %>
 <% } %>
 You get <b>£<%= ukp(moi$profit) %></b> from Stage Three.

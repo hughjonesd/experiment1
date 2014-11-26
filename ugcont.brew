@@ -3,20 +3,9 @@
 <% brew("styles.brew") %>
 
 <script>
-function changeMe(nv, fld) {
-  fld = '#' + fld;
-  //var nv;
-  //if (document.querySelector(fld).value=='') nv = 0;
-  //else nv = Number(document.querySelector(fld).value) + Number(chn);
-  //nv = Math.min(100, Math.max(nv, 0));
-  //document.querySelector(fld).value = nv;
-  fldout = fld + 'output';
-  //document.querySelector(fldout).value = nv;
-  if (fld == '#offer2') {
-    document.querySelector('#offer2keepoutput').value = 100 - nv;
-  } else {
-    document.querySelector('#accept2output2').value = nv;
-  }
+function changeMe(elem) {
+  var nv = elem.options[elem.selectedIndex].value;
+  document.querySelector('#accept2output2').value = nv;
 }
 
 
@@ -33,7 +22,7 @@ function changeMe(nv, fld) {
 <form method="POST" autocomplete="off" action="">
 <div class="controls">
 Choose the lowest offer you will accept:<br>
-<select name="accept2" size="12" onchange=(this.selectedOption.value, 'accept2')>
+<select name="accept2" size="12" onchange=changeMe(this)>
 <option value="" disabled selected>Pick one...</option>
 <% for (j in 0:10*10) {%>
 <option value="<%= j %>"><%= j %></option>

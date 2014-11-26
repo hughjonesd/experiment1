@@ -2,8 +2,13 @@
 
 <% brew("styles.brew") %>
 
-<% brew("javascript-changeMe.brew") %>
-<% brew("onload_div_toggle.brew") %>
+<script>
+function changeMe(elem) {
+  var nv = elem.options[elem.selectedIndex].value;
+  document.querySelector('#offer2output').value = nv;
+  document.querySelector('#offer2keepoutput').value = 100 - nv;
+}
+</script><% brew("onload_div_toggle.brew") %>
 
 <% brew("errors.brew") %>
 
@@ -15,7 +20,7 @@
 <form method="POST" autocomplete="off" action="">
 <div class="controls">
 Choose an amount to offer:<br>
-<select name="offer2" size="12" onchange="changeMe(this.selectedOption.value, 'offer')">
+<select name="offer2" size="12" onchange="changeMe(this)">
 <option value="" disabled selected>Pick one...</option>
 <% for (j in 0:10*10) {%>
 <option value="<%= j %>"><%= j %></option>

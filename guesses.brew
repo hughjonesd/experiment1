@@ -21,7 +21,7 @@ they gave away?</p>
 <% for (g in 1:3) { %>
 <p>Guess how much <%= moi[,paste0("guessname",g)] %> gave to his pair:
 <select name='guess<%= g %>' size='12'>
-<option value='' seleted disabled>Pick one...</option>
+<option value='' selected disabled>Pick one...</option>
 <%   for (val in 0:10*10) { %>
 <option value='<%= val %>'><%= val %></option>
 <%   } %>

@@ -1,7 +1,7 @@
 
 # experiment 1 for Birmingham
 
-ciu <- FALSE
+ciu <- TRUE
 testmode <- TRUE # for auth
 countdown <- 120 # 2 mins before you hassle subjects
 N <- as.numeric(readline("Enter this session's N: "))

@@ -2,7 +2,7 @@
 <% brew("styles.brew") %>
 
 <div class="instructions">
-
+<h1>Instructions Page 3</h1>
 <p>After the experiment there will be some questions about you and 
 your friends. All your answers will be private. We will not show them 
 to anybody else. You do not have to answer any questions, but it will help 

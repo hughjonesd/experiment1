@@ -55,8 +55,9 @@ namecheck <- function(title, value, id, period, params) {
 }
 
 frcheck <- function(title, values, id, period, params) {
-  if (length(values)==1) return("Please tick more than one checkbox to show
-    who else hangs around with this pupil.")
+  if (length(values)==1 && values != "Noreply") return(
+        "Please tick more than one checkbox to show
+        who else hangs around with this pupil.")
   if (all(values %in% classnamesX)) return(NULL)
   wrong <- setdiff(values, classnamesX)
   return(paste("Unrecognized pupil names: ", paste(wrong, collapse=", "), 

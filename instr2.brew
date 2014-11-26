@@ -2,6 +2,7 @@
 <% brew("styles.brew") %>
 
 <div class="instructions">
+<h1>Instructions Page 2</h1>
 <p>The experiment has three stages. How you behave 
 in any one stage does not affect any of the other stages. Each stage 
 has separate instructions which you will see on screen when the time comes.</p>

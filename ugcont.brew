@@ -5,7 +5,7 @@
 <script>
 function changeMe(elem) {
   var nv = elem.options[elem.selectedIndex].value;
-  document.querySelector('#accept2output2').value = nv;
+  document.querySelector('#accept2output').value = nv;
 }
 
 

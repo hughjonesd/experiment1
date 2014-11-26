@@ -60,4 +60,6 @@ classes about it until this afternoon! We don't want them to know about it
 in advance.</p>
 </div>
 
+<%= next_form("End experiment") %>
+
 <%= footer() %>

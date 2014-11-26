@@ -8,7 +8,7 @@ N <- as.numeric(readline("Enter this session's N: "))
 sessno <- as.numeric(readline("Enter the number of this session (1-10): "))
 seed <- c(175804510L, 326704365L, 215164818L, 425463189L, 30750106L, 
       35380967L, 36912668L, 86165470L, 850662828L, 6737400L)[sessno] 
-classcode <- readline("Enter the class code (SHP, SHJ, SHM, SHB or SHF): ")
+classcode <- readline("Enter the class code (SHB, SHJ, SHM, SHP or SHF): ")
 if (! classcode %in% c("SHP", "SHJ", "SHM", "SHB", "SHF")) stop("Class code not recognized")
 shn <- read.csv("Shell names info.csv", stringsAsFactors=FALSE)
 shn <- shn[shn$Reg==classcode,]
@@ -170,8 +170,7 @@ s_instr_ig <- text_stage(page=b_brew("instr_ig.brew"), wait=TRUE,
 s_ig <- form_stage(
       page=b_brew("integrity.brew"),
       fields=list(hchoice=is_one_of(c("keep", "give")), coinflip=is_one_of(
-      c("no", "heads", "tails")), coinflip.real=is_one_of(c("no", "heads",
-      "tails"))), titles=list(hchoice="Choice", coinflip="Coin flip", 
+      c("no", "heads", "tails")), coinflip.real=nocheck), titles=list(hchoice="Choice", coinflip="Coin flip", 
       coinflip.real=""),
       data_frame="mydf",
       name="Stage 3 Integrity Game")

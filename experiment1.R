@@ -58,7 +58,7 @@ frcheck <- function(title, values, id, period, params) {
   if (length(values)==1) return("Please tick more than one checkbox to show
     who else hangs around with this pupil.")
   if (all(values %in% classnames)) return(NULL)
-  wrong <- setdiff(frs, classnames)
+  wrong <- setdiff(values, classnames)
   return(paste("Unrecognized pupil names: ", paste(wrong, collapse=", "), 
     sep=""))
 }
@@ -66,14 +66,14 @@ frcheck <- function(title, values, id, period, params) {
 frlikecheck <- function(title, values, id, period, params) {
   if (length(values) > 3) return("Please only tick up to 3 pupils")
   if (all(values %in% classnames)) return(NULL)
-  wrong <- setdiff(frs, classnames)
+  wrong <- setdiff(values, classnames)
   return(paste("Unrecognized pupil names: ", paste(wrong, collapse=", "), 
     sep=""))
 }
 
 pupilcheck <- function(title, values, id, period, params) {
   if (all(values %in% classnames)) return(NULL)
-  wrong <- setdiff(frs, classnames)
+  wrong <- setdiff(values, classnames)
   return(paste("Unrecognized pupil names: ", paste(wrong, collapse=", "), 
     sep=""))
 }

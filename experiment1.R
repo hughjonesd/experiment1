@@ -1,8 +1,8 @@
 
 # experiment 1 for Birmingham
 
-ciu <- FALSE
-testmode <- FALSE # for auth
+ciu <- TRUE
+testmode <- TRUE # for auth
 countdown <- 120 # 2 mins before you hassle subjects
 N <- as.numeric(readline("Enter this session's N: "))
 sessno <- as.numeric(readline("Enter the number of this session (1-10): "))
@@ -16,7 +16,7 @@ classnames <- paste(shn$Forename, shn$Surname)
 classnames <- classnames[order(shn$Surname, shn$Forename)]
 cat("Session number is", sessno, "and class is", classcode, ".\n")
 cat("First 3 class names:", paste(classnames[1:3], collapse=", "), ".\n")
-
+classnamesX <- c(classnames, "Noreply")
 library(betr)
 library(reshape2)
 
@@ -57,23 +57,23 @@ namecheck <- function(title, value, id, period, params) {
 frcheck <- function(title, values, id, period, params) {
   if (length(values)==1) return("Please tick more than one checkbox to show
     who else hangs around with this pupil.")
-  if (all(values %in% classnames)) return(NULL)
-  wrong <- setdiff(values, classnames)
+  if (all(values %in% classnamesX)) return(NULL)
+  wrong <- setdiff(values, classnamesX)
   return(paste("Unrecognized pupil names: ", paste(wrong, collapse=", "), 
     sep=""))
 }
 
 frlikecheck <- function(title, values, id, period, params) {
   if (length(values) > 3) return("Please only tick up to 3 pupils")
-  if (all(values %in% classnames)) return(NULL)
-  wrong <- setdiff(values, classnames)
+  if (all(values %in% classnamesX)) return(NULL)
+  wrong <- setdiff(values, classnamesX)
   return(paste("Unrecognized pupil names: ", paste(wrong, collapse=", "), 
     sep=""))
 }
 
 pupilcheck <- function(title, values, id, period, params) {
-  if (all(values %in% classnames)) return(NULL)
-  wrong <- setdiff(values, classnames)
+  if (all(values %in% classnamesX)) return(NULL)
+  wrong <- setdiff(values, classnamesX)
   return(paste("Unrecognized pupil names: ", paste(wrong, collapse=", "), 
     sep=""))
 }
@@ -276,7 +276,10 @@ frpagefn <- function(id, period, params, errors) {
   if (length(na.omit(mydf$friends[mydf$id==id])) >= ng) return(NEXT)
   # if they couldn't think of anyone else, and it's not the first qn
   if (is.na(mydf$friends[mydf$id==id & mydf$period==period-1]) &&
-        is.na(mydf$ngroups[mydf$id==id & mydf$period==period])) return(NEXT) 
+        is.na(mydf$ngroups[mydf$id==id & mydf$period==period])) return(NEXT)
+  # if they answered 'noreply' previously
+  if (grepl("Noreply", mydf$friends[mydf$id==id & mydf$period==period-1]) &&
+      is.na(mydf$ngroups[mydf$id==id & mydf$period==period])) return(NEXT)
   return(b_brew("friendships.brew")(id, period, params, errors))
 }
 

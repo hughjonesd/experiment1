@@ -24,8 +24,7 @@ friends.</p>
 </div>
 <br>
 <br>
-<input type='submit' value='Submit'>
-</form>
+<input type='submit' value='Submit'>&nbsp;<button type='submit' name='myfriends[]' value='Noreply'><span style='font-size:normal';>I don't want to answer this question</span></button>
 </div>
 
 <%= footer() %>

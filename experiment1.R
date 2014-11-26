@@ -35,7 +35,7 @@ ready_fn <- function() {
 
 auth_fn <- function (ip, params, cookies) {
   if (testmode) return(TRUE)
-  if (ip %in% "91.125.232.165") return(TRUE)
+  if (ip %in% "82.219.217.157") return(TRUE)
   if ("betr-seat" %in% names(cookies)) return(TRUE)
   return(FALSE)
 }

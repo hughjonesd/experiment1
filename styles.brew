@@ -30,7 +30,7 @@ button, input[type='button'], input[type='submit'] {
   -webkit-column-count: 3; 
   -moz-column-count: 3; 
   column-count: 3;
-  font-size: normal;
+  font-size: small;
 }
 
 .friends:hover {

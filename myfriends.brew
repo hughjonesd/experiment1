@@ -23,7 +23,7 @@ friends.</p>
 %>
 </div>
 <br>
-<br>
+<br><input type='hidden' name='myfrform' value='1'>
 <input type='submit' value='Submit'>&nbsp;<button type='submit' name='myfriends[]' value='Noreply'><span style='font-size:normal';>I don't want to answer this question</span></button>
 </div>
 

@@ -30,7 +30,7 @@ that are friends with each other, don't tick any boxes.</p>
 %>
 </div>
 <br>
-<br>
+<br><input type='hidden' name='frform' value='1'>
 <input type='submit' value='Submit'>&nbsp;<button type='submit' name='friends[]' value='Noreply'><span style='font-size:normal';>I don't want to answer this question</span></button>
 </form>
 </div>

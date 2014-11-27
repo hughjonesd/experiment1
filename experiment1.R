@@ -79,6 +79,10 @@ pupilcheck <- function(title, values, id, period, params) {
     sep=""))
 }
 
+frsubmitcheck <- function(title, values, ...) {
+  if (is.null(values) || is.na(values) || nchar(values)==0) return("Please submit the form")
+  return(NULL)
+}
 
 # STAGES ================
 
@@ -287,20 +291,20 @@ frpagefn <- function(id, period, params, errors) {
 
 s_friends <-  form_stage(
       page=frpagefn,
-      fields=list(friends=frcheck), 
-      titles=list(friends="Groups of friends"),
+      fields=list(friends=frcheck, frform=frsubmitcheck), 
+      titles=list(friends="Groups of friends", frform=""),
       data_frame="mydf", multi_params="paste",
       name="Questionnaire: friendship networks")
 
 s_myfriends <- form_stage(page=b_brew("myfriends.brew"),
-      fields=list(myfriends=pupilcheck),
-      titles=list(myfriends="My Friends"),
+      fields=list(myfriends=pupilcheck, myfrform=frsubmitcheck),
+      titles=list(myfriends="My Friends", myfrform=""),
       data_frame="mydf", multi_params="paste",
       name="Questionnaire: my friends")
 
 s_friends_like <- form_stage(page=b_brew("friendslike.brew"),
-      fields=list(friendslike=frlikecheck),
-      titles=list(friendslike="Friends I would like"),
+      fields=list(friendslike=frlikecheck, frlikeform=frsubmitcheck),
+      titles=list(friendslike="Friends I would like", frlikeform=""),
       data_frame="mydf", multi_params="paste",
       name="Questionnaire: friends I'd like")
 

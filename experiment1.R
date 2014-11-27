@@ -1,14 +1,16 @@
 
 # experiment 1 for Birmingham
 
-ciu <- FALSE
+ciu <- TRUE
 testmode <- TRUE # for auth
 countdown <- 120 # 2 mins before you hassle subjects
-N <- as.numeric(readline("Enter this session's N: "))
-sessno <- as.numeric(readline("Enter the number of this session (1-10): "))
+if (! exists("N")) N <- as.numeric(readline("Enter this session's N: "))
+if (! exists("sessno")) sessno <- as.numeric(readline(
+      "Enter the number of this session (1-10): "))
 seed <- c(175804510L, 326704365L, 215164818L, 425463189L, 30750106L, 
       35380967L, 36912668L, 86165470L, 850662828L, 6737400L)[sessno] 
-classcode <- readline("Enter the class code (SHB, SHJ, SHM, SHP or SHF): ")
+if (! exists("classcode")) classcode <- readline(
+      "Enter the class code (SHB, SHJ, SHM, SHP or SHF): ")
 if (! classcode %in% c("SHP", "SHJ", "SHM", "SHB", "SHF")) stop("Class code not recognized")
 shn <- read.csv("Shell names info.csv", stringsAsFactors=FALSE)
 shn <- shn[shn$Reg==classcode,]
@@ -350,5 +352,12 @@ SAFENEXT <- function() {
     return(invisible())
   }
   next_stage(expt)
+}
+RERUN <- function(N=N) {
+  N <<- N
+  halt(expt, force=TRUE)
+  rm("expt")
+  source('experiment1.R')
+  ready(expt)
 }
 

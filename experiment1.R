@@ -24,7 +24,7 @@ ready_fn <- function() {
   mydf <<- experiment_data_frame(expt, dict1=NA, offer2=NA,
         accept2=NA, accepted2=NA, hchoice=NA, coinflip=NA, coinflip.real=NA,
         profit=NA, ngroups=NA, friends=NA, myfriends=NA, friendslike=NA,
-        myname=NA, myname2=NA,
+        myname=NA, myname2=NA, frform=NA, myfrform=NA, frlikeform=NA,
         guessname1=NA, guessname2=NA, guessname3=NA,
         guess1=NA, guess2=NA, guess3=NA, guess_profit=NA,
         paidguess=NA,
